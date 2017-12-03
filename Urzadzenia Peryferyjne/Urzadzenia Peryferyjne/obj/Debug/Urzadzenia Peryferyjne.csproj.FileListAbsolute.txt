@@ -1,0 +1,39 @@
+C:\Users\lukasz\Desktop\Nowy folder (3)\Urzadzenia Peryferyjne\Urzadzenia Peryferyjne\bin\Debug\Urzadzenia Peryferyjne.exe.config
+C:\Users\lukasz\Desktop\Nowy folder (3)\Urzadzenia Peryferyjne\Urzadzenia Peryferyjne\bin\Debug\Urzadzenia Peryferyjne.exe.manifest
+C:\Users\lukasz\Desktop\Nowy folder (3)\Urzadzenia Peryferyjne\Urzadzenia Peryferyjne\bin\Debug\Urzadzenia Peryferyjne.application
+C:\Users\lukasz\Desktop\Nowy folder (3)\Urzadzenia Peryferyjne\Urzadzenia Peryferyjne\bin\Debug\Urzadzenia Peryferyjne.exe
+C:\Users\lukasz\Desktop\Nowy folder (3)\Urzadzenia Peryferyjne\Urzadzenia Peryferyjne\bin\Debug\Urzadzenia Peryferyjne.pdb
+C:\Users\lukasz\Desktop\Nowy folder (3)\Urzadzenia Peryferyjne\Urzadzenia Peryferyjne\bin\Debug\pcsc-sharp.dll
+C:\Users\lukasz\Desktop\Nowy folder (3)\Urzadzenia Peryferyjne\Urzadzenia Peryferyjne\bin\Debug\SharpDX.DirectInput.dll
+C:\Users\lukasz\Desktop\Nowy folder (3)\Urzadzenia Peryferyjne\Urzadzenia Peryferyjne\bin\Debug\SharpDX.dll
+C:\Users\lukasz\Desktop\Nowy folder (3)\Urzadzenia Peryferyjne\Urzadzenia Peryferyjne\bin\Debug\pcsc-sharp.xml
+C:\Users\lukasz\Desktop\Nowy folder (3)\Urzadzenia Peryferyjne\Urzadzenia Peryferyjne\bin\Debug\pcsc-sharp.dll.config
+C:\Users\lukasz\Desktop\Nowy folder (3)\Urzadzenia Peryferyjne\Urzadzenia Peryferyjne\bin\Debug\SharpDX.xml
+C:\Users\lukasz\Desktop\Nowy folder (3)\Urzadzenia Peryferyjne\Urzadzenia Peryferyjne\bin\Debug\SharpDX.DirectInput.xml
+C:\Users\lukasz\Desktop\Nowy folder (3)\Urzadzenia Peryferyjne\Urzadzenia Peryferyjne\obj\Debug\Urzadzenia_Peryferyjne.Form.resources
+C:\Users\lukasz\Desktop\Nowy folder (3)\Urzadzenia Peryferyjne\Urzadzenia Peryferyjne\obj\Debug\Urzadzenia_Peryferyjne.Properties.Resources.resources
+C:\Users\lukasz\Desktop\Nowy folder (3)\Urzadzenia Peryferyjne\Urzadzenia Peryferyjne\obj\Debug\Urzadzenia Peryferyjne.csproj.GenerateResource.Cache
+C:\Users\lukasz\Desktop\Nowy folder (3)\Urzadzenia Peryferyjne\Urzadzenia Peryferyjne\obj\Debug\Urzadzenia Peryferyjne.csproj.CoreCompileInputs.cache
+C:\Users\lukasz\Desktop\Nowy folder (3)\Urzadzenia Peryferyjne\Urzadzenia Peryferyjne\obj\Debug\Urzadzenia Peryferyjne.exe.manifest
+C:\Users\lukasz\Desktop\Nowy folder (3)\Urzadzenia Peryferyjne\Urzadzenia Peryferyjne\obj\Debug\Urzadzenia Peryferyjne.application
+C:\Users\lukasz\Desktop\Nowy folder (3)\Urzadzenia Peryferyjne\Urzadzenia Peryferyjne\obj\Debug\Urzadzenia Peryferyjne.exe
+C:\Users\lukasz\Desktop\Nowy folder (3)\Urzadzenia Peryferyjne\Urzadzenia Peryferyjne\obj\Debug\Urzadzenia Peryferyjne.pdb
+C:\Users\lab\Desktop\zatorskiszynal\Program - Cały Projekt\Urzadzenia Peryferyjne\Urzadzenia Peryferyjne\bin\Debug\Urzadzenia Peryferyjne.exe.config
+C:\Users\lab\Desktop\zatorskiszynal\Program - Cały Projekt\Urzadzenia Peryferyjne\Urzadzenia Peryferyjne\obj\Debug\Urzadzenia Peryferyjne.exe
+C:\Users\lab\Desktop\zatorskiszynal\Program - Cały Projekt\Urzadzenia Peryferyjne\Urzadzenia Peryferyjne\obj\Debug\Urzadzenia Peryferyjne.pdb
+C:\Users\lab\Desktop\zatorskiszynal\Program - Cały Projekt\Urzadzenia Peryferyjne\Urzadzenia Peryferyjne\bin\Debug\Urzadzenia Peryferyjne.exe.manifest
+C:\Users\lab\Desktop\zatorskiszynal\Program - Cały Projekt\Urzadzenia Peryferyjne\Urzadzenia Peryferyjne\bin\Debug\Urzadzenia Peryferyjne.application
+C:\Users\lab\Desktop\zatorskiszynal\Program - Cały Projekt\Urzadzenia Peryferyjne\Urzadzenia Peryferyjne\bin\Debug\Urzadzenia Peryferyjne.exe
+C:\Users\lab\Desktop\zatorskiszynal\Program - Cały Projekt\Urzadzenia Peryferyjne\Urzadzenia Peryferyjne\bin\Debug\Urzadzenia Peryferyjne.pdb
+C:\Users\lab\Desktop\zatorskiszynal\Program - Cały Projekt\Urzadzenia Peryferyjne\Urzadzenia Peryferyjne\bin\Debug\pcsc-sharp.dll
+C:\Users\lab\Desktop\zatorskiszynal\Program - Cały Projekt\Urzadzenia Peryferyjne\Urzadzenia Peryferyjne\bin\Debug\SharpDX.DirectInput.dll
+C:\Users\lab\Desktop\zatorskiszynal\Program - Cały Projekt\Urzadzenia Peryferyjne\Urzadzenia Peryferyjne\bin\Debug\SharpDX.dll
+C:\Users\lab\Desktop\zatorskiszynal\Program - Cały Projekt\Urzadzenia Peryferyjne\Urzadzenia Peryferyjne\bin\Debug\pcsc-sharp.xml
+C:\Users\lab\Desktop\zatorskiszynal\Program - Cały Projekt\Urzadzenia Peryferyjne\Urzadzenia Peryferyjne\bin\Debug\SharpDX.xml
+C:\Users\lab\Desktop\zatorskiszynal\Program - Cały Projekt\Urzadzenia Peryferyjne\Urzadzenia Peryferyjne\bin\Debug\SharpDX.DirectInput.xml
+C:\Users\lab\Desktop\zatorskiszynal\Program - Cały Projekt\Urzadzenia Peryferyjne\Urzadzenia Peryferyjne\obj\Debug\Urzadzenia Peryferyjne.csprojResolveAssemblyReference.cache
+C:\Users\lab\Desktop\zatorskiszynal\Program - Cały Projekt\Urzadzenia Peryferyjne\Urzadzenia Peryferyjne\obj\Debug\Urzadzenia_Peryferyjne.Form.resources
+C:\Users\lab\Desktop\zatorskiszynal\Program - Cały Projekt\Urzadzenia Peryferyjne\Urzadzenia Peryferyjne\obj\Debug\Urzadzenia_Peryferyjne.Properties.Resources.resources
+C:\Users\lab\Desktop\zatorskiszynal\Program - Cały Projekt\Urzadzenia Peryferyjne\Urzadzenia Peryferyjne\obj\Debug\Urzadzenia Peryferyjne.csproj.GenerateResource.Cache
+C:\Users\lab\Desktop\zatorskiszynal\Program - Cały Projekt\Urzadzenia Peryferyjne\Urzadzenia Peryferyjne\obj\Debug\Urzadzenia Peryferyjne.exe.manifest
+C:\Users\lab\Desktop\zatorskiszynal\Program - Cały Projekt\Urzadzenia Peryferyjne\Urzadzenia Peryferyjne\obj\Debug\Urzadzenia Peryferyjne.application
