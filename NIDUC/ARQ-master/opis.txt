@@ -1,0 +1,23 @@
+nadajnik.m
+Inicjalizacja programu, parapetry wywo³ania rozmiar pakietów itp.
+odczyt pliku z informacj¹ i za³adowanie do pamiêci w postaci pakietów
+Dla ka¿dego pakietu wyliczenie bitu parzystoœci i dodanie go do pakietu
+Wys³anie pakietu do funkcji kana³u.
+
+kanal.m
+funkcja generowania b³êdu
+przes³anie pakietu dalej do odbiornika
+
+odbiornik.m
+otrzymany pakiet sprawdzany czy zgadza siê parzystoœæ
+jeœli nie to proœba o ponowne przes³anie
+jeœli dobry to zapis do pliku lub zmiennej globalnej
+
+
+
+Program generuje z pliku wejœciowego dwa pliki:
+output.txt
+Plik z otrzymanymi przez odbiornik danymi
+
+dataFile
+plik porównuj¹cy pakiety oryginalne z otrzymanymi (prawid³owe i b³êdne u których nie wychwyci³a tego metoda bitu parzystoœci).

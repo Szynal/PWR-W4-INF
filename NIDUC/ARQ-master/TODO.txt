@@ -1,0 +1,8 @@
+1.Zastanowiæ siê co zrobiæ z problemem gdy dane/rozmiarPakietu nie jest ca³kowite
+(jeœli bêdziemy testowaæ tylko dla danych ³adnie podzielnych przez wybrane rozmiary pakietów to mo¿na kod znacznie uproœciæ 
+tj. usun¹æ osobn¹ obs³ugê ostatniego pakietu.
+
+2.Jak komuœ siê nudzi to mo¿na kod przepisaæ na wersjê obiektow¹ bo chyba jest coœ takiego w matlabie. 
+Poprawi to znacznie strukturê i czytelnoœæ kodu.
+
+3.Dopisaæ inne mo¿liwoœci zak³óceñ w kanale
