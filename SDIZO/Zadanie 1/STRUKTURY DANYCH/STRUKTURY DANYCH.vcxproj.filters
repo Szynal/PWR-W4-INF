@@ -1,0 +1,204 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Source Files\Elements">
+      <UniqueIdentifier>{6e1c4ce8-8912-49ab-984c-93f5ac98227b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Measurement">
+      <UniqueIdentifier>{7e3160bc-9e7a-4c92-a766-b827552dc39b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Measurement\Array">
+      <UniqueIdentifier>{2d52c931-eeeb-4cff-bfad-508407477d9f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Measurement\Array\1K">
+      <UniqueIdentifier>{f0678926-c744-4b72-b9c1-201b109009af}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Measurement\Array\5K">
+      <UniqueIdentifier>{73da4928-63e6-4461-a50f-6d47f36d56f3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Measurement\Array\15K">
+      <UniqueIdentifier>{fcf15d3a-2a99-433b-a9ba-9d296d932ca9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Measurement\Array\50K">
+      <UniqueIdentifier>{47ac2eea-b62a-4706-b1ed-031260e51f96}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Measurement\Array\150K">
+      <UniqueIdentifier>{eacaac3d-2d6b-45bf-a5d6-ac79d8eb2334}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="ReadMe.txt" />
+    <Text Include="Elements_1K.txt">
+      <Filter>Source Files\Elements</Filter>
+    </Text>
+    <Text Include="Elements_5K.txt">
+      <Filter>Source Files\Elements</Filter>
+    </Text>
+    <Text Include="Elements_15K.txt">
+      <Filter>Source Files\Elements</Filter>
+    </Text>
+    <Text Include="Elements_50K.txt">
+      <Filter>Source Files\Elements</Filter>
+    </Text>
+    <Text Include="Elements_100K.txt">
+      <Filter>Source Files\Elements</Filter>
+    </Text>
+    <Text Include="AddAtTheBeginning_1K.txt">
+      <Filter>Source Files\Measurement\Array\1K</Filter>
+    </Text>
+    <Text Include="AddAtTheEnd_1K.txt">
+      <Filter>Source Files\Measurement\Array\1K</Filter>
+    </Text>
+    <Text Include="RemoveFromBeginning_1K.txt">
+      <Filter>Source Files\Measurement\Array\1K</Filter>
+    </Text>
+    <Text Include="RemoveFromEnd_1K.txt">
+      <Filter>Source Files\Measurement\Array\1K</Filter>
+    </Text>
+    <Text Include="AddAtTheBeginning_5K.txt">
+      <Filter>Source Files\Measurement\Array\5K</Filter>
+    </Text>
+    <Text Include="AddAtTheEnd_5K.txt">
+      <Filter>Source Files\Measurement\Array\5K</Filter>
+    </Text>
+    <Text Include="RemoveFromBeginning_5K.txt">
+      <Filter>Source Files\Measurement\Array\5K</Filter>
+    </Text>
+    <Text Include="RemoveFromEnd_5K.txt">
+      <Filter>Source Files\Measurement\Array\5K</Filter>
+    </Text>
+    <Text Include="Search_1K.txt">
+      <Filter>Source Files\Measurement\Array\1K</Filter>
+    </Text>
+    <Text Include="Search_5K.txt">
+      <Filter>Source Files\Measurement\Array\5K</Filter>
+    </Text>
+    <Text Include="AddAtTheBeginning_15K.txt">
+      <Filter>Source Files\Measurement\Array\15K</Filter>
+    </Text>
+    <Text Include="AddAtTheBeginning_50K.txt">
+      <Filter>Source Files\Measurement\Array\50K</Filter>
+    </Text>
+    <Text Include="AddAtTheBeginning_150K.txt">
+      <Filter>Source Files\Measurement\Array\150K</Filter>
+    </Text>
+    <Text Include="AddAtTheEnd_15K.txt">
+      <Filter>Source Files\Measurement\Array\15K</Filter>
+    </Text>
+    <Text Include="AddAtTheEnd_50K.txt">
+      <Filter>Source Files\Measurement\Array\50K</Filter>
+    </Text>
+    <Text Include="AddAtTheEnd_150K.txt">
+      <Filter>Source Files\Measurement\Array\150K</Filter>
+    </Text>
+    <Text Include="RemoveFromBeginning_15K.txt">
+      <Filter>Source Files\Measurement\Array\15K</Filter>
+    </Text>
+    <Text Include="RemoveFromBeginning_50K.txt">
+      <Filter>Source Files\Measurement\Array\50K</Filter>
+    </Text>
+    <Text Include="RemoveFromBeginning_150K.txt">
+      <Filter>Source Files\Measurement\Array\150K</Filter>
+    </Text>
+    <Text Include="RemoveFromEnd_15K.txt">
+      <Filter>Source Files\Measurement\Array\15K</Filter>
+    </Text>
+    <Text Include="RemoveFromEnd_50.txt">
+      <Filter>Source Files\Measurement\Array\50K</Filter>
+    </Text>
+    <Text Include="RemoveFromEnd_150K.txt">
+      <Filter>Source Files\Measurement\Array\150K</Filter>
+    </Text>
+    <Text Include="Search_15K.txt">
+      <Filter>Source Files\Measurement\Array\15K</Filter>
+    </Text>
+    <Text Include="Search_50K.txt">
+      <Filter>Source Files\Measurement\Array\50K</Filter>
+    </Text>
+    <Text Include="Search_150K.txt">
+      <Filter>Source Files\Measurement\Array\150K</Filter>
+    </Text>
+    <Text Include="TESTY.txt">
+      <Filter>Source Files\Elements</Filter>
+    </Text>
+    <Text Include="KOPIEC.txt">
+      <Filter>Source Files\Elements</Filter>
+    </Text>
+    <Text Include="TREE.txt">
+      <Filter>Source Files\Elements</Filter>
+    </Text>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="stdafx.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="targetver.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="StrukturyDanych.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Array.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="BinaryHeap.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Node.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="LinkedList.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="RedBlackNode.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="RedBlackTree.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Heap.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="stdafx.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="StrukturyDanych.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Array.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="BinaryHeap.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Node.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="LinkedList.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="RedBlackNode.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="RedBlackTree.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Heap.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>
