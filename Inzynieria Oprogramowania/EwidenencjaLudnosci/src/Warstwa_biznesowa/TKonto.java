@@ -5,45 +5,40 @@
  */
 package Warstwa_biznesowa;
 
+import java.util.IllegalFormatCodePointException;
+
 /**
  *
  * @author Pawel Szynal & Krzysztof Soboscinski
  */
+public class TKonto {
 
-public class TKonto 
-{    
     private String _Login;
     private String _Haslo;
-    
-    public TKonto()
-    {
-        
+
+    public TKonto() {
+
     }
-    
-    public TKonto(String login , String haslo)
-    {
+
+    public TKonto(String login, String haslo) throws IllegalFormatCodePointException {
         this._Login = login;
         this._Haslo = haslo;
     }
 
-     public void Set_Login(String login)
-    {
+    public void Set_Login(String login) throws IllegalFormatCodePointException {
         this._Login = login;
     }
-    
-    public String Get_Login()
-    {
+
+    public String Get_Login() {
         return _Login;
     }
-       
-    public void Set_Haslo(String haslo)
-    {
+
+    public void Set_Haslo(String haslo) throws IllegalFormatCodePointException {
         this._Haslo = haslo;
     }
-    
-    public String Get_Haslo()
-    {
+
+    public String Get_Haslo() {
         return _Haslo;
     }
-    
+
 }
