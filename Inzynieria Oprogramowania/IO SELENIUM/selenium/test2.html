@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head profile="http://selenium-ide.openqa.org/profiles/test-case">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link rel="selenium.base" href="http://localhost:8080/" />
+<title>test2</title>
+</head>
+<body>
+<table cellpadding="1" cellspacing="1" border="1">
+<thead>
+<tr><td rowspan="1" colspan="3">test2</td></tr>
+</thead><tbody>
+<tr>
+	<td>open</td>
+	<td>/WebKatalogKsiazek1/faces/index.xhtml</td>
+	<td></td>
+</tr>
+<!--Testowanie zawartości uruchomionej strony-->
+<tr>
+	<td>verifyText</td>
+	<td>id=j_idt2</td>
+	<td>Facelet Title</td>
+</tr>
+<tr>
+	<td>assertTitle</td>
+	<td>Facelet Title</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>//a</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>link=Show All Ksiazka Items</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>link=Show All TytulKsiazki Items</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>//body/a[1]</td>
+	<td>Show All Ksiazka Items</td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>//body/a[2]</td>
+	<td>Show All TytulKsiazki Items</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=Show All Ksiazka Items</td>
+	<td></td>
+</tr>
+</tbody></table>
+</body>
+</html>

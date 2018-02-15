@@ -1,0 +1,16 @@
+CREATE TABLE Tytul_ksiazki (
+tytul_id INTEGER NOT NULL GENERATED ALWAYS AS IDENTITY,
+tytul VARCHAR(50) NOT NULL,
+autor_nazwisko VARCHAR(50) NOT NULL,
+autor_imie VARCHAR(50) NOT NULL,
+ISBN VARCHAR(50) NOT NULL,
+wydawnictwo VARCHAR(50) NOT NULL,
+CONSTRAINT tytul_pk PRIMARY KEY ( tytul_id )
+);
+CREATE TABLE Ksiazka (
+ksiazka_id INTEGER NOT NULL GENERATED ALWAYS AS IDENTITY,
+numer INTEGER NOT NULL,
+ id_tytul INTEGER NOT NULL,
+CONSTRAINT ksiazka_id PRIMARY KEY ( ksiazka_id ),
+ FOREIGN KEY (id_tytul) REFERENCES Tytul_ksiazki (tytul_id)
+);

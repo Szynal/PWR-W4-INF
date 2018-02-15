@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ListTytulKsiazkiTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:form styleClass="jsfcrud_list_form">
+                <h:panelGroup id="messagePanel" layout="block">
+                    <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+                </h:panelGroup>
+                <h:outputText escape="false" value="#{bundle.ListTytulKsiazkiEmpty}" rendered="#{tytulKsiazkiController.items.rowCount == 0}"/>
+                <h:panelGroup rendered="#{tytulKsiazkiController.items.rowCount > 0}">
+                    <h:outputText value="#{tytulKsiazkiController.pagination.pageFirstItem + 1}..#{tytulKsiazkiController.pagination.pageLastItem + 1}/#{tytulKsiazkiController.pagination.itemsCount}"/>&nbsp;
+                    <h:commandLink action="#{tytulKsiazkiController.previous}" value="#{bundle.Previous} #{tytulKsiazkiController.pagination.pageSize}" rendered="#{tytulKsiazkiController.pagination.hasPreviousPage}"/>&nbsp;
+                    <h:commandLink action="#{tytulKsiazkiController.next}" value="#{bundle.Next} #{tytulKsiazkiController.pagination.pageSize}" rendered="#{tytulKsiazkiController.pagination.hasNextPage}"/>&nbsp;
+                    <h:dataTable value="#{tytulKsiazkiController.items}" var="item" border="0" cellpadding="2"  id="ksiązki" cellspacing="0" rowClasses="jsfcrud_odd_row,jsfcrud_even_row" rules="all" style="border:solid 1px">
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTytulKsiazkiTitle_tytulId}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.tytulId}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTytulKsiazkiTitle_tytul}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.tytul}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTytulKsiazkiTitle_autorNazwisko}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.autorNazwisko}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTytulKsiazkiTitle_autorImie}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.autorImie}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTytulKsiazkiTitle_isbn}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.isbn}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTytulKsiazkiTitle_wydawnictwo}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.wydawnictwo}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="&nbsp;"/>
+                            </f:facet>
+                            <h:commandLink action="#{tytulKsiazkiController.prepareView}" value="#{bundle.ListTytulKsiazkiViewLink}"/>
+                            <h:outputText value=" "/>
+                            <h:commandLink action="#{tytulKsiazkiController.prepareEdit}" value="#{bundle.ListTytulKsiazkiEditLink}"/>
+                            <h:outputText value=" "/>
+                            <h:commandLink action="#{tytulKsiazkiController.destroy}" value="#{bundle.ListTytulKsiazkiDestroyLink}"/>
+                        </h:column>
+                    </h:dataTable>
+                </h:panelGroup>
+                <br />
+                <h:commandLink action="#{tytulKsiazkiController.prepareCreate}" value="#{bundle.ListTytulKsiazkiCreateLink}"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.ListTytulKsiazkiIndexLink}"/>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

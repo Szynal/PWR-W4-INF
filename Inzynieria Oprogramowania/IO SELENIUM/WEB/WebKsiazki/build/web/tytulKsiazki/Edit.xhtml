@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.EditTytulKsiazkiTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="#{bundle.EditTytulKsiazkiLabel_tytulId}" for="tytulId" />
+                    <h:inputText id="tytulId" value="#{tytulKsiazkiController.selected.tytulId}" title="#{bundle.EditTytulKsiazkiTitle_tytulId}" required="true" requiredMessage="#{bundle.EditTytulKsiazkiRequiredMessage_tytulId}"/>
+                    <h:outputLabel value="#{bundle.EditTytulKsiazkiLabel_tytul}" for="tytul" />
+                    <h:inputText id="tytul" value="#{tytulKsiazkiController.selected.tytul}" title="#{bundle.EditTytulKsiazkiTitle_tytul}" required="true" requiredMessage="#{bundle.EditTytulKsiazkiRequiredMessage_tytul}"/>
+                    <h:outputLabel value="#{bundle.EditTytulKsiazkiLabel_autorNazwisko}" for="autorNazwisko" />
+                    <h:inputText id="autorNazwisko" value="#{tytulKsiazkiController.selected.autorNazwisko}" title="#{bundle.EditTytulKsiazkiTitle_autorNazwisko}" required="true" requiredMessage="#{bundle.EditTytulKsiazkiRequiredMessage_autorNazwisko}"/>
+                    <h:outputLabel value="#{bundle.EditTytulKsiazkiLabel_autorImie}" for="autorImie" />
+                    <h:inputText id="autorImie" value="#{tytulKsiazkiController.selected.autorImie}" title="#{bundle.EditTytulKsiazkiTitle_autorImie}" required="true" requiredMessage="#{bundle.EditTytulKsiazkiRequiredMessage_autorImie}"/>
+                    <h:outputLabel value="#{bundle.EditTytulKsiazkiLabel_isbn}" for="isbn" />
+                    <h:inputText id="isbn" value="#{tytulKsiazkiController.selected.isbn}" title="#{bundle.EditTytulKsiazkiTitle_isbn}" required="true" requiredMessage="#{bundle.EditTytulKsiazkiRequiredMessage_isbn}"/>
+                    <h:outputLabel value="#{bundle.EditTytulKsiazkiLabel_wydawnictwo}" for="wydawnictwo" />
+                    <h:inputText id="wydawnictwo" value="#{tytulKsiazkiController.selected.wydawnictwo}" title="#{bundle.EditTytulKsiazkiTitle_wydawnictwo}" required="true" requiredMessage="#{bundle.EditTytulKsiazkiRequiredMessage_wydawnictwo}"/>
+                </h:panelGrid>
+                <h:commandLink action="#{tytulKsiazkiController.update}" value="#{bundle.EditTytulKsiazkiSaveLink}"/>
+                <br />
+                <br />
+                <h:link outcome="View" value="#{bundle.EditTytulKsiazkiViewLink}"/>
+                <br />
+                <h:commandLink action="#{tytulKsiazkiController.prepareList}" value="#{bundle.EditTytulKsiazkiShowAllLink}" immediate="true"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.EditTytulKsiazkiIndexLink}" />
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

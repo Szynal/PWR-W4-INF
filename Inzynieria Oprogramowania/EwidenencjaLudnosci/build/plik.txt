@@ -1,0 +1,3 @@
+PESEL: 123  Imie: a  Nazwisko: s  Obywatelstwo: d  Data Urodzenia: f  Data Zgonu: g  Stan Cywilny: h
+
+

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ViewTytulKsiazkiTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2"  id="ksiązka" >
+                    <h:outputText value="#{bundle.ViewTytulKsiazkiLabel_tytulId}"/>
+                    <h:outputText value="#{tytulKsiazkiController.selected.tytulId}" title="#{bundle.ViewTytulKsiazkiTitle_tytulId}"/>
+                    <h:outputText value="#{bundle.ViewTytulKsiazkiLabel_tytul}"/>
+                    <h:outputText value="#{tytulKsiazkiController.selected.tytul}" title="#{bundle.ViewTytulKsiazkiTitle_tytul}"/>
+                    <h:outputText value="#{bundle.ViewTytulKsiazkiLabel_autorNazwisko}"/>
+                    <h:outputText value="#{tytulKsiazkiController.selected.autorNazwisko}" title="#{bundle.ViewTytulKsiazkiTitle_autorNazwisko}"/>
+                    <h:outputText value="#{bundle.ViewTytulKsiazkiLabel_autorImie}"/>
+                    <h:outputText value="#{tytulKsiazkiController.selected.autorImie}" title="#{bundle.ViewTytulKsiazkiTitle_autorImie}"/>
+                    <h:outputText value="#{bundle.ViewTytulKsiazkiLabel_isbn}"/>
+                    <h:outputText value="#{tytulKsiazkiController.selected.isbn}" title="#{bundle.ViewTytulKsiazkiTitle_isbn}"/>
+                    <h:outputText value="#{bundle.ViewTytulKsiazkiLabel_wydawnictwo}"/>
+                    <h:outputText value="#{tytulKsiazkiController.selected.wydawnictwo}" title="#{bundle.ViewTytulKsiazkiTitle_wydawnictwo}"/>
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{tytulKsiazkiController.destroyAndView}" value="#{bundle.ViewTytulKsiazkiDestroyLink}"/>
+                <br />
+                <br />
+                <h:link outcome="Edit" value="#{bundle.ViewTytulKsiazkiEditLink}"/>
+                <br />
+                <h:commandLink action="#{tytulKsiazkiController.prepareCreate}" value="#{bundle.ViewTytulKsiazkiCreateLink}" />
+                <br />
+                <h:commandLink action="#{tytulKsiazkiController.prepareList}" value="#{bundle.ViewTytulKsiazkiShowAllLink}"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.ViewTytulKsiazkiIndexLink}"/>
+
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>
