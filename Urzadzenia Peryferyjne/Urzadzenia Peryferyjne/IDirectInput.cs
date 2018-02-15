@@ -15,53 +15,46 @@ namespace Urzadzenia_Peryferyjne
 {
     public class IDirectInput
     {
-        // Zadeklarowanie obiektu DirectInput
         DirectInput input;
-        // Zadeklarowanie listy Joysticków
         List<Joystick> sticks;
-        // Zadeklarowanie Joysticku
         Joystick joystick;
-        
-        // W konstruktorze definiujemy obiekt DirectInput oraz listę Joysticków
         public IDirectInput()
         {
             input = new DirectInput();
             sticks = new List<Joystick>();
         }
-
-        // Funkcja pobierająca nazwę Joysticka
         public string GetName()
         {
             foreach (DeviceInstance device in input.GetDevices(DeviceClass.GameControl, DeviceEnumerationFlags.AttachedOnly))
             {
-                // Zadeklarowanie oraz zdefiniowanie zmiennej przechowującej GUID (globally unique identifier) danego joysticka
+
+
+
+                // Find a Joystick Guid
                 var joystickGuid = Guid.Empty;
 
-                // Pętla przeszukuje Gamepady i przekazuje ich GUID do zmiennej
                 foreach (var deviceInstance in input.GetDevices(DeviceType.Gamepad,
                             DeviceEnumerationFlags.AllDevices))
                     joystickGuid = deviceInstance.InstanceGuid;
 
-                // Jeżeli nie znaleziono żadnego gamepada, następuje wyszukiwanie Joysticków
+                // If Gamepad not found, look for a Joystick
                 if (joystickGuid == Guid.Empty)
                     foreach (var deviceInstance in input.GetDevices(DeviceType.Joystick,
                             DeviceEnumerationFlags.AllDevices))
                         joystickGuid = deviceInstance.InstanceGuid;
 
-                // W przypadku braku Joysticka wyświetlany jest błąd
+                // If Joystick not found, throws an error
                 if (joystickGuid == Guid.Empty)
                 {
-                    Console.WriteLine("Nie znaleziono joysticka");
+                    Console.WriteLine("No joystick/Gamepad found.");
                     Console.ReadKey();
                     Environment.Exit(1);
                 }
-                // Inicjalizacja Joysticka
+                // Instantiate the joystick
                 joystick = new Joystick(input, joystickGuid);
                 if (joystick != null)
                 {
-                    // Ustawienie buffora stanów
                     joystick.Properties.BufferSize = 10;
-                    // Zwrócenie nazwy Joysticka
                     return joystick.Information.ProductName.ToString();
 
                 }
@@ -71,17 +64,17 @@ namespace Urzadzenia_Peryferyjne
             return "";
         }
 
-        // Funkcja pobiera obecny stan Joysticka
         public string GetStateString()
         {
             try
             {
-                // Uzyskanie dostępu do urządzenia wejścia
+                // Set BufferSize in order to use buffered data.
+                
+
+                // Acquire the joystick
                 joystick.Acquire();
-                // Pobranie danych z urządzenia
                 joystick.Poll();
                 var state = joystick.GetCurrentState();
-                // Zwrócenie stanu
                 return state.ToString() + Environment.NewLine;
             } catch (Exception err)
             {
@@ -89,22 +82,20 @@ namespace Urzadzenia_Peryferyjne
             }
 
         }
-
-        // Funkcja ta zwraca informację o kierunku w którym wychylony jest drążek oraz informację czy przycisk fire jest wciśnięty
         public int[] directions()
         {
             try
             {
-                // Uzyskanie dostępu do Joysticka
+                // Set BufferSize in order to use buffered data.
+
+
+                // Acquire the joystick
                 joystick.Acquire();
-                // Pobranie informacji o stanie Joysticka
                 joystick.Poll();
                 var state = joystick.GetCurrentState();
-                // Przypisanie wychylenia drążka do zmiennych
                 var stickPositionX = state.X;
                 var stickPositionY = state.Y;
                 int[] returnValue = new int[3];
-                // W zależności od wartości stanu, wybierany jest odpowiedni kierunek
                 if (stickPositionX > 45000)
                 {
                     returnValue[0] = 1;
@@ -138,6 +129,7 @@ namespace Urzadzenia_Peryferyjne
             {
                 return null;
             }
+            return null;
         }
     }
 

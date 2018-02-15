@@ -42,6 +42,18 @@
     </dependentAssembly>
   </dependency>
   <dependency>
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="InTheHand.Net.Personal.dll" size="431616">
+      <assemblyIdentity name="InTheHand.Net.Personal" version="3.5.605.0" publicKeyToken="EA38CAA273134499" language="neutral" processorArchitecture="msil" />
+      <hash>
+        <dsig:Transforms>
+          <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+        </dsig:Transforms>
+        <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+        <dsig:DigestValue>4GeVtDN3cVBL+mo7XXy4MHu6AMe6orBh1M0iQgfg07o=</dsig:DigestValue>
+      </hash>
+    </dependentAssembly>
+  </dependency>
+  <dependency>
     <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="pcsc-sharp.dll" size="84480">
       <assemblyIdentity name="pcsc-sharp" version="3.8.0.0" language="neutral" processorArchitecture="msil" />
       <hash>
@@ -78,14 +90,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="Urzadzenia Peryferyjne.exe" size="33800">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="Urzadzenia Peryferyjne.exe" size="39944">
       <assemblyIdentity name="Urzadzenia Peryferyjne" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>F3nMdYaBE6me4OFvM+k1rtc9w6CIx8qKhh9xYhbBi30=</dsig:DigestValue>
+        <dsig:DigestValue>4lWlekr6LYcceX5GaNWkiKDVCRev3FrAD+3zJuZQBjY=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>

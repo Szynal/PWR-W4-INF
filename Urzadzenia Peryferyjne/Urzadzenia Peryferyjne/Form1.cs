@@ -19,8 +19,9 @@ namespace Urzadzenia_Peryferyjne
             InitializeComponent();
         }
         IDirectInput directInput;
-        PrinterLPT printer;
         System.Drawing.Graphics formGraphics;
+        BluetoothZS bluetooth;
+        GPSUP gps;
         // Funkcja tworząca sesje     
         private void ButtonPowerOnCard_Click(object sender, EventArgs e)
         {
@@ -186,14 +187,13 @@ namespace Urzadzenia_Peryferyjne
 
         private void button1_Click(object sender, EventArgs e)
         {
-
+            
         }
 
         private void timer1_Tick(object sender, EventArgs e)
         {
-
             labelState.Text = directInput.GetStateString();
-            if (directInput.directions()[1] == 1)
+            if(directInput.directions()[1] == 1)
             {
                 // góra
                 Console.WriteLine("góra");
@@ -217,7 +217,7 @@ namespace Urzadzenia_Peryferyjne
                 Console.WriteLine("prawo");
                 Cursor.Position = new Point(Cursor.Position.X + 10, Cursor.Position.Y);
             }
-            if (directInput.directions()[2] == 1)
+            if(directInput.directions()[2] == 1)
             {
                 Console.WriteLine("rysuje");
                 formGraphics.FillRectangle(Brushes.Black, Cursor.Position.X - this.Location.X, Cursor.Position.Y - this.Location.Y - 20, 10, 10);
@@ -226,42 +226,55 @@ namespace Urzadzenia_Peryferyjne
 
         }
 
-        private void tabPageMainPage_Click(object sender, EventArgs e)
+        private void buttonInitBT_Click(object sender, EventArgs e)
         {
-
-        }
-
-        private void buttonPrint_Click(object sender, EventArgs e)
-        {
-            //printer.WriteRaster();
-            bool vertical = true;
-            if (radioButtonVertical.Checked)
-                vertical = true;
-            if (radioButtonHorizontal.Checked)
-                vertical = false;
-            printer.WriteText(textBoxTextToWrite.Text, comboBox1.SelectedIndex, comboBoxSize.SelectedIndex, 7, vertical, radioButtonBold.Checked, radioButtonItalic.Checked, radioButtonUnderline.Checked);
-        }
-
-        private void buttonInitPrinter_Click(object sender, EventArgs e)
-        {
-            printer = new PrinterLPT();
-            printer.InitLpt();
-        }
-
-        private void radioButtonVertical_CheckedChanged(object sender, EventArgs e)
-        {
-            if (radioButtonVertical.Checked && radioButtonHorizontal.Checked)
+            try
             {
-                radioButtonHorizontal.Checked = false;
+                bluetooth = new BluetoothZS();
+            }
+            catch (Exception err)
+            {
+                MessageBox.Show(err.Message);
             }
         }
 
-        private void radioButtonHorizontal_CheckedChanged(object sender, EventArgs e)
+        private void buttonFindAdapters_Click(object sender, EventArgs e)
         {
-            if (radioButtonVertical.Checked && radioButtonHorizontal.Checked)
+            try
             {
-                radioButtonVertical.Checked = false;
+                bluetooth.FindAdapters(listBoxAdapters);
             }
+            catch (Exception err)
+            {
+                MessageBox.Show(err.Message);
+            }
+        }
+
+        private void buttonFindDevices_Click(object sender, EventArgs e)
+        {
+            bluetooth.FindDevices(listBox1);
+        }
+
+        private void buttonConnect_Click(object sender, EventArgs e)
+        {
+            bluetooth.Connect(listBox1);
+        }
+
+        private void buttonSendFile_Click(object sender, EventArgs e)
+        {
+            bluetooth.SendFile(listBox1);
+        }
+
+        private void buttonInit_Click(object sender, EventArgs e)
+        {
+            gps = new GPSUP(textBoxData, this);
+            gps.Start();
+            buttonInit.Enabled = false;
+        }
+
+        private void buttonShowLocalization_Click(object sender, EventArgs e)
+        {
+            gps.ShowLocation();
         }
     }
 }

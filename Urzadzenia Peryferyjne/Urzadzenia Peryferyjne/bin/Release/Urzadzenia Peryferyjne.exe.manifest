@@ -78,14 +78,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="Urzadzenia Peryferyjne.exe" size="38920">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="Urzadzenia Peryferyjne.exe" size="29704">
       <assemblyIdentity name="Urzadzenia Peryferyjne" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>WVDzfOkAz4rsY6uxIhxlOAhORHEqnHSao3rtLhtMvzs=</dsig:DigestValue>
+        <dsig:DigestValue>c9zQNH6EQGvSm0n/LbkGPbkkNKvg/0vESSlUy2ucJ5c=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>

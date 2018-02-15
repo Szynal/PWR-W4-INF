@@ -72,27 +72,26 @@
             this.labelDeviceNameDesc = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.tabPage3 = new System.Windows.Forms.TabPage();
-            this.labelFontSize = new System.Windows.Forms.Label();
-            this.comboBoxSize = new System.Windows.Forms.ComboBox();
-            this.labelFormatOpcion = new System.Windows.Forms.Label();
-            this.radioButtonUnderline = new System.Windows.Forms.RadioButton();
-            this.radioButtonBold = new System.Windows.Forms.RadioButton();
-            this.radioButtonItalic = new System.Windows.Forms.RadioButton();
-            this.labelFonts = new System.Windows.Forms.Label();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
-            this.buttonPrint = new System.Windows.Forms.Button();
-            this.labelTextToPrint = new System.Windows.Forms.Label();
-            this.buttonInitPrinter = new System.Windows.Forms.Button();
-            this.textBoxTextToWrite = new System.Windows.Forms.TextBox();
+            this.label23 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.tabPage4 = new System.Windows.Forms.TabPage();
+            this.label22 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.tabPage5 = new System.Windows.Forms.TabPage();
+            this.buttonConnect = new System.Windows.Forms.Button();
+            this.buttonInitBT = new System.Windows.Forms.Button();
+            this.buttonSendFile = new System.Windows.Forms.Button();
+            this.listBox1 = new System.Windows.Forms.ListBox();
+            this.buttonFindDevices = new System.Windows.Forms.Button();
+            this.listBoxAdapters = new System.Windows.Forms.ListBox();
+            this.buttonFindAdapters = new System.Windows.Forms.Button();
             this.label6 = new System.Windows.Forms.Label();
             this.tabPage6 = new System.Windows.Forms.TabPage();
+            this.buttonShowLocalization = new System.Windows.Forms.Button();
+            this.buttonStop = new System.Windows.Forms.Button();
+            this.buttonInit = new System.Windows.Forms.Button();
+            this.textBoxData = new System.Windows.Forms.TextBox();
             this.label7 = new System.Windows.Forms.Label();
-            this.tabPage7 = new System.Windows.Forms.TabPage();
-            this.label8 = new System.Windows.Forms.Label();
             this.menuStrip = new System.Windows.Forms.MenuStrip();
             this.autorzyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.opisProgramuToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -100,11 +99,6 @@
             this.ukladCwiczenWSemestrzeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.pomocToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
-            this.radioButtonHorizontal = new System.Windows.Forms.RadioButton();
-            this.radioButtonVertical = new System.Windows.Forms.RadioButton();
-            this.labelFontOrientation = new System.Windows.Forms.Label();
-            this.labelFontColor = new System.Windows.Forms.Label();
-            this.comboBox2 = new System.Windows.Forms.ComboBox();
             this.tabControl1.SuspendLayout();
             this.tabPageMainPage.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
@@ -120,7 +114,6 @@
             this.tabPage4.SuspendLayout();
             this.tabPage5.SuspendLayout();
             this.tabPage6.SuspendLayout();
-            this.tabPage7.SuspendLayout();
             this.menuStrip.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -133,7 +126,6 @@
             this.tabControl1.Controls.Add(this.tabPage4);
             this.tabControl1.Controls.Add(this.tabPage5);
             this.tabControl1.Controls.Add(this.tabPage6);
-            this.tabControl1.Controls.Add(this.tabPage7);
             this.tabControl1.Location = new System.Drawing.Point(12, 27);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
@@ -151,7 +143,6 @@
             this.tabPageMainPage.TabIndex = 0;
             this.tabPageMainPage.Text = "Strona tytulowa";
             this.tabPageMainPage.UseVisualStyleBackColor = true;
-            this.tabPageMainPage.Click += new System.EventHandler(this.tabPageMainPage_Click);
             // 
             // tableLayoutPanel1
             // 
@@ -611,23 +602,7 @@
             // 
             // tabPage3
             // 
-            this.tabPage3.Controls.Add(this.comboBox2);
-            this.tabPage3.Controls.Add(this.labelFontColor);
-            this.tabPage3.Controls.Add(this.labelFontOrientation);
-            this.tabPage3.Controls.Add(this.radioButtonVertical);
-            this.tabPage3.Controls.Add(this.radioButtonHorizontal);
-            this.tabPage3.Controls.Add(this.labelFontSize);
-            this.tabPage3.Controls.Add(this.comboBoxSize);
-            this.tabPage3.Controls.Add(this.labelFormatOpcion);
-            this.tabPage3.Controls.Add(this.radioButtonUnderline);
-            this.tabPage3.Controls.Add(this.radioButtonBold);
-            this.tabPage3.Controls.Add(this.radioButtonItalic);
-            this.tabPage3.Controls.Add(this.labelFonts);
-            this.tabPage3.Controls.Add(this.comboBox1);
-            this.tabPage3.Controls.Add(this.buttonPrint);
-            this.tabPage3.Controls.Add(this.labelTextToPrint);
-            this.tabPage3.Controls.Add(this.buttonInitPrinter);
-            this.tabPage3.Controls.Add(this.textBoxTextToWrite);
+            this.tabPage3.Controls.Add(this.label23);
             this.tabPage3.Controls.Add(this.label4);
             this.tabPage3.Location = new System.Drawing.Point(4, 22);
             this.tabPage3.Name = "tabPage3";
@@ -637,128 +612,14 @@
             this.tabPage3.Text = "Laboratorium nr 3";
             this.tabPage3.UseVisualStyleBackColor = true;
             // 
-            // labelFontSize
+            // label23
             // 
-            this.labelFontSize.AutoSize = true;
-            this.labelFontSize.Location = new System.Drawing.Point(641, 181);
-            this.labelFontSize.Name = "labelFontSize";
-            this.labelFontSize.Size = new System.Drawing.Size(87, 13);
-            this.labelFontSize.TabIndex = 16;
-            this.labelFontSize.Text = "Rozmiar czcionki";
-            // 
-            // comboBoxSize
-            // 
-            this.comboBoxSize.FormattingEnabled = true;
-            this.comboBoxSize.Items.AddRange(new object[] {
-            "1",
-            "2",
-            "3",
-            "4"});
-            this.comboBoxSize.Location = new System.Drawing.Point(644, 197);
-            this.comboBoxSize.Name = "comboBoxSize";
-            this.comboBoxSize.Size = new System.Drawing.Size(121, 21);
-            this.comboBoxSize.TabIndex = 15;
-            // 
-            // labelFormatOpcion
-            // 
-            this.labelFormatOpcion.AutoSize = true;
-            this.labelFormatOpcion.Location = new System.Drawing.Point(467, 257);
-            this.labelFormatOpcion.Name = "labelFormatOpcion";
-            this.labelFormatOpcion.Size = new System.Drawing.Size(101, 13);
-            this.labelFormatOpcion.TabIndex = 14;
-            this.labelFormatOpcion.Text = "Opcje formatowania";
-            // 
-            // radioButtonUnderline
-            // 
-            this.radioButtonUnderline.AutoSize = true;
-            this.radioButtonUnderline.Location = new System.Drawing.Point(470, 319);
-            this.radioButtonUnderline.Name = "radioButtonUnderline";
-            this.radioButtonUnderline.Size = new System.Drawing.Size(86, 17);
-            this.radioButtonUnderline.TabIndex = 12;
-            this.radioButtonUnderline.TabStop = true;
-            this.radioButtonUnderline.Text = "Podkreslenie";
-            this.radioButtonUnderline.UseVisualStyleBackColor = true;
-            // 
-            // radioButtonBold
-            // 
-            this.radioButtonBold.AutoSize = true;
-            this.radioButtonBold.Location = new System.Drawing.Point(470, 296);
-            this.radioButtonBold.Name = "radioButtonBold";
-            this.radioButtonBold.Size = new System.Drawing.Size(81, 17);
-            this.radioButtonBold.TabIndex = 11;
-            this.radioButtonBold.TabStop = true;
-            this.radioButtonBold.Text = "Pogrubienie";
-            this.radioButtonBold.UseVisualStyleBackColor = true;
-            // 
-            // radioButtonItalic
-            // 
-            this.radioButtonItalic.AutoSize = true;
-            this.radioButtonItalic.Location = new System.Drawing.Point(470, 273);
-            this.radioButtonItalic.Name = "radioButtonItalic";
-            this.radioButtonItalic.Size = new System.Drawing.Size(77, 17);
-            this.radioButtonItalic.TabIndex = 10;
-            this.radioButtonItalic.TabStop = true;
-            this.radioButtonItalic.Text = "Pochylenie";
-            this.radioButtonItalic.UseVisualStyleBackColor = true;
-            // 
-            // labelFonts
-            // 
-            this.labelFonts.AutoSize = true;
-            this.labelFonts.Location = new System.Drawing.Point(467, 181);
-            this.labelFonts.Name = "labelFonts";
-            this.labelFonts.Size = new System.Drawing.Size(51, 13);
-            this.labelFonts.TabIndex = 9;
-            this.labelFonts.Text = "Czcionka";
-            // 
-            // comboBox1
-            // 
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Items.AddRange(new object[] {
-            "Times New Roman",
-            "Arial",
-            "Albertus",
-            "Marigold"});
-            this.comboBox1.Location = new System.Drawing.Point(470, 197);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(121, 21);
-            this.comboBox1.TabIndex = 8;
-            // 
-            // buttonPrint
-            // 
-            this.buttonPrint.Location = new System.Drawing.Point(323, 197);
-            this.buttonPrint.Name = "buttonPrint";
-            this.buttonPrint.Size = new System.Drawing.Size(89, 45);
-            this.buttonPrint.TabIndex = 7;
-            this.buttonPrint.Text = "Drukuj";
-            this.buttonPrint.UseVisualStyleBackColor = true;
-            this.buttonPrint.Click += new System.EventHandler(this.buttonPrint_Click);
-            // 
-            // labelTextToPrint
-            // 
-            this.labelTextToPrint.AutoSize = true;
-            this.labelTextToPrint.Location = new System.Drawing.Point(25, 181);
-            this.labelTextToPrint.Name = "labelTextToPrint";
-            this.labelTextToPrint.Size = new System.Drawing.Size(84, 13);
-            this.labelTextToPrint.TabIndex = 6;
-            this.labelTextToPrint.Text = "Wprowadz tekst";
-            // 
-            // buttonInitPrinter
-            // 
-            this.buttonInitPrinter.Location = new System.Drawing.Point(45, 47);
-            this.buttonInitPrinter.Name = "buttonInitPrinter";
-            this.buttonInitPrinter.Size = new System.Drawing.Size(93, 36);
-            this.buttonInitPrinter.TabIndex = 5;
-            this.buttonInitPrinter.Text = "Inicjalizacja";
-            this.buttonInitPrinter.UseVisualStyleBackColor = true;
-            this.buttonInitPrinter.Click += new System.EventHandler(this.buttonInitPrinter_Click);
-            // 
-            // textBoxTextToWrite
-            // 
-            this.textBoxTextToWrite.Location = new System.Drawing.Point(28, 197);
-            this.textBoxTextToWrite.Multiline = true;
-            this.textBoxTextToWrite.Name = "textBoxTextToWrite";
-            this.textBoxTextToWrite.Size = new System.Drawing.Size(289, 275);
-            this.textBoxTextToWrite.TabIndex = 4;
+            this.label23.AutoSize = true;
+            this.label23.Location = new System.Drawing.Point(100, 94);
+            this.label23.Name = "label23";
+            this.label23.Size = new System.Drawing.Size(262, 13);
+            this.label23.TabIndex = 6;
+            this.label23.Text = "To ćwiczenie zostało wykonane w osobnym projekcie";
             // 
             // label4
             // 
@@ -772,6 +633,7 @@
             // 
             // tabPage4
             // 
+            this.tabPage4.Controls.Add(this.label22);
             this.tabPage4.Controls.Add(this.label5);
             this.tabPage4.Location = new System.Drawing.Point(4, 22);
             this.tabPage4.Name = "tabPage4";
@@ -780,6 +642,15 @@
             this.tabPage4.TabIndex = 5;
             this.tabPage4.Text = "Laboratorium nr 4";
             this.tabPage4.UseVisualStyleBackColor = true;
+            // 
+            // label22
+            // 
+            this.label22.AutoSize = true;
+            this.label22.Location = new System.Drawing.Point(99, 93);
+            this.label22.Name = "label22";
+            this.label22.Size = new System.Drawing.Size(262, 13);
+            this.label22.TabIndex = 5;
+            this.label22.Text = "To ćwiczenie zostało wykonane w osobnym projekcie";
             // 
             // label5
             // 
@@ -793,6 +664,13 @@
             // 
             // tabPage5
             // 
+            this.tabPage5.Controls.Add(this.buttonConnect);
+            this.tabPage5.Controls.Add(this.buttonInitBT);
+            this.tabPage5.Controls.Add(this.buttonSendFile);
+            this.tabPage5.Controls.Add(this.listBox1);
+            this.tabPage5.Controls.Add(this.buttonFindDevices);
+            this.tabPage5.Controls.Add(this.listBoxAdapters);
+            this.tabPage5.Controls.Add(this.buttonFindAdapters);
             this.tabPage5.Controls.Add(this.label6);
             this.tabPage5.Location = new System.Drawing.Point(4, 22);
             this.tabPage5.Name = "tabPage5";
@@ -801,6 +679,72 @@
             this.tabPage5.TabIndex = 6;
             this.tabPage5.Text = "Laboratorium nr 5";
             this.tabPage5.UseVisualStyleBackColor = true;
+            // 
+            // buttonConnect
+            // 
+            this.buttonConnect.Location = new System.Drawing.Point(299, 449);
+            this.buttonConnect.Name = "buttonConnect";
+            this.buttonConnect.Size = new System.Drawing.Size(75, 23);
+            this.buttonConnect.TabIndex = 12;
+            this.buttonConnect.Text = "Połącz";
+            this.buttonConnect.UseVisualStyleBackColor = true;
+            this.buttonConnect.Click += new System.EventHandler(this.buttonConnect_Click);
+            // 
+            // buttonInitBT
+            // 
+            this.buttonInitBT.Location = new System.Drawing.Point(378, 80);
+            this.buttonInitBT.Name = "buttonInitBT";
+            this.buttonInitBT.Size = new System.Drawing.Size(75, 23);
+            this.buttonInitBT.TabIndex = 11;
+            this.buttonInitBT.Text = "Inicjalizacja";
+            this.buttonInitBT.UseVisualStyleBackColor = true;
+            this.buttonInitBT.Click += new System.EventHandler(this.buttonInitBT_Click);
+            // 
+            // buttonSendFile
+            // 
+            this.buttonSendFile.Location = new System.Drawing.Point(467, 450);
+            this.buttonSendFile.Name = "buttonSendFile";
+            this.buttonSendFile.Size = new System.Drawing.Size(75, 23);
+            this.buttonSendFile.TabIndex = 10;
+            this.buttonSendFile.Text = "Wyslij plik";
+            this.buttonSendFile.UseVisualStyleBackColor = true;
+            this.buttonSendFile.Click += new System.EventHandler(this.buttonSendFile_Click);
+            // 
+            // listBox1
+            // 
+            this.listBox1.FormattingEnabled = true;
+            this.listBox1.Location = new System.Drawing.Point(299, 329);
+            this.listBox1.Name = "listBox1";
+            this.listBox1.Size = new System.Drawing.Size(243, 95);
+            this.listBox1.TabIndex = 9;
+            // 
+            // buttonFindDevices
+            // 
+            this.buttonFindDevices.Location = new System.Drawing.Point(352, 293);
+            this.buttonFindDevices.Name = "buttonFindDevices";
+            this.buttonFindDevices.Size = new System.Drawing.Size(129, 30);
+            this.buttonFindDevices.TabIndex = 8;
+            this.buttonFindDevices.Text = "Wyszukaj urządzenia";
+            this.buttonFindDevices.UseVisualStyleBackColor = true;
+            this.buttonFindDevices.Click += new System.EventHandler(this.buttonFindDevices_Click);
+            // 
+            // listBoxAdapters
+            // 
+            this.listBoxAdapters.FormattingEnabled = true;
+            this.listBoxAdapters.Location = new System.Drawing.Point(299, 192);
+            this.listBoxAdapters.Name = "listBoxAdapters";
+            this.listBoxAdapters.Size = new System.Drawing.Size(243, 95);
+            this.listBoxAdapters.TabIndex = 7;
+            // 
+            // buttonFindAdapters
+            // 
+            this.buttonFindAdapters.Location = new System.Drawing.Point(352, 156);
+            this.buttonFindAdapters.Name = "buttonFindAdapters";
+            this.buttonFindAdapters.Size = new System.Drawing.Size(129, 30);
+            this.buttonFindAdapters.TabIndex = 6;
+            this.buttonFindAdapters.Text = "Wyszukaj adaptery";
+            this.buttonFindAdapters.UseVisualStyleBackColor = true;
+            this.buttonFindAdapters.Click += new System.EventHandler(this.buttonFindAdapters_Click);
             // 
             // label6
             // 
@@ -814,6 +758,10 @@
             // 
             // tabPage6
             // 
+            this.tabPage6.Controls.Add(this.buttonShowLocalization);
+            this.tabPage6.Controls.Add(this.buttonStop);
+            this.tabPage6.Controls.Add(this.buttonInit);
+            this.tabPage6.Controls.Add(this.textBoxData);
             this.tabPage6.Controls.Add(this.label7);
             this.tabPage6.Location = new System.Drawing.Point(4, 22);
             this.tabPage6.Name = "tabPage6";
@@ -822,6 +770,43 @@
             this.tabPage6.TabIndex = 7;
             this.tabPage6.Text = "Laboratorium nr 6";
             this.tabPage6.UseVisualStyleBackColor = true;
+            // 
+            // buttonShowLocalization
+            // 
+            this.buttonShowLocalization.Location = new System.Drawing.Point(410, 346);
+            this.buttonShowLocalization.Name = "buttonShowLocalization";
+            this.buttonShowLocalization.Size = new System.Drawing.Size(138, 52);
+            this.buttonShowLocalization.TabIndex = 10;
+            this.buttonShowLocalization.Text = "Pokaż lokalizację";
+            this.buttonShowLocalization.UseVisualStyleBackColor = true;
+            this.buttonShowLocalization.Click += new System.EventHandler(this.buttonShowLocalization_Click);
+            // 
+            // buttonStop
+            // 
+            this.buttonStop.Location = new System.Drawing.Point(266, 346);
+            this.buttonStop.Name = "buttonStop";
+            this.buttonStop.Size = new System.Drawing.Size(138, 52);
+            this.buttonStop.TabIndex = 9;
+            this.buttonStop.Text = "Stop";
+            this.buttonStop.UseVisualStyleBackColor = true;
+            // 
+            // buttonInit
+            // 
+            this.buttonInit.Location = new System.Drawing.Point(122, 346);
+            this.buttonInit.Name = "buttonInit";
+            this.buttonInit.Size = new System.Drawing.Size(138, 52);
+            this.buttonInit.TabIndex = 8;
+            this.buttonInit.Text = "Inicjalizuj";
+            this.buttonInit.UseVisualStyleBackColor = true;
+            this.buttonInit.Click += new System.EventHandler(this.buttonInit_Click);
+            // 
+            // textBoxData
+            // 
+            this.textBoxData.Location = new System.Drawing.Point(6, 47);
+            this.textBoxData.Multiline = true;
+            this.textBoxData.Name = "textBoxData";
+            this.textBoxData.Size = new System.Drawing.Size(846, 256);
+            this.textBoxData.TabIndex = 7;
             // 
             // label7
             // 
@@ -832,27 +817,6 @@
             this.label7.TabIndex = 6;
             this.label7.Text = "Ćwiczenie 7 - GPS";
             this.label7.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // tabPage7
-            // 
-            this.tabPage7.Controls.Add(this.label8);
-            this.tabPage7.Location = new System.Drawing.Point(4, 22);
-            this.tabPage7.Name = "tabPage7";
-            this.tabPage7.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage7.Size = new System.Drawing.Size(859, 527);
-            this.tabPage7.TabIndex = 8;
-            this.tabPage7.Text = "Laboratorium nr 7";
-            this.tabPage7.UseVisualStyleBackColor = true;
-            // 
-            // label8
-            // 
-            this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.label8.Location = new System.Drawing.Point(6, 15);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(847, 29);
-            this.label8.TabIndex = 7;
-            this.label8.Text = "Ćwiczenie 3 - Zasady obsługi modemów i nawiązywania połączeń";
-            this.label8.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // menuStrip
             // 
@@ -909,62 +873,6 @@
             // 
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
-            // radioButtonHorizontal
-            // 
-            this.radioButtonHorizontal.AutoSize = true;
-            this.radioButtonHorizontal.Location = new System.Drawing.Point(644, 273);
-            this.radioButtonHorizontal.Name = "radioButtonHorizontal";
-            this.radioButtonHorizontal.Size = new System.Drawing.Size(65, 17);
-            this.radioButtonHorizontal.TabIndex = 17;
-            this.radioButtonHorizontal.TabStop = true;
-            this.radioButtonHorizontal.Text = "Pozioma";
-            this.radioButtonHorizontal.UseVisualStyleBackColor = true;
-            this.radioButtonHorizontal.CheckedChanged += new System.EventHandler(this.radioButtonHorizontal_CheckedChanged);
-            // 
-            // radioButtonVertical
-            // 
-            this.radioButtonVertical.AutoSize = true;
-            this.radioButtonVertical.Location = new System.Drawing.Point(644, 296);
-            this.radioButtonVertical.Name = "radioButtonVertical";
-            this.radioButtonVertical.Size = new System.Drawing.Size(66, 17);
-            this.radioButtonVertical.TabIndex = 18;
-            this.radioButtonVertical.TabStop = true;
-            this.radioButtonVertical.Text = "Pionowa";
-            this.radioButtonVertical.UseVisualStyleBackColor = true;
-            this.radioButtonVertical.CheckedChanged += new System.EventHandler(this.radioButtonVertical_CheckedChanged);
-            // 
-            // labelFontOrientation
-            // 
-            this.labelFontOrientation.AutoSize = true;
-            this.labelFontOrientation.Location = new System.Drawing.Point(641, 257);
-            this.labelFontOrientation.Name = "labelFontOrientation";
-            this.labelFontOrientation.Size = new System.Drawing.Size(55, 13);
-            this.labelFontOrientation.TabIndex = 19;
-            this.labelFontOrientation.Text = "Oreintacja";
-            // 
-            // labelFontColor
-            // 
-            this.labelFontColor.AutoSize = true;
-            this.labelFontColor.Location = new System.Drawing.Point(467, 378);
-            this.labelFontColor.Name = "labelFontColor";
-            this.labelFontColor.Size = new System.Drawing.Size(31, 13);
-            this.labelFontColor.TabIndex = 20;
-            this.labelFontColor.Text = "Kolor";
-            // 
-            // comboBox2
-            // 
-            this.comboBox2.ForeColor = System.Drawing.Color.DarkRed;
-            this.comboBox2.FormattingEnabled = true;
-            this.comboBox2.Items.AddRange(new object[] {
-            "Czarny",
-            "Czerwony",
-            "Pomaranczowy",
-            "Zielony"});
-            this.comboBox2.Location = new System.Drawing.Point(470, 394);
-            this.comboBox2.Name = "comboBox2";
-            this.comboBox2.Size = new System.Drawing.Size(121, 21);
-            this.comboBox2.TabIndex = 21;
-            // 
             // Form
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -993,9 +901,10 @@
             this.tabPage3.ResumeLayout(false);
             this.tabPage3.PerformLayout();
             this.tabPage4.ResumeLayout(false);
+            this.tabPage4.PerformLayout();
             this.tabPage5.ResumeLayout(false);
             this.tabPage6.ResumeLayout(false);
-            this.tabPage7.ResumeLayout(false);
+            this.tabPage6.PerformLayout();
             this.menuStrip.ResumeLayout(false);
             this.menuStrip.PerformLayout();
             this.ResumeLayout(false);
@@ -1025,8 +934,6 @@
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.TabPage tabPage6;
         private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.TabPage tabPage7;
-        private System.Windows.Forms.Label label8;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label9;
@@ -1064,23 +971,19 @@
         private System.Windows.Forms.Label labelState;
         private System.Windows.Forms.Label labelStateDesc;
         private System.Windows.Forms.Timer timer1;
-        private System.Windows.Forms.Button buttonPrint;
-        private System.Windows.Forms.Label labelTextToPrint;
-        private System.Windows.Forms.Button buttonInitPrinter;
-        private System.Windows.Forms.TextBox textBoxTextToWrite;
-        private System.Windows.Forms.ComboBox comboBox1;
-        private System.Windows.Forms.Label labelFonts;
-        private System.Windows.Forms.Label labelFormatOpcion;
-        private System.Windows.Forms.RadioButton radioButtonUnderline;
-        private System.Windows.Forms.RadioButton radioButtonBold;
-        private System.Windows.Forms.RadioButton radioButtonItalic;
-        private System.Windows.Forms.Label labelFontSize;
-        private System.Windows.Forms.ComboBox comboBoxSize;
-        private System.Windows.Forms.Label labelFontOrientation;
-        private System.Windows.Forms.RadioButton radioButtonVertical;
-        private System.Windows.Forms.RadioButton radioButtonHorizontal;
-        private System.Windows.Forms.ComboBox comboBox2;
-        private System.Windows.Forms.Label labelFontColor;
+        private System.Windows.Forms.Button buttonInitBT;
+        private System.Windows.Forms.Button buttonSendFile;
+        private System.Windows.Forms.ListBox listBox1;
+        private System.Windows.Forms.Button buttonFindDevices;
+        private System.Windows.Forms.ListBox listBoxAdapters;
+        private System.Windows.Forms.Button buttonFindAdapters;
+        private System.Windows.Forms.Button buttonConnect;
+        private System.Windows.Forms.Label label23;
+        private System.Windows.Forms.Label label22;
+        private System.Windows.Forms.Button buttonShowLocalization;
+        private System.Windows.Forms.Button buttonStop;
+        private System.Windows.Forms.Button buttonInit;
+        private System.Windows.Forms.TextBox textBoxData;
     }
 }
 
