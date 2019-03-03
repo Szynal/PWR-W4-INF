@@ -3,11 +3,15 @@ package gate;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
+import javax.naming.ldap.Rdn;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
+
+import gate.Gate.GateSate;
+
 import java.awt.Font;
 import javax.swing.JTextField;
 import javax.swing.JTextPane;
@@ -17,6 +21,8 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.awt.event.ActionEvent;
 import java.awt.Toolkit;
+import javax.swing.JComboBox;
+import javax.swing.DefaultComboBoxModel;
 
 public class GateApp {
 
@@ -75,11 +81,6 @@ public class GateApp {
 		btnRemoveGate.setBounds(293, 83, 120, 23);
 		frmGateApp.getContentPane().add(btnRemoveGate);
 
-		JButton btnLoad = new JButton("Load Gate");
-
-		btnLoad.setBounds(23, 131, 260, 23);
-		frmGateApp.getContentPane().add(btnLoad);
-
 		JButton btnLoadSampleListOfGates = new JButton("Load the sample list of gates");
 		btnLoadSampleListOfGates.setBounds(23, 349, 260, 23);
 		frmGateApp.getContentPane().add(btnLoadSampleListOfGates);
@@ -87,7 +88,7 @@ public class GateApp {
 		JButton btnUpdateGate = new JButton("Update gate");
 
 		btnUpdateGate.setFont(new Font("Tahoma", Font.BOLD, 10));
-		btnUpdateGate.setBounds(23, 263, 260, 23);
+		btnUpdateGate.setBounds(23, 197, 260, 23);
 		frmGateApp.getContentPane().add(btnUpdateGate);
 
 		JButton btnDisplayTheList = new JButton("Display the list of gates");
@@ -113,7 +114,7 @@ public class GateApp {
 		JLabel lblStateOfGates = new JLabel("State of gate");
 		lblStateOfGates.setHorizontalAlignment(SwingConstants.CENTER);
 		lblStateOfGates.setFont(new Font("Tahoma", Font.BOLD, 10));
-		lblStateOfGates.setBounds(10, 160, 281, 14);
+		lblStateOfGates.setBounds(2, 131, 281, 14);
 		frmGateApp.getContentPane().add(lblStateOfGates);
 
 		JScrollPane scrollPane = new JScrollPane();
@@ -124,17 +125,10 @@ public class GateApp {
 		textPane.setEditable(false);
 		scrollPane.setViewportView(textPane);
 
-		JRadioButton rdbtnGateStateTurnedOn = new JRadioButton("Turned On");
-		rdbtnGateStateTurnedOn.setBounds(23, 181, 120, 23);
-		frmGateApp.getContentPane().add(rdbtnGateStateTurnedOn);
-
-		JRadioButton rdbtnGateStateTurnedOff = new JRadioButton("Turned Off");
-		rdbtnGateStateTurnedOff.setBounds(23, 207, 109, 23);
-		frmGateApp.getContentPane().add(rdbtnGateStateTurnedOff);
-
-		JRadioButton rdbtnGateStateBroken = new JRadioButton("Broken");
-		rdbtnGateStateBroken.setBounds(23, 233, 109, 23);
-		frmGateApp.getContentPane().add(rdbtnGateStateBroken);
+		JComboBox comboBox = new JComboBox();
+		comboBox.setModel(new DefaultComboBoxModel(GateSate.values()));
+		comboBox.setBounds(23, 156, 260, 20);
+		frmGateApp.getContentPane().add(comboBox);
 
 		btnAddNewGate.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -154,14 +148,11 @@ public class GateApp {
 			}
 		});
 
-		btnLoad.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			}
-		});
-
 		btnUpdateGate.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				UpdateGate(textPane, comboBox);
 			}
+
 		});
 
 	}
@@ -226,7 +217,7 @@ public class GateApp {
 					for (Gate gate : ListOfGates) {
 
 						textPane.setText(textPane.getText() + "Gate number " + gate.getNumer() + "  State: "
-								+ gate.getState().toString() + "Counter " + gate.getTransitionCounter() + "\n\n");
+								+ gate.getState().toString() + "  Counter " + gate.getTransitionCounter() + "\n\n");
 					}
 				}
 
@@ -238,4 +229,27 @@ public class GateApp {
 		}
 	}
 
+	private void UpdateGate(JTextPane textPane, JComboBox<?> comboBox) {
+		if (textLoadGate != null && ListOfGates != null) {
+
+			try {
+				if (ListOfGates.isEmpty()) {
+					textPane.setText("List is empty");
+					textLoadGate.setText(null);
+				} else {
+					for (Gate gate : ListOfGates) {
+						if (gate.getNumer() == Integer.parseInt(textLoadGate.getText())) {
+							gate.setState((GateSate) comboBox.getSelectedItem());
+							DisplayTheList(textPane);
+							textLoadGate.setText(null);
+						}
+					}
+				}
+
+			} catch (Exception addNewGateException) {
+				textLoadGate.setText(null);
+			}
+
+		}
+	}
 }
