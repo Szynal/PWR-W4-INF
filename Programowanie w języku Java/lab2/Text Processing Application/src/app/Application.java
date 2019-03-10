@@ -9,11 +9,9 @@ import javax.swing.JButton;
 import javax.swing.JFileChooser;
 
 import java.awt.event.ActionListener;
-import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.Method;
-import java.net.URL;
 import java.net.URLClassLoader;
 import java.util.ArrayList;
 import java.util.List;
@@ -42,9 +40,10 @@ public class Application {
 	private ArrayList<Reflection> reflections = new ArrayList<Reflection>();
 	private ArrayList<Object> loadedClasses = new ArrayList<Object>();
 
-	URLClassLoader cl = null;
 	private final JTable table = new JTable();
 	private final JButton btnUseThisClass = new JButton("Use this class");
+
+	URLClassLoader classLoader = null;
 
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -59,66 +58,36 @@ public class Application {
 		});
 	}
 
-	/**
-	 * Application.
-	 */
 	public Application() {
 		initialize();
-
-		/*
-		 * Thread thread = new Thread(new Runnable() { public void run() { try { while
-		 * (true) { TableUpdate(); Thread.sleep(5000); } } catch (Exception e) {
-		 * e.printStackTrace(); } } }); thread.start();
-		 */
-
-		try {
-			cl = new URLClassLoader(new URL[] { new URL(
-					"file:/C:\\Users\\szyna\\Desktop\\Documents\\PWR-W4-INF\\Programowanie w jêzyku Java\\lab2\\Reflection01\\bin/") });
-			Class<?> ca = cl.loadClass("text.Reflection01");
-
-			System.out.println("ca loaded by " + ca.getClassLoader());
-
-			Class[] cArg = new Class[1];
-			cArg[0] = String.class;
-
-			Method textProcces = ca.getMethod("TextProcces", cArg);
-			textArea.setText((String) textProcces.invoke(ca.newInstance(), textArea.getText()));
-
-			frmTextProccesingApplication.getContentPane().add(btnUseThisClass);
-			table.setBounds(10, 91, 226, 339);
-
-			frmTextProccesingApplication.getContentPane().add(table);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
 	}
 
-	/**
-	 * Initialize the contents of the frame.
-	 */
 	private void initialize() {
 
 		frmTextProccesingApplication = new JFrame();
-		frmTextProccesingApplication.setIconImage(Toolkit.getDefaultToolkit().getImage("C:\\Users\\szyna\\Desktop\\Documents\\PWR-W4-INF\\Programowanie w j\u0119zyku Java\\lab2\\Text Processing Application\\img\\pwr.jpg"));
+		frmTextProccesingApplication.setResizable(false);
+		frmTextProccesingApplication.setIconImage(Toolkit.getDefaultToolkit().getImage(
+				"C:\\Users\\szyna\\Desktop\\Documents\\PWR-W4-INF\\Programowanie w j\u0119zyku Java\\lab2\\Text Processing Application\\img\\pwr.jpg"));
 		frmTextProccesingApplication.setTitle("Text Processing Application");
 		frmTextProccesingApplication.setBounds(100, 100, 730, 521);
 		frmTextProccesingApplication.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
+		scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 		frmTextProccesingApplication.getContentPane().add(scrollPane);
 		frmTextProccesingApplication.getContentPane().add(lblProcessedText);
 		frmTextProccesingApplication.getContentPane().setLayout(null);
 		frmTextProccesingApplication.getContentPane().add(btnLoadText);
 		frmTextProccesingApplication.getContentPane().add(btnGetAllClasses);
+		frmTextProccesingApplication.getContentPane().add(btnUseThisClass);
+		frmTextProccesingApplication.getContentPane().add(table);
 
-		scrollPane.setBounds(246, 36, 458, 434);
 		scrollPane.setViewportView(textArea);
-
+		scrollPane.setBounds(246, 36, 458, 434);
 		lblProcessedText.setBounds(246, 11, 458, 14);
-
+		table.setBounds(10, 91, 226, 339);
 		btnLoadText.setBounds(10, 11, 226, 29);
 		btnGetAllClasses.setBounds(10, 51, 226, 29);
-		btnUseThisClass.setEnabled(false);
 		btnUseThisClass.setBounds(10, 441, 226, 29);
+		btnUseThisClass.setEnabled(false);
 
 		btnLoadText.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -139,6 +108,7 @@ public class Application {
 
 		btnUseThisClass.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				UseClasses();
 			}
 		});
 
@@ -190,7 +160,6 @@ public class Application {
 		} else {
 			return false;
 		}
-
 	}
 
 	private void TableUpdate() {
@@ -207,6 +176,32 @@ public class Application {
 			}
 			table.setModel(model);
 			btnUseThisClass.setEnabled(true);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	private void UseClasses() {
+		try {
+
+			for (Reflection reflection : reflections) {
+
+				classLoader = reflection.getUrlClassLoader();
+
+				System.out.println(reflection.getClassName());
+				Class<?> ca = classLoader.loadClass(reflection.getClassName());
+
+				System.out.println("ca loaded by " + ca.getClassLoader());
+
+				@SuppressWarnings("rawtypes")
+				Class[] cArg = new Class[1];
+				cArg[0] = String.class;
+
+				Method textProcces = ca.getMethod("TextProcces", cArg);
+				textArea.setText((String) textProcces.invoke(ca.newInstance(), textArea.getText()));
+
+			}
 
 		} catch (Exception e) {
 			e.printStackTrace();

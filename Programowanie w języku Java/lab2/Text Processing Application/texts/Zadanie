@@ -1,0 +1,13 @@
+Napisz program umo¿liwiaj¹cy potokowe przetwarzanie tekstów. Ka¿dy etap potokowego przetwarzania powinien byæ realizowany przez któr¹œ z klas ³adowanych dynamicznie. Ka¿da dynamicznie ³adowana klasa powinna posiadaæ metody:
+
+void setInput(int port) - do okreœlania portu gniazda serwerowego (na tym porcie przyjmowaæ bêdzie nadchodz¹ce ci¹gi znaków);
+void setOutput(String host, int port) - do okreœlania hosta i portu gniazda klienckiego (na ten host i port wysy³ane bêd¹ przetworzone ci¹gi znaków).
+void  start() - do uruchomienia przetwarzania
+void stop() - do zatrzymania przetwarzania
+
+Program powinien umo¿liwiaæ zarz¹dzanie ³adowaniem klas, tj. za jego pomoc¹ powinno daæ siê wskazaæ klasy do za³adowania, jak równie¿ klasy do wy³adowania.
+£adowanie danej klasy powinno odbywaæ siê w³asnym ³adowaczem klas w osobnym w¹tku. £adowane klasy powinny byæ umieszczane w podfolderach wskazanego folderu rozszerzeñ. Nazwy podfolderów powinny byæ interpretowane jako nazwy rozszerzeñ.
+
+Sposób potokowego przetwarzania powinien byæ konfigurowalny. W najprostszej postaci mo¿e przyj¹c postaæ listy z mo¿liwoœci¹ zmiany kolejnoœci wystêpuj¹cych na niej elementów.
+
+Przetwarzanie tekstu mo¿e polegaæ na zamianie wielkoœci liter, wstawianiu znaków interpunkcyjnych itp. Ka¿da z klas przetwarza dane przychodz¹ce na wskazany port wejœciowy oraz odsy³a wynik przetwarzania do wskazanego hosta na wskazany port wyjœciowy robi¹c to w w¹tku.
