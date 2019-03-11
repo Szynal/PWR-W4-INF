@@ -1,32 +1,16 @@
 package app;
 
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.net.URLClassLoader;
-
 public class Reflection {
 
-	private URLClassLoader urlClassLoader = null;
+	private String path = null;
 	private String className = null;
 	private String loaded;
 
 	public Reflection(String url, String className) {
 
-		try {
-			setUrlClassLoader(new URLClassLoader(new URL[] { new URL(url) }));
-			this.setClassName(className);
-			setLoaded("Unloaded");
-		} catch (MalformedURLException e) {
-			e.printStackTrace();
-		}
-	}
-
-	public URLClassLoader getUrlClassLoader() {
-		return urlClassLoader;
-	}
-
-	public void setUrlClassLoader(URLClassLoader urlClassLoader) {
-		this.urlClassLoader = urlClassLoader;
+		setClassName(url);
+		this.setClassName(className);
+		setLoaded("Unloaded");
 	}
 
 	public String getClassName() {
@@ -43,6 +27,14 @@ public class Reflection {
 
 	public void setLoaded(String loaded) {
 		this.loaded = loaded;
+	}
+
+	public String getPath() {
+		return path;
+	}
+
+	public void setPath(String path) {
+		this.path = path;
 	}
 
 }

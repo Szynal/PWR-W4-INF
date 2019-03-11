@@ -1,3 +1,5 @@
+package textProcessing;
+
 import java.awt.Font;
 import java.util.Map;
 
@@ -10,7 +12,7 @@ import java.awt.font.TextAttribute;
 public class TextUnderline {
 
 	@SuppressWarnings("unchecked")
-	public JTextArea TextProcces(JTextArea textArea) {
+	public JTextArea setOutput(JTextArea textArea) {
 
 		Font font = textArea.getFont();
 		@SuppressWarnings("rawtypes")
@@ -21,4 +23,13 @@ public class TextUnderline {
 		return textArea;
 	}
 
+	@SuppressWarnings("unused")
+	private void start() {
+
+	}
+
+	@SuppressWarnings("unused")
+	private void srtop() {
+
+	}
 }

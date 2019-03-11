@@ -12,6 +12,7 @@ import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.Method;
+import java.net.URL;
 import java.net.URLClassLoader;
 import java.util.ArrayList;
 import java.util.List;
@@ -34,14 +35,13 @@ public class Application {
 	private JLabel lblProcessedText = new JLabel("Processed text");
 	private JButton btnLoadText = new JButton("Load Text");
 	private JButton btnGetAllClasses = new JButton("Get All Classes");
+	private final JTable table = new JTable();
+	private final JButton btnUseThisClass = new JButton("Use this class");
 
 	public LoadText LoadText = new LoadText();
 
 	private ArrayList<Reflection> reflections = new ArrayList<Reflection>();
 	private ArrayList<Object> loadedClasses = new ArrayList<Object>();
-
-	private final JTable table = new JTable();
-	private final JButton btnUseThisClass = new JButton("Use this class");
 
 	URLClassLoader classLoader = null;
 
@@ -135,7 +135,8 @@ public class Application {
 			for (File file : files) {
 
 				if (CheckForbiddenPattern(file)) {
-					Reflection reflection = new Reflection("file:/C" + file.getAbsolutePath() + "/", file.getName());
+					Reflection reflection = new Reflection("file:/" + file.getAbsolutePath(), file.getName());
+					reflection.setPath("file:/" + file.getAbsolutePath());
 					reflections.add(reflection);
 					System.out.println(file.getPath());
 				}
@@ -187,21 +188,29 @@ public class Application {
 
 			for (Reflection reflection : reflections) {
 
-				classLoader = reflection.getUrlClassLoader();
+				String path = reflection.getPath();
+				String removeString = "\\textProcessing\\" + reflection.getClassName();
+				path = path.replace(removeString, "");
+				path += "/";
 
-				System.out.println(reflection.getClassName());
-				Class<?> ca = classLoader.loadClass(reflection.getClassName());
+				classLoader = new URLClassLoader(new URL[] { new URL(path) });
 
-				System.out.println("ca loaded by " + ca.getClassLoader());
+				String className = "textProcessing." + reflection.getClassName();
+				className = className.replace(".class", "");
+				Class<?> ca = classLoader.loadClass(className);
+
+				System.out.println(className + " loaded by " + ca.getClassLoader());
 
 				@SuppressWarnings("rawtypes")
 				Class[] cArg = new Class[1];
-				cArg[0] = String.class;
+				cArg[0] = JTextArea.class;
 
-				Method textProcces = ca.getMethod("TextProcces", cArg);
-				textArea.setText((String) textProcces.invoke(ca.newInstance(), textArea.getText()));
+				Method textProcces = ca.getMethod("setOutput", cArg);
+				textProcces.invoke(ca.newInstance(), textArea);
+				reflection.setLoaded("Load");
 
 			}
+			TableUpdate();
 
 		} catch (Exception e) {
 			e.printStackTrace();
