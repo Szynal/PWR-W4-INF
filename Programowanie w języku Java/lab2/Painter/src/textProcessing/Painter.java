@@ -1,16 +1,16 @@
 package textProcessing;
 
-import java.awt.Font;
+import java.awt.Color;
 import javax.swing.JTextArea;
 
 /**
  * @author Pawel Szynal 226026
  */
-public class FontReplacement {
+public class Painter {
 
 	public JTextArea setOutput(JTextArea textArea) {
 
-		textArea.setFont(new Font("Serif", Font.PLAIN, 20));
+		textArea.setForeground(Color.BLUE);
 
 		return textArea;
 	}

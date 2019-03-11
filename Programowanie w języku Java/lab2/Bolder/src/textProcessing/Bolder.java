@@ -6,11 +6,12 @@ import javax.swing.JTextArea;
 /**
  * @author Pawel Szynal 226026
  */
-public class FontReplacement {
+public class Bolder {
 
 	public JTextArea setOutput(JTextArea textArea) {
 
-		textArea.setFont(new Font("Serif", Font.PLAIN, 20));
+		Font font = new Font("Segoe Script", Font.BOLD, 20);
+		textArea.setFont(font);
 
 		return textArea;
 	}

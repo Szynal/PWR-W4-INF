@@ -1,16 +1,16 @@
 package textProcessing;
 
-import java.awt.Font;
 import javax.swing.JTextArea;
 
 /**
  * @author Pawel Szynal 226026
  */
-public class FontReplacement {
+public class CaseConventer {
 
 	public JTextArea setOutput(JTextArea textArea) {
 
-		textArea.setFont(new Font("Serif", Font.PLAIN, 20));
+		String outputString = textArea.getText();
+		textArea.setText(outputString.toUpperCase());
 
 		return textArea;
 	}
