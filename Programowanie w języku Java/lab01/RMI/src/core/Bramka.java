@@ -2,6 +2,9 @@ package core;
 
 import java.awt.EventQueue;
 import javax.swing.JFrame;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 
 import interfaces.IBramka;
@@ -12,13 +15,18 @@ import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.Date;
+
+import javax.imageio.ImageIO;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
 import java.io.Serializable;
 import java.awt.event.ActionEvent;
-import java.awt.Toolkit;
+import java.awt.Color;
+import java.awt.Font;
 
 /**
  * 
@@ -28,7 +36,13 @@ import java.awt.Toolkit;
 public class Bramka implements IBramka, Serializable {
 
 	private static final long serialVersionUID = -9031940404394611336L;
-	private JFrame frmBramka;
+	private JFrame app;
+	private BufferedImage appIcon = null;
+	private JMenuBar menuBar;
+	private JMenu mnNewMenu;
+	private JMenuItem mntmTask;
+	private JMenuItem mntmAuthor;
+
 	private JButton btnStart;
 	private JButton btnStop;
 	private JButton btnEntrance;
@@ -48,7 +62,7 @@ public class Bramka implements IBramka, Serializable {
 			public void run() {
 				try {
 					Bramka window = new Bramka();
-					window.frmBramka.setVisible(true);
+					window.app.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -70,7 +84,7 @@ public class Bramka implements IBramka, Serializable {
 	@Override
 	public boolean zamknijBramke() throws RemoteException {
 		if (btnStop.isEnabled()) {
-			frmBramka.setTitle("Bramka");
+			app.setTitle("Bramka");
 			btnStop.setEnabled(false);
 			btnStart.setEnabled(true);
 			btnEntrance.setEnabled(false);
@@ -93,87 +107,85 @@ public class Bramka implements IBramka, Serializable {
 			e.printStackTrace();
 		}
 
+		JFrameInitialize();
+		JMenuInitialize();
+		JButtonInitialize();
 		initialize();
 	}
 
-	private void initialize() {
-		frmBramka = new JFrame();
-		frmBramka.setIconImage(Toolkit.getDefaultToolkit().getImage(
-				"C:\\Users\\szyna\\Desktop\\Documents\\PWR-W4-INF\\Programowanie w j\u0119zyku Java\\lab1\\RMI\\img\\pwr.jpg"));
-		frmBramka.setTitle("Bramka");
-		frmBramka.setBounds(100, 100, 204, 120);
-		frmBramka.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	private void JFrameInitialize() {
+		try {
+			app = new JFrame();
+			appIcon = ImageIO.read((getClass().getClassLoader().getResource("pwr.jpg")));
+			app.setIconImage(appIcon);
+			app.getContentPane().setBackground(new Color(51, 51, 51));
+			app.setTitle("Gate App");
+			app.setBounds(100, 100, 250, 250);
+			app.setBounds(100, 100, 250, 250);
 
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
+	private void JButtonInitialize() {
 		btnStart = new JButton("Start");
-		btnStart.setBounds(10, 11, 78, 23);
+		btnStart.setFont(new Font("Tahoma", Font.BOLD, 12));
+		btnStart.setForeground(new Color(255, 255, 255));
+		btnStart.setBackground(new Color(51, 51, 51));
+		btnStart.setBounds(10, 86, 95, 45);
 		btnStart.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				int x = -1;
-				try {
-					x = icentrala.zarejestrujBramke(ibramka);
-				} catch (RemoteException e) {
-					e.printStackTrace();
-				}
-
-				if (x >= 0) {
-					ID = x;
-					frmBramka.setTitle("Bramka | ID: " + Integer.toString(ID));
-					btnStart.setEnabled(false);
-					btnStop.setEnabled(true);
-					btnEntrance.setEnabled(true);
-					btnExit.setEnabled(true);
-				}
+				start();
 			}
 		});
-		frmBramka.getContentPane().setLayout(null);
-		frmBramka.getContentPane().add(btnStart);
+		app.getContentPane().setLayout(null);
+		app.getContentPane().add(btnStart);
 
 		btnStop = new JButton("Stop");
-		btnStop.setBounds(98, 11, 78, 23);
+		btnStop.setFont(new Font("Tahoma", Font.BOLD, 12));
+		btnStop.setForeground(new Color(255, 255, 255));
+		btnStop.setBackground(new Color(51, 51, 51));
+		btnStop.setBounds(129, 86, 95, 45);
 		btnStop.setEnabled(false);
 		btnStop.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				boolean done = false;
-				try {
-					done = icentrala.wyrejestrujBramke(ID);
-				} catch (RemoteException e) {
-					e.printStackTrace();
-				}
-				if (done) {
-					frmBramka.setTitle("Bramka");
-					btnStop.setEnabled(false);
-					btnStart.setEnabled(true);
-					btnEntrance.setEnabled(false);
-					btnExit.setEnabled(false);
-				}
+				stop();
 			}
 		});
-		frmBramka.getContentPane().add(btnStop);
+		app.getContentPane().add(btnStop);
 
 		btnEntrance = new JButton("Entrance");
+		btnEntrance.setForeground(new Color(255, 255, 255));
+		btnEntrance.setBackground(new Color(51, 51, 51));
+		btnEntrance.setFont(new Font("Tahoma", Font.BOLD, 12));
 		btnEntrance.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				++entrance;
 			}
 		});
-		btnEntrance.setBounds(10, 45, 78, 23);
+		btnEntrance.setBounds(10, 142, 95, 45);
 		btnEntrance.setEnabled(false);
-		frmBramka.getContentPane().add(btnEntrance);
+		app.getContentPane().add(btnEntrance);
 
 		btnExit = new JButton("Exit");
+		btnExit.setBackground(new Color(51, 51, 51));
+		btnExit.setForeground(new Color(255, 255, 255));
+		btnExit.setFont(new Font("Tahoma", Font.BOLD, 12));
 		btnExit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				++exit;
 			}
 		});
-		btnExit.setBounds(98, 45, 76, 23);
+		btnExit.setBounds(129, 142, 95, 45);
 		btnExit.setEnabled(false);
-		frmBramka.getContentPane().add(btnExit);
+		app.getContentPane().add(btnExit);
+	}
 
-		frmBramka.addWindowListener(new WindowAdapter() {
+	private void initialize() {
+		app.addWindowListener(new WindowAdapter() {
 
 			@Override
-
 			public void windowClosing(WindowEvent e) {
 				if (btnStop.isEnabled()) {
 					try {
@@ -186,4 +198,68 @@ public class Bramka implements IBramka, Serializable {
 		});
 	}
 
+	private void JMenuInitialize() {
+		try {
+			menuBar = new JMenuBar();
+			app.setJMenuBar(menuBar);
+			mnNewMenu = new JMenu("About");
+			menuBar.add(mnNewMenu);
+			mntmTask = new JMenuItem("Program description");
+			mnNewMenu.add(mntmTask);
+			mntmTask.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent arg0) {
+					JOptionPane.showMessageDialog(null,
+							"http://tomasz.kubik.staff.iiar.pwr.wroc.pl/dydaktyka/Java/Zadania/ZadRMI_01.txt");
+				}
+			});
+			mntmAuthor = new JMenuItem("Author");
+			mnNewMenu.add(mntmAuthor);
+			mntmAuthor.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent arg0) {
+					JOptionPane.showMessageDialog(null, "Paweł Szynal\n226026");
+				}
+			});
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	private void start() {
+		int x = -1;
+		try {
+			x = icentrala.zarejestrujBramke(ibramka);
+		} catch (RemoteException e) {
+			e.printStackTrace();
+		}
+
+		if (x >= 0) {
+			ID = x;
+			app.setTitle("Bramka | ID: " + Integer.toString(ID));
+			btnStart.setEnabled(false);
+			btnStop.setEnabled(true);
+			btnEntrance.setEnabled(true);
+			btnExit.setEnabled(true);
+		}
+	}
+
+	private void stop() {
+		boolean done = false;
+		try {
+			done = icentrala.wyrejestrujBramke(ID);
+		} catch (RemoteException e) {
+			e.printStackTrace();
+		}
+		if (done) {
+			app.setTitle("Bramka");
+			btnStop.setEnabled(false);
+			btnStart.setEnabled(true);
+			btnEntrance.setEnabled(false);
+			btnExit.setEnabled(false);
+
+			btnStop.setFocusable(false);
+			btnStart.setFocusable(false);
+			btnEntrance.setFocusable(false);
+			btnExit.setFocusable(false);
+		}
+	}
 }

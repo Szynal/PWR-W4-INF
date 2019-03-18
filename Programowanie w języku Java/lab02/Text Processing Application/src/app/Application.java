@@ -5,10 +5,12 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JTextArea;
 import javax.swing.table.DefaultTableModel;
+import javax.imageio.ImageIO;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
 
 import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.Method;
@@ -20,16 +22,25 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.awt.event.ActionEvent;
 import javax.swing.JLabel;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 
 import org.apache.commons.io.FileUtils;
 import javax.swing.ScrollPaneConstants;
 import java.awt.Toolkit;
+import java.awt.Color;
 
 public class Application {
 
-	private JFrame frmTextProccesingApplication;
+	private JFrame app;
+	private JMenuBar menuBar;
+	private JMenu mnNewMenu;
+	private JMenuItem mntmTask;
+	private JMenuItem mntmAuthor;
 	private JTextArea textArea = new JTextArea();
 	private JScrollPane scrollPane = new JScrollPane();
 	private JLabel lblProcessedText = new JLabel("Processed text");
@@ -50,7 +61,7 @@ public class Application {
 			public void run() {
 				try {
 					Application window = new Application();
-					window.frmTextProccesingApplication.setVisible(true);
+					window.app.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -59,30 +70,77 @@ public class Application {
 	}
 
 	public Application() {
+		JFrameInitialize();
+		JMenuInitialize();
 		initialize();
+	}
+
+	private void JFrameInitialize() {
+		try {
+
+			app = new JFrame();
+			app.setBackground(new Color(51, 51, 51));
+			app.setTitle("Text Processing App");
+			app.setForeground(new Color(0, 0, 0));
+			app.getContentPane().setBackground(new Color(51, 51, 51));
+			app.setResizable(false);
+			BufferedImage appIcon = ImageIO.read((getClass().getClassLoader().getResource("pwr.jpg")));
+			app.setIconImage(appIcon);
+			app.setBounds(100, 100, 730, 532);
+			app.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
+	private void JMenuInitialize() {
+		try {
+			menuBar = new JMenuBar();
+			app.setJMenuBar(menuBar);
+			mnNewMenu = new JMenu("About");
+			menuBar.add(mnNewMenu);
+			mntmTask = new JMenuItem("Program description");
+			mnNewMenu.add(mntmTask);
+			mntmTask.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent arg0) {
+					JOptionPane.showMessageDialog(null,
+							"http://tomasz.kubik.staff.iiar.pwr.wroc.pl/dydaktyka/Java/Zadania/ZadRMI_01.txt");
+				}
+			});
+			mntmAuthor = new JMenuItem("Author");
+			mnNewMenu.add(mntmAuthor);
+			mntmAuthor.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent arg0) {
+					JOptionPane.showMessageDialog(null, "Pawe³ Szynal\n226026");
+				}
+			});
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 	private void initialize() {
 
-		frmTextProccesingApplication = new JFrame();
-		frmTextProccesingApplication.setResizable(false);
-		frmTextProccesingApplication.setIconImage(Toolkit.getDefaultToolkit().getImage(
-				"C:\\Users\\szyna\\Desktop\\Documents\\PWR-W4-INF\\Programowanie w j\u0119zyku Java\\lab2\\Text Processing Application\\img\\pwr.jpg"));
-		frmTextProccesingApplication.setTitle("Text Processing Application");
-		frmTextProccesingApplication.setBounds(100, 100, 730, 521);
-		frmTextProccesingApplication.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
-		frmTextProccesingApplication.getContentPane().add(scrollPane);
-		frmTextProccesingApplication.getContentPane().add(lblProcessedText);
-		frmTextProccesingApplication.getContentPane().setLayout(null);
-		frmTextProccesingApplication.getContentPane().add(btnLoadText);
-		frmTextProccesingApplication.getContentPane().add(btnGetAllClasses);
-		frmTextProccesingApplication.getContentPane().add(btnUseThisClass);
-		frmTextProccesingApplication.getContentPane().add(table);
+		app.getContentPane().add(scrollPane);
+		lblProcessedText.setForeground(new Color(255, 255, 255));
+		lblProcessedText.setBackground(new Color(51, 51, 51));
+		app.getContentPane().add(lblProcessedText);
+		app.getContentPane().setLayout(null);
+		btnLoadText.setForeground(new Color(255, 255, 255));
+		btnLoadText.setBackground(new Color(51, 51, 51));
+		app.getContentPane().add(btnLoadText);
+		btnGetAllClasses.setBackground(new Color(51, 51, 51));
+		btnGetAllClasses.setForeground(new Color(255, 255, 255));
+		app.getContentPane().add(btnGetAllClasses);
+		btnUseThisClass.setForeground(new Color(255, 255, 255));
+		btnUseThisClass.setBackground(new Color(51, 51, 51));
+		app.getContentPane().add(btnUseThisClass);
+		app.getContentPane().add(table);
 
-		scrollPane.setViewportView(textArea);
-		scrollPane.setBounds(246, 36, 458, 434);
-		lblProcessedText.setBounds(246, 11, 458, 14);
+		scrollPane.setRowHeaderView(textArea);
+		scrollPane.setBounds(246, 51, 458, 419);
+		lblProcessedText.setBounds(246, 11, 458, 29);
 		table.setBounds(10, 91, 226, 339);
 		btnLoadText.setBounds(10, 11, 226, 29);
 		btnGetAllClasses.setBounds(10, 51, 226, 29);

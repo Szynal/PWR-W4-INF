@@ -1,9 +1,13 @@
 package core;
 
 import java.awt.EventQueue;
+import java.io.IOException;
 import java.io.Serializable;
 
 import javax.swing.JFrame;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 
 import java.rmi.RemoteException;
@@ -12,8 +16,10 @@ import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
 import javax.swing.JScrollPane;
+import javax.imageio.ImageIO;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
 import java.awt.event.ActionEvent;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
@@ -23,7 +29,8 @@ import interfaces.ICentrala;
 import interfaces.IMonitor;
 
 import javax.swing.ListSelectionModel;
-import java.awt.Toolkit;
+import java.awt.Color;
+import java.awt.Font;
 
 /**
  * 
@@ -32,9 +39,15 @@ import java.awt.Toolkit;
  */
 public class Centrala implements ICentrala, Serializable {
 
+	private JFrame app;
+
 	private JTable table;
 	private JButton btnStop;
-	private JFrame gui;
+
+	private JMenuBar menuBar;
+	private JMenu mnNewMenu;
+	private JMenuItem mntmTask;
+	private JMenuItem mntmAuthor;
 
 	private static final long serialVersionUID = 1411280806053515502L;
 	private int id = 0;
@@ -46,9 +59,8 @@ public class Centrala implements ICentrala, Serializable {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					Centrala window = new Centrala();
-					window.initialize();
-					window.gui.setVisible(true);
+					Centrala central = new Centrala();
+					central.app.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -124,34 +136,75 @@ public class Centrala implements ICentrala, Serializable {
 			e.printStackTrace();
 		}
 		monitor = null;
+
+		JFrameInitialize();
+		initialize();
+		JMenuInitialize();
+	}
+
+	private void JFrameInitialize() {
+		try {
+			app = new JFrame();
+			app.getContentPane().setBackground(new Color(51, 51, 51));
+			BufferedImage appIcon = ImageIO.read((getClass().getClassLoader().getResource("pwr.jpg")));
+			app.setIconImage(appIcon);
+			app.setTitle("Central App");
+			app.setBounds(100, 100, 400, 400);
+			app.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+			app.getContentPane().setLayout(null);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
+	private void JMenuInitialize() {
+		try {
+			menuBar = new JMenuBar();
+			app.setJMenuBar(menuBar);
+			mnNewMenu = new JMenu("About");
+			menuBar.add(mnNewMenu);
+			mntmTask = new JMenuItem("Program description");
+			mnNewMenu.add(mntmTask);
+			mntmTask.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent arg0) {
+					JOptionPane.showMessageDialog(null,
+							"http://tomasz.kubik.staff.iiar.pwr.wroc.pl/dydaktyka/Java/index.html");
+				}
+			});
+			mntmAuthor = new JMenuItem("Author");
+			mnNewMenu.add(mntmAuthor);
+			mntmAuthor.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent arg0) {
+					JOptionPane.showMessageDialog(null, "Paweł Szynal\n226026");
+				}
+			});
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 	private void initialize() {
-		gui = new JFrame();
-		gui.setIconImage(Toolkit.getDefaultToolkit().getImage(
-				"C:\\Users\\szyna\\Desktop\\Documents\\PWR-W4-INF\\Programowanie w j\u0119zyku Java\\lab1\\RMI\\img\\pwr.jpg"));
-		gui.setTitle("Centrala");
-		gui.setBounds(100, 100, 214, 363);
-		gui.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		gui.getContentPane().setLayout(null);
 
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(10, 11, 183, 261);
-		gui.getContentPane().add(scrollPane);
+		scrollPane.setBounds(10, 11, 364, 271);
+		app.getContentPane().add(scrollPane);
 
 		table = new JTable();
 		table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		scrollPane.setViewportView(table);
 
 		btnStop = new JButton("Stop");
+		btnStop.setForeground(new Color(255, 255, 255));
+		btnStop.setBackground(new Color(51, 51, 51));
+		btnStop.setFont(new Font("Tahoma", Font.BOLD, 12));
 		btnStop.setEnabled(false);
 		btnStop.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				Stop();
 			}
 		});
-		btnStop.setBounds(10, 283, 183, 34);
-		gui.getContentPane().add(btnStop);
+		btnStop.setBounds(10, 295, 364, 34);
+		app.getContentPane().add(btnStop);
 	}
 
 	private void UpdateTable() {

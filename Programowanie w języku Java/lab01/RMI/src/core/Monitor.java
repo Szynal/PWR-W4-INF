@@ -1,10 +1,18 @@
 package core;
 
 import java.awt.EventQueue;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
 
+import javax.imageio.ImageIO;
 import javax.swing.JFrame;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 
 import java.rmi.RemoteException;
@@ -20,17 +28,19 @@ import javax.swing.table.DefaultTableModel;
 import interfaces.IBramka;
 import interfaces.ICentrala;
 import interfaces.IMonitor;
-import java.awt.Toolkit;
+import java.awt.Color;
 
 /**
- * 
  * @author Pawel Szynal 226026
- *
  */
 public class Monitor implements IMonitor {
 
-	private JFrame frame;
+	private JFrame app;
 	private JTable table;
+	private JMenuBar menuBar;
+	private JMenu mnNewMenu;
+	private JMenuItem mntmTask;
+	private JMenuItem mntmAuthor;
 
 	private Registry registry;
 	private ICentrala icentrala;
@@ -40,8 +50,8 @@ public class Monitor implements IMonitor {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					Monitor window = new Monitor();
-					window.frame.setVisible(true);
+					Monitor monitor = new Monitor();
+					monitor.app.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -56,22 +66,15 @@ public class Monitor implements IMonitor {
 			public void run() {
 				try {
 					Thread.sleep(200);
-
 					ArrayList<Object> gates = icentrala.getZarejestrowaneBramki();
-
 					String col[] = { "Id", "Entrance", "Exit" };
-
 					DefaultTableModel model = new DefaultTableModel(col, 0);
-
 					for (Object gate : gates) {
-
 						IBramka ibramka = (IBramka) gate;
 						int[] statistics = ibramka.getStatystyka(new Date(), new Date());
 						int ID = ibramka.getNumer();
-
 						Object[] stat = { ID, statistics[0], statistics[1] };
 						model.addRow(stat);
-
 					}
 					table.setModel(model);
 				} catch (Exception e) {
@@ -98,6 +101,8 @@ public class Monitor implements IMonitor {
 			e.printStackTrace();
 		}
 
+		JFrameInitialize();
+		JMenuInitialize();
 		initialize();
 
 		Thread thread = new Thread(new Runnable() {
@@ -116,24 +121,55 @@ public class Monitor implements IMonitor {
 		thread.start();
 	}
 
+	private void JFrameInitialize() {
+		try {
+			app = new JFrame();
+			app.getContentPane().setBackground(new Color(51, 51, 51));
+			BufferedImage appIcon = ImageIO.read((getClass().getClassLoader().getResource("pwr.jpg")));
+			app.setIconImage(appIcon);
+			app.setTitle("Monitor App");
+			app.setBounds(100, 100, 400, 400);
+			app.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+			app.getContentPane().setLayout(null);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
+	private void JMenuInitialize() {
+		try {
+			menuBar = new JMenuBar();
+			app.setJMenuBar(menuBar);
+			mnNewMenu = new JMenu("About");
+			menuBar.add(mnNewMenu);
+			mntmTask = new JMenuItem("Program description");
+			mnNewMenu.add(mntmTask);
+			mntmTask.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent arg0) {
+					JOptionPane.showMessageDialog(null,
+							"http://tomasz.kubik.staff.iiar.pwr.wroc.pl/dydaktyka/Java/index.html");
+				}
+			});
+			mntmAuthor = new JMenuItem("Author");
+			mnNewMenu.add(mntmAuthor);
+			mntmAuthor.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent arg0) {
+					JOptionPane.showMessageDialog(null, "Pawe³ Szynal\n226026");
+				}
+			});
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
 	private void initialize() {
-		frame = new JFrame();
-		frame.setIconImage(Toolkit.getDefaultToolkit().getImage(
-				"C:\\Users\\szyna\\Desktop\\Documents\\PWR-W4-INF\\Programowanie w j\u0119zyku Java\\lab1\\RMI\\img\\pwr.jpg"));
-		frame.setTitle("Monitor");
-		frame.setBounds(100, 100, 240, 400);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.getContentPane().setLayout(null);
 
 		table = new JTable();
 		JScrollPane scrollPane = new JScrollPane(table);
-		scrollPane.setBounds(10, 11, 212, 339);
-		frame.getContentPane().add(scrollPane);
-
-		frame.addWindowListener(new WindowAdapter() {
-
+		scrollPane.setBounds(10, 11, 364, 318);
+		app.getContentPane().add(scrollPane);
+		app.addWindowListener(new WindowAdapter() {
 			@Override
-
 			public void windowClosing(WindowEvent e) {
 				try {
 					icentrala.wyrejestrujMonitor();

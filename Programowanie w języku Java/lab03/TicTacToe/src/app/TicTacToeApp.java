@@ -1,15 +1,18 @@
 package app;
 
-import ai.TicTacToeAI;
-
-import javax.imageio.ImageIO;
-import javax.swing.*;
-import javax.swing.border.Border;
-import javax.swing.table.DefaultTableModel;
-
-import org.apache.commons.io.FileUtils;
-
-import java.awt.event.*;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.EventQueue;
+import java.awt.Font;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.GridLayout;
+import java.awt.Image;
+import java.awt.Insets;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -20,7 +23,32 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import java.awt.*;
+
+import javax.imageio.ImageIO;
+import javax.swing.BorderFactory;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JFileChooser;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JSpinner;
+import javax.swing.JTable;
+import javax.swing.SpinnerNumberModel;
+import javax.swing.SwingConstants;
+import javax.swing.border.Border;
+import javax.swing.table.DefaultTableModel;
+
+import org.apache.commons.io.FileUtils;
+
+import ai.TicTacToeAI;
 
 /**
  * @author Pawel Szynal
@@ -33,7 +61,6 @@ public class TicTacToeApp implements ActionListener {
 
 	private URLClassLoader classLoader = null;
 	private ArrayList<Reflection> reflections = new ArrayList<Reflection>();
-	private ArrayList<Object> loadedClasses = new ArrayList<Object>();
 	private Class<?> AIclass;
 
 	private int sizeOfTicTacToe = 3;
