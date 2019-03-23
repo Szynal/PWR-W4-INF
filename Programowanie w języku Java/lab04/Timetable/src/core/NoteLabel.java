@@ -3,7 +3,7 @@ package core;
 import java.util.Arrays;
 
 public enum NoteLabel {
-	NOT_IMPORTANT("Not important"), IMPORTANT("IMPORTANT"), CONTACT("Contact"), LONG_TERM("Long term"),;
+	NOT_IMPORTANT("Not important"), IMPORTANT("Important"), CONTACT("Contact"), LONG_TERM("Long term"),;
 
 	private String value;
 
