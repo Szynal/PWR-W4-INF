@@ -15,6 +15,7 @@ import java.net.URLClassLoader;
 import java.sql.SQLException;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 import javax.imageio.ImageIO;
 import javax.swing.DefaultComboBoxModel;
@@ -32,10 +33,13 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JSpinner;
 import javax.swing.JTabbedPane;
+import javax.swing.JTable;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.SpinnerDateModel;
+import javax.swing.SwingConstants;
+import javax.swing.table.DefaultTableModel;
 
 import core.Note;
 import core.NoteLabel;
@@ -68,6 +72,19 @@ public class TimetableApp {
 	private JTextField textFieldTitle;
 
 	private JComboBox<Object> comboBoxLabel;
+	private JLabel lblNotes;
+	private JTable tableOfNotes;
+	private JButton btnShowInThe;
+	private JButton btnShowAllNotes;
+	private JLabel lblFrom;
+	private JLabel lblTo;
+	private JSpinner spinnerStartDate;
+	private JSpinner spinnerEndDate;
+	private JButton btnRemoveNote;
+	private JButton btnOpenNote;
+
+	private List<Note> notes;
+	private JTable tableNotesKeys;
 
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -216,7 +233,6 @@ public class TimetableApp {
 		textArea.setCursor(Cursor.getPredefinedCursor(Cursor.TEXT_CURSOR));
 		textArea.setDoubleBuffered(true);
 		textArea.setDragEnabled(true);
-		textArea.setText("  ");
 		textArea.setDropMode(DropMode.INSERT);
 		scrollPane.setViewportView(textArea);
 
@@ -266,6 +282,110 @@ public class TimetableApp {
 			tabbedPane.addTab("List of notes", (new ImageIcon(addNoteIcon)), panelTimetable, null);
 			panelTimetable.setBackground(new Color(51, 51, 51));
 			panelTimetable.setLayout(null);
+
+			lblNotes = new JLabel("Notes");
+			lblNotes.setForeground(Color.WHITE);
+			lblNotes.setFont(new Font("Tahoma", Font.BOLD, 17));
+			lblNotes.setBackground(new Color(51, 51, 51));
+			lblNotes.setBounds(10, 11, 679, 25);
+			panelTimetable.add(lblNotes);
+
+			lblFrom = new JLabel("From");
+			lblFrom.setForeground(Color.WHITE);
+			lblFrom.setFont(new Font("Tahoma", Font.PLAIN, 15));
+			lblFrom.setBackground(new Color(51, 51, 51));
+			lblFrom.setBounds(468, 105, 212, 25);
+			panelTimetable.add(lblFrom);
+
+			lblTo = new JLabel("To");
+			lblTo.setForeground(Color.WHITE);
+			lblTo.setFont(new Font("Tahoma", Font.PLAIN, 15));
+			lblTo.setBackground(new Color(51, 51, 51));
+			lblTo.setBounds(468, 172, 212, 25);
+			panelTimetable.add(lblTo);
+			
+			tableNotesKeys = new JTable();
+			tableNotesKeys.setFont(new Font("Tahoma", Font.BOLD, 15));
+			tableNotesKeys.setModel(new DefaultTableModel(
+				new Object[][] {
+					{"ID", "Title", "Label"},
+				},
+				new String[] {
+					"New column", "New column", "New column"
+				}
+			));
+			tableNotesKeys.getColumnModel().getColumn(0).setPreferredWidth(73);
+			tableNotesKeys.setBounds(10, 47, 445, 16);
+			panelTimetable.add(tableNotesKeys);
+
+			tableOfNotes = new JTable();
+			tableOfNotes.setBounds(10, 65, 445, 345);
+			panelTimetable.add(tableOfNotes);
+
+			btnShowInThe = new JButton("Show in time range");
+			btnShowInThe.setForeground(Color.WHITE);
+			btnShowInThe.setFont(new Font("Tahoma", Font.PLAIN, 20));
+			btnShowInThe.setFocusable(false);
+			btnShowInThe.setFocusTraversalKeysEnabled(false);
+			btnShowInThe.setFocusPainted(false);
+			btnShowInThe.setBackground(new Color(51, 51, 51));
+			btnShowInThe.setBounds(465, 248, 212, 37);
+			panelTimetable.add(btnShowInThe);
+
+			btnShowAllNotes = new JButton("Show all notes");
+			btnShowAllNotes.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent arg0) {
+					showAllNotes();
+				}
+			});
+			btnShowAllNotes.setForeground(Color.WHITE);
+			btnShowAllNotes.setFont(new Font("Tahoma", Font.PLAIN, 20));
+			btnShowAllNotes.setFocusable(false);
+			btnShowAllNotes.setFocusTraversalKeysEnabled(false);
+			btnShowAllNotes.setFocusPainted(false);
+			btnShowAllNotes.setBackground(new Color(51, 51, 51));
+			btnShowAllNotes.setBounds(465, 47, 212, 47);
+			panelTimetable.add(btnShowAllNotes);
+
+			btnRemoveNote = new JButton("Remove note");
+			btnRemoveNote.setForeground(Color.WHITE);
+			btnRemoveNote.setFont(new Font("Tahoma", Font.PLAIN, 20));
+			btnRemoveNote.setFocusable(false);
+			btnRemoveNote.setFocusTraversalKeysEnabled(false);
+			btnRemoveNote.setFocusPainted(false);
+			btnRemoveNote.setBackground(new Color(51, 51, 51));
+			btnRemoveNote.setBounds(465, 300, 215, 37);
+			panelTimetable.add(btnRemoveNote);
+			BufferedImage openNoteImage = ImageIO.read((getClass().getClassLoader().getResource("openNote.png")));
+			btnOpenNote = new JButton("    Open", new ImageIcon(openNoteImage));
+			btnOpenNote.setHorizontalAlignment(SwingConstants.LEFT);
+			btnOpenNote.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent arg0) {
+				}
+			});
+			btnOpenNote.setForeground(Color.WHITE);
+			btnOpenNote.setFont(new Font("Tahoma", Font.BOLD, 20));
+			btnOpenNote.setFocusable(false);
+			btnOpenNote.setFocusTraversalKeysEnabled(false);
+			btnOpenNote.setFocusPainted(false);
+			btnOpenNote.setBackground(new Color(51, 51, 51));
+			btnOpenNote.setBounds(465, 348, 215, 62);
+			panelTimetable.add(btnOpenNote);
+
+			spinnerStartDate = new JSpinner();
+			spinnerStartDate.setModel(new SpinnerDateModel(new Date(1553295600000L), null, null, Calendar.DAY_OF_YEAR));
+			spinnerStartDate.setFont(new Font("Tahoma", Font.PLAIN, 15));
+			spinnerStartDate.setBackground(SystemColor.menu);
+			spinnerStartDate.setBounds(468, 130, 212, 41);
+			panelTimetable.add(spinnerStartDate);
+
+			spinnerEndDate = new JSpinner();
+			spinnerEndDate.setModel(new SpinnerDateModel(new Date(1553295600000L), null, null, Calendar.DAY_OF_YEAR));
+			spinnerEndDate.setFont(new Font("Tahoma", Font.PLAIN, 15));
+			spinnerEndDate.setBackground(SystemColor.menu);
+			spinnerEndDate.setBounds(468, 196, 212, 41);
+			panelTimetable.add(spinnerEndDate);
+
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -273,6 +393,17 @@ public class TimetableApp {
 	}
 
 	private void addNewNote() {
+
+		if (textFieldTitle.getText().equals("")) {
+			JOptionPane.showMessageDialog(null, " The Title field is empty");
+			return;
+		}
+
+		if (textArea.getText().equals("")) {
+			JOptionPane.showMessageDialog(null, "Note is empty");
+			return;
+		}
+
 		DbConnection dbConnection;
 		try {
 			dbConnection = new DbConnection();
@@ -282,8 +413,50 @@ public class TimetableApp {
 					spinnerDate.getValue().toString(), (Integer) spinnerX.getValue(), (Integer) spinnerX.getValue(),
 					textArea.getText());
 			noteDAO.AddNote(newNote);
+			JOptionPane.showMessageDialog(null, textFieldTitle.getText() + " Note has been created.");
 			dbConnection.closeConnection();
+			clearTextFields();
 		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+
+	private void clearTextFields() {
+		textFieldTitle.setText(null);
+		comboBoxLabel.setSelectedIndex(0);
+		spinnerX.setValue(0);
+		spinnerY.setValue(0);
+		textArea.setText(null);
+	}
+
+	private void showAllNotes() {
+
+		try {
+			String column[] = { "Id", "Title", "Label" };
+			DefaultTableModel model = new DefaultTableModel(column, 0);
+			DbConnection dbConnection;
+			try {
+				dbConnection = new DbConnection();
+				NoteDAO noteDAO = new NoteDAO(dbConnection);
+				notes = noteDAO.GetNotes();
+				dbConnection.closeConnection();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+
+			if (notes.equals(null)) {
+				JOptionPane.showMessageDialog(null, "The list is empty");
+				return;
+			}
+			for (Note note : notes) {
+				Object[] content = { note.getID(), note.getTitle(), note.getLabel() };
+				model.addRow(content);
+			}
+			tableOfNotes.setModel(model);
+
+		} catch (
+
+		Exception e) {
 			e.printStackTrace();
 		}
 	}

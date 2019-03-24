@@ -27,7 +27,7 @@ public class NoteDAO {
 
 		while (resultSet.next())
 			notesList.add(new Note(resultSet.getInt("ID"), resultSet.getString("Title"),
-					NoteLabel.fromText(resultSet.getString("OrderStatus")), resultSet.getString("Data"),
+					NoteLabel.fromText(resultSet.getString("Label")), resultSet.getString("Data"),
 					resultSet.getInt("TextAreaSize_X"), resultSet.getInt("TextAreaSize_Y"),
 					resultSet.getString("Content")));
 
