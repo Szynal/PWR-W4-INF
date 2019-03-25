@@ -13,9 +13,13 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.net.URLClassLoader;
 import java.sql.SQLException;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import javax.imageio.ImageIO;
 import javax.swing.DefaultComboBoxModel;
@@ -32,6 +36,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JSpinner;
+import javax.swing.JSpinner.DateEditor;
 import javax.swing.JTabbedPane;
 import javax.swing.JTable;
 import javax.swing.JTextArea;
@@ -217,7 +222,7 @@ public class TimetableApp {
 		spinnerDate = new JSpinner();
 		spinnerDate.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		spinnerDate.setBackground(SystemColor.menu);
-		spinnerDate.setModel(new SpinnerDateModel(new Date(1553295600000L), null, null, Calendar.DAY_OF_YEAR));
+		spinnerDate.setModel(new SpinnerDateModel(new Date(1553554800000L), null, null, Calendar.DAY_OF_YEAR));
 		spinnerDate.setBounds(10, 232, 212, 41);
 		panelNewNote.add(spinnerDate);
 
@@ -303,17 +308,11 @@ public class TimetableApp {
 			lblTo.setBackground(new Color(51, 51, 51));
 			lblTo.setBounds(468, 172, 212, 25);
 			panelTimetable.add(lblTo);
-			
+
 			tableNotesKeys = new JTable();
 			tableNotesKeys.setFont(new Font("Tahoma", Font.BOLD, 15));
-			tableNotesKeys.setModel(new DefaultTableModel(
-				new Object[][] {
-					{"ID", "Title", "Label"},
-				},
-				new String[] {
-					"New column", "New column", "New column"
-				}
-			));
+			tableNotesKeys.setModel(new DefaultTableModel(new Object[][] { { "ID", "Title", "Label" }, },
+					new String[] { "New column", "New column", "New column" }));
 			tableNotesKeys.getColumnModel().getColumn(0).setPreferredWidth(73);
 			tableNotesKeys.setBounds(10, 47, 445, 16);
 			panelTimetable.add(tableNotesKeys);
@@ -323,6 +322,11 @@ public class TimetableApp {
 			panelTimetable.add(tableOfNotes);
 
 			btnShowInThe = new JButton("Show in time range");
+			btnShowInThe.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent arg0) {
+					showNotesInSpecyficDates();
+				}
+			});
 			btnShowInThe.setForeground(Color.WHITE);
 			btnShowInThe.setFont(new Font("Tahoma", Font.PLAIN, 20));
 			btnShowInThe.setFocusable(false);
@@ -348,6 +352,13 @@ public class TimetableApp {
 			panelTimetable.add(btnShowAllNotes);
 
 			btnRemoveNote = new JButton("Remove note");
+			btnRemoveNote.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent arg0) {
+					removeNote();
+					showAllNotes();
+				}
+			});
+
 			btnRemoveNote.setForeground(Color.WHITE);
 			btnRemoveNote.setFont(new Font("Tahoma", Font.PLAIN, 20));
 			btnRemoveNote.setFocusable(false);
@@ -361,6 +372,7 @@ public class TimetableApp {
 			btnOpenNote.setHorizontalAlignment(SwingConstants.LEFT);
 			btnOpenNote.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent arg0) {
+					openNote();
 				}
 			});
 			btnOpenNote.setForeground(Color.WHITE);
@@ -373,7 +385,7 @@ public class TimetableApp {
 			panelTimetable.add(btnOpenNote);
 
 			spinnerStartDate = new JSpinner();
-			spinnerStartDate.setModel(new SpinnerDateModel(new Date(1553295600000L), null, null, Calendar.DAY_OF_YEAR));
+			spinnerStartDate.setModel(new SpinnerDateModel(new Date(1553209200000L), null, null, Calendar.DAY_OF_YEAR));
 			spinnerStartDate.setFont(new Font("Tahoma", Font.PLAIN, 15));
 			spinnerStartDate.setBackground(SystemColor.menu);
 			spinnerStartDate.setBounds(468, 130, 212, 41);
@@ -458,6 +470,102 @@ public class TimetableApp {
 
 		Exception e) {
 			e.printStackTrace();
+		}
+	}
+
+	private void showNotesInSpecyficDates() {
+
+		try {
+			String column[] = { "Id", "Title", "Label" };
+			DefaultTableModel model = new DefaultTableModel(column, 0);
+			DbConnection dbConnection;
+			try {
+				dbConnection = new DbConnection();
+				NoteDAO noteDAO = new NoteDAO(dbConnection);
+				notes = noteDAO.GetNotes();
+				dbConnection.closeConnection();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+
+			if (notes.equals(null)) {
+				JOptionPane.showMessageDialog(null, "The list is empty");
+				return;
+			}
+
+			for (Note note : notes) {
+
+				String dateInString = note.getDate();
+				SimpleDateFormat sdf = new SimpleDateFormat("EEE MMM dd HH:mm:ss zzz yyyy", Locale.US);
+				try {
+					Date date = sdf.parse(dateInString);
+					Date startDate = (Date) spinnerStartDate.getValue();
+					System.out.println(startDate);
+					Date endDate = (Date) spinnerEndDate.getValue();
+					System.out.println(endDate);
+					System.out.println("DUPA     " + date);
+
+					if (date.after(startDate) && date.before(endDate)) {
+						Object[] content = { note.getID(), note.getTitle(), note.getLabel() };
+						model.addRow(content);
+					}
+
+				} catch (ParseException e) {
+					e.printStackTrace();
+				}
+			}
+			tableOfNotes.setModel(model);
+
+		} catch (
+
+		Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	private void removeNote() {
+
+		if (tableOfNotes != null) {
+			if (!tableOfNotes.getSelectionModel().isSelectionEmpty()) {
+
+				DbConnection dbConnection;
+				try {
+					dbConnection = new DbConnection();
+					NoteDAO noteDAO = new NoteDAO(dbConnection);
+
+					int row = tableOfNotes.getSelectedRow();
+					int id = (int) tableOfNotes.getModel().getValueAt(row, 0);
+					noteDAO.DeleteNotesById(id);
+
+					JOptionPane.showMessageDialog(null, textFieldTitle.getText() + " Note has been removed.");
+					dbConnection.closeConnection();
+					clearTextFields();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+
+	}
+
+	private void openNote() {
+		if (tableOfNotes != null) {
+			if (!tableOfNotes.getSelectionModel().isSelectionEmpty()) {
+
+				DbConnection dbConnection;
+				try {
+					dbConnection = new DbConnection();
+					NoteDAO noteDAO = new NoteDAO(dbConnection);
+					int row = tableOfNotes.getSelectedRow();
+					int id = (int) tableOfNotes.getModel().getValueAt(row, 0);
+					Note note = noteDAO.GetNoteById(id);
+					dbConnection.closeConnection();
+					new NotesView(500, 500, note.getTextAreaSize_X(), note.getTextAreaSize_Y(), note.getTitle(),
+							note.getLabel().getValue(), note.getDate(), note.getNoteContent());
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
 		}
 	}
 

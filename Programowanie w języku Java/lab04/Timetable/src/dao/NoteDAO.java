@@ -32,6 +32,7 @@ public class NoteDAO {
 					resultSet.getString("Content")));
 
 		preparedStatement.close();
+		System.out.println("SELECT * FROM  Notes");
 		return notesList;
 	}
 
@@ -44,10 +45,10 @@ public class NoteDAO {
 
 		resultSet.next();
 		Note note = (new Note(resultSet.getInt("ID"), resultSet.getString("Title"),
-				NoteLabel.fromText(resultSet.getString("OrderStatus")), resultSet.getString("Data"),
+				NoteLabel.fromText(resultSet.getString("Label")), resultSet.getString("Data"),
 				resultSet.getInt("TextAreaSize_X"), resultSet.getInt("TextAreaSize_Y"),
 				resultSet.getString("Content")));
-
+		System.out.println("SELECT * FROM Notes WHERE ID =  " + id);
 		return note;
 	}
 
@@ -86,6 +87,7 @@ public class NoteDAO {
 			entity = null;
 
 		preparedStatement.close();
+		System.out.println("INSERT INTO Notes " + " Title: " + entity.getTitle());
 		return entity;
 	}
 
@@ -107,6 +109,7 @@ public class NoteDAO {
 		SetPreparedStatements(preparedStatement, entity);
 		Boolean update = preparedStatement.executeUpdate() > 0;
 		preparedStatement.close();
+		System.out.println("UPDATE Notes SET = " + " Title: " + entity.getTitle());
 		return update;
 	}
 
@@ -122,17 +125,15 @@ public class NoteDAO {
 	}
 
 	public Boolean DeleteNotesById(int id) throws SQLException {
-		String query = "DELETE FROM Notes WHERE OrderID=?";
+		String query = "DELETE FROM Notes WHERE ID=?";
 		PreparedStatement preparedStatement = dbConnection.getConnection().prepareStatement(query);
 		preparedStatement.setInt(1, id);
 		Boolean methodSucceeded = preparedStatement.executeUpdate() > 0;
 		preparedStatement.close();
+		System.out.println("DELETE FROM Notes WHERE ID = " + id);
 		return methodSucceeded;
 	}
 
-	/*
-	 * TEST
-	 */
 	public static void main(String[] args) {
 		DbConnection dbConnection;
 		try {
