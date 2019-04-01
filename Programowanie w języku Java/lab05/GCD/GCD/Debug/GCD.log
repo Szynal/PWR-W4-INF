@@ -1,0 +1,5 @@
+﻿  pch.cpp
+  GCD.cpp
+  LINK : C:\Users\szyna\Desktop\Documents\PWR-W4-INF\Programowanie w języku Java\lab05\GCD\Debug\GCD.dll not found or not built by the last incremental link; performing full link
+     Creating library C:\Users\szyna\Desktop\Documents\PWR-W4-INF\Programowanie w języku Java\lab05\GCD\Debug\GCD.lib and object C:\Users\szyna\Desktop\Documents\PWR-W4-INF\Programowanie w języku Java\lab05\GCD\Debug\GCD.exp
+  GCD.vcxproj -> C:\Users\szyna\Desktop\Documents\PWR-W4-INF\Programowanie w języku Java\lab05\GCD\Debug\GCD.dll

@@ -19,6 +19,8 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.SwingConstants;
+import beans.Timetable;
+import java.awt.BorderLayout;
 
 public class NotesView extends JFrame {
 
@@ -31,12 +33,12 @@ public class NotesView extends JFrame {
 	private JTextArea textArea;
 	private JScrollPane scrollPane;
 
-	public NotesView(int x, int y, int width, int height, String title, String label, String data, String text) {
+	public NotesView(String title, String label, String data, String text) {
 		super("NotesView 1.0");
 		setModalExclusionType(ModalExclusionType.APPLICATION_EXCLUDE);
 		try {
 			JFrame frame = new JFrame();
-			frame.setSize(width, height);
+			frame.setSize(649, 470);
 			frame.setResizable(false);
 			frame.setTitle("NotesView");
 			frame.pack();
@@ -45,7 +47,7 @@ public class NotesView extends JFrame {
 
 			BufferedImage appIcon = ImageIO.read((getClass().getClassLoader().getResource("pwr.jpg")));
 			frame.setIconImage(appIcon);
-			frame.setBounds(x, y, width, height);
+			frame.setBounds(500, 500, 500, 500);
 			frame.setBackground(new Color(51, 51, 51));
 			frame.setBackground(new Color(51, 51, 51));
 			frame.getContentPane().setBackground(new Color(51, 51, 51));
