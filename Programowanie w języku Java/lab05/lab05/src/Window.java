@@ -50,6 +50,17 @@ public class Window {
 
 	private JSpinner spinnerDimension;
 	private JPanel panel_multi02;
+	private JPanel panel_Dimension_multi02;
+	private JSpinner spinner;
+	private JPanel panel_Vectors_multi02;
+	private JTextField textField_VectorA_multi02;
+	private JButton button_Enter_VectorA_multi02;
+	private JPanel panel_3;
+	private JTextField textField_VectorB_multi02;
+	private JButton button_VectorB_multi2;
+	private JPanel panel_Result_multi02;
+	private JButton button_Calculate_multi02;
+	private JTextField textField_Calculate_multi02;
 
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -234,10 +245,159 @@ public class Window {
 		panel_result.add(textField_Result);
 
 		panel_multi02 = new JPanel();
-		panel_multi02.setForeground(new Color(255, 255, 255));
+		panel_multi02.setLayout(null);
 		panel_multi02.setBackground(new Color(51, 51, 51));
-		panel_multi02.setToolTipText("");
 		tabbedPane.addTab("multi02", null, panel_multi02, null);
+
+		panel_Dimension_multi02 = new JPanel();
+		panel_Dimension_multi02.setLayout(null);
+		panel_Dimension_multi02.setForeground(Color.WHITE);
+		panel_Dimension_multi02.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "Dimension",
+
+				TitledBorder.LEADING, TitledBorder.TOP, null, new Color(255, 255, 255)));
+		panel_Dimension_multi02.setBackground(new Color(51, 51, 51));
+		panel_Dimension_multi02.setBounds(10, 11, 127, 123);
+		panel_multi02.add(panel_Dimension_multi02);
+
+		spinner = new JSpinner();
+		spinner.setModel(new SpinnerNumberModel(new Integer(2), new Integer(2), null, new Integer(1)));
+		spinner.setFont(new Font("Tahoma", Font.BOLD, 15));
+		spinner.setBounds(10, 39, 107, 32);
+		panel_Dimension_multi02.add(spinner);
+
+		panel_Vectors_multi02 = new JPanel();
+		panel_Vectors_multi02.setLayout(null);
+		panel_Vectors_multi02.setForeground(Color.WHITE);
+		panel_Vectors_multi02.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "Vector  \"A\"",
+
+				TitledBorder.LEADING, TitledBorder.TOP, null, new Color(255, 255, 255)));
+		panel_Vectors_multi02.setBackground(new Color(51, 51, 51));
+		panel_Vectors_multi02.setBounds(147, 11, 242, 56);
+		panel_multi02.add(panel_Vectors_multi02);
+
+		textField_VectorA_multi02 = new JTextField();
+		textField_VectorA_multi02.setEditable(false);
+		textField_VectorA_multi02.setColumns(10);
+		textField_VectorA_multi02.setBounds(10, 22, 78, 20);
+		panel_Vectors_multi02.add(textField_VectorA_multi02);
+
+		button_Enter_VectorA_multi02 = new JButton("Enter coordinates");
+		button_Enter_VectorA_multi02.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				try {
+					int dimension = (int) spinner.getValue();
+					gcd.Dimension = dimension;
+					btnVectorA.setEnabled(true);
+				} catch (NumberFormatException e1) {
+				}
+
+				gcd.a = new Double[gcd.Dimension];
+				String text = "[";
+				for (int i = 0; i < gcd.Dimension; ++i) {
+					Double val = 0.0;
+					String input = "";
+					while (true) {
+						try {
+							input = JOptionPane.showInputDialog(null,
+									"Eenter " + String.valueOf(i + 1) + ". cordinate: ");
+							val = Double.parseDouble(input);
+							break;
+						} catch (NumberFormatException e1) {
+						}
+					}
+					gcd.a[i] = val;
+					text += input + ',';
+				}
+				text = text.substring(0, text.length() - 1) + ']';
+				textField_VectorA_multi02.setText(text);
+				button_VectorB_multi2.setEnabled(true);
+			}
+		});
+		button_Enter_VectorA_multi02.setForeground(Color.WHITE);
+		button_Enter_VectorA_multi02.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		button_Enter_VectorA_multi02.setBackground(new Color(51, 51, 51));
+		button_Enter_VectorA_multi02.setBounds(98, 21, 134, 23);
+		panel_Vectors_multi02.add(button_Enter_VectorA_multi02);
+
+		panel_3 = new JPanel();
+		panel_3.setLayout(null);
+		panel_3.setForeground(Color.WHITE);
+		panel_3.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "Vector  \"B\"",
+
+				TitledBorder.LEADING, TitledBorder.TOP, null, new Color(255, 255, 255)));
+		panel_3.setBackground(new Color(51, 51, 51));
+		panel_3.setBounds(147, 78, 242, 56);
+		panel_multi02.add(panel_3);
+
+		textField_VectorB_multi02 = new JTextField();
+		textField_VectorB_multi02.setEditable(false);
+		textField_VectorB_multi02.setColumns(10);
+		textField_VectorB_multi02.setBounds(10, 22, 78, 20);
+		panel_3.add(textField_VectorB_multi02);
+
+		button_VectorB_multi2 = new JButton("Enter coordinates");
+		button_VectorB_multi2.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				gcd.b = new Double[gcd.Dimension];
+				String text = "[";
+				for (int i = 0; i < gcd.Dimension; ++i) {
+					Double val = 0.0;
+					String input = "";
+					while (true) {
+						try {
+							input = JOptionPane.showInputDialog(null,
+									"Enter " + String.valueOf(i + 1) + ". cordinate: ");
+							val = Double.parseDouble(input);
+							break;
+						} catch (NumberFormatException e1) {
+						}
+					}
+					gcd.b[i] = val;
+					text += input + ',';
+				}
+				text = text.substring(0, text.length() - 1) + ']';
+				textField_VectorB_multi02.setText(text);
+				button_Calculate_multi02.setEnabled(true);
+			}
+		});
+
+		button_VectorB_multi2.setForeground(Color.WHITE);
+		button_VectorB_multi2.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		button_VectorB_multi2.setEnabled(false);
+		button_VectorB_multi2.setBackground(new Color(51, 51, 51));
+		button_VectorB_multi2.setBounds(98, 21, 134, 23);
+		panel_3.add(button_VectorB_multi2);
+
+		panel_Result_multi02 = new JPanel();
+		panel_Result_multi02.setLayout(null);
+		panel_Result_multi02.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "Result",
+
+				TitledBorder.LEADING, TitledBorder.TOP, null, new Color(255, 255, 255)));
+		panel_Result_multi02.setBackground(new Color(51, 51, 51));
+		panel_Result_multi02.setBounds(10, 145, 379, 158);
+		panel_multi02.add(panel_Result_multi02);
+
+		button_Calculate_multi02 = new JButton("Calculate");
+		button_Calculate_multi02.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Double result = gcd.multi02(gcd.a);
+				textField_Calculate_multi02.setText(Double.toString(result));
+			}
+		});
+		button_Calculate_multi02.setForeground(Color.WHITE);
+		button_Calculate_multi02.setFont(new Font("Tahoma", Font.BOLD, 15));
+		button_Calculate_multi02.setEnabled(false);
+		button_Calculate_multi02.setBackground(new Color(51, 51, 51));
+		button_Calculate_multi02.setBounds(10, 21, 359, 38);
+		panel_Result_multi02.add(button_Calculate_multi02);
+
+		textField_Calculate_multi02 = new JTextField();
+		textField_Calculate_multi02.setHorizontalAlignment(SwingConstants.CENTER);
+		textField_Calculate_multi02.setFont(new Font("Tahoma", Font.BOLD, 20));
+		textField_Calculate_multi02.setEditable(false);
+		textField_Calculate_multi02.setColumns(15);
+		textField_Calculate_multi02.setBounds(10, 70, 359, 77);
+		panel_Result_multi02.add(textField_Calculate_multi02);
 
 		JPanel panel_multi03 = new JPanel();
 		panel_multi03.setBackground(new Color(51, 51, 51));
@@ -260,7 +420,7 @@ public class Window {
 			String input = "";
 			while (true) {
 				try {
-					input = JOptionPane.showInputDialog(null, "Podaj " + String.valueOf(i + 1) + ". współrzędną: ");
+					input = JOptionPane.showInputDialog(null, "Enter " + String.valueOf(i + 1) + ". cordinate: ");
 					val = Double.parseDouble(input);
 					break;
 				} catch (NumberFormatException e1) {
@@ -282,7 +442,7 @@ public class Window {
 			String input = "";
 			while (true) {
 				try {
-					input = JOptionPane.showInputDialog(null, "Podaj " + String.valueOf(i + 1) + ". współrzędną: ");
+					input = JOptionPane.showInputDialog(null, "Enter " + String.valueOf(i + 1) + ". cordinate: ");
 					val = Double.parseDouble(input);
 					break;
 				} catch (NumberFormatException e1) {

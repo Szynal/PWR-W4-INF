@@ -1,0 +1,18 @@
+Mamy Panel (z przycikiem FOOLDER (gdzie sk³adowane s¹ obrazki)) (Obrazki maj¹ byæ du¿e!!!) 
+
+
+Mamy w panelu slider (Obs³uga  na weak references)
+
+____________________
+|		|
+| FOLDER      V |
+|		|
+| OBRAZKI	|
+| OBRAZKI	|
+|	     /\	|
+________________
+
+ OBrazki siê zamieniaj¹ miejscami 
+Zaimplementowaæ strukturê która 
+Ograniczyæ pamiêæ wirtualnej maszyny 
+Eclipse ma run Comfiguration !!!

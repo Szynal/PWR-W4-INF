@@ -1,5 +1,6 @@
-﻿  GCD.cpp
+﻿  pch.cpp
+  GCD.cpp
   HelloJNI.cpp
   Generating Code...
-     Creating library C:\Users\szyna\Desktop\Documents\PWR-W4-INF\Programowanie w jŕzyku Java\lab05\GCD\x64\Debug\GCD.lib and object C:\Users\szyna\Desktop\Documents\PWR-W4-INF\Programowanie w jŕzyku Java\lab05\GCD\x64\Debug\GCD.exp
+     Creating library C:\Users\szyna\Desktop\Documents\PWR-W4-INF\Programowanie w języku Java\lab05\GCD\x64\Debug\GCD.lib and object C:\Users\szyna\Desktop\Documents\PWR-W4-INF\Programowanie w języku Java\lab05\GCD\x64\Debug\GCD.exp
   GCD.vcxproj -> C:\Users\szyna\Desktop\Documents\PWR-W4-INF\Programowanie w języku Java\lab05\GCD\x64\Debug\GCD.dll
