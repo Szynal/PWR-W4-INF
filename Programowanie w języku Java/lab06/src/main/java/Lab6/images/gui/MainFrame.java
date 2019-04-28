@@ -46,7 +46,7 @@ public class MainFrame extends JFrame {
 	private ArrayList<WeakReference<ImageIcon>> weakImages = new ArrayList<WeakReference<ImageIcon>>();
 	private Queue<ImageIcon> cacheQueue = new LinkedList<ImageIcon>();
 
-	final int numberOfPictures = 10;
+	int numberOfPictures;
 	final int showedAtOnce = 2;
 	private int currentIndex = 0;
 
@@ -80,13 +80,14 @@ public class MainFrame extends JFrame {
 		JMenuInitialize();
 	}
 
-	private ImageIcon loadIcon(String file) {
+	private ImageIcon loadIcon(String path, File file) {
 		BufferedImage tmp = null;
 		Image scalledImage;
-		System.out.println("Loading: " + file);
+		System.out.println("Loading: " + path);
 
 		try {
-			tmp = ImageIO.read(new File(file));
+			tmp = ImageIO.read(file);
+
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -204,7 +205,7 @@ public class MainFrame extends JFrame {
 		lblImage1 = new JLabel();
 		lblImage1.setMinimumSize(new Dimension(500, 200));
 		panel.add(lblImage1);
-		
+
 		scrollPane_1 = new JScrollPane();
 		panel.add(scrollPane_1);
 
@@ -225,8 +226,9 @@ public class MainFrame extends JFrame {
 					System.out.println("UA from reference");
 					lblImage1.setIcon(weakImages.get(currentIndex).get());
 				} else {
-					System.out.println("UA loading");
-					lblImage1.setIcon(loadIcon(Integer.toString(currentIndex) + ".jpg"));
+					System.out.println("U loading");
+					lblImage1.setIcon(
+							loadIcon(reflections.get(currentIndex).getPath(), reflections.get(currentIndex).getFile()));
 					weakImages.set(currentIndex, new WeakReference<ImageIcon>((ImageIcon) lblImage1.getIcon()));
 				}
 				System.out.println(Integer.toString(currentIndex) + " " + Integer.toString(currentIndex + 1));
@@ -251,8 +253,9 @@ public class MainFrame extends JFrame {
 					System.out.println("DA from reference");
 					lblImage2.setIcon(weakImages.get(currentIndex + 1).get());
 				} else {
-					System.out.println("DA loading");
-					lblImage2.setIcon(loadIcon(Integer.toString(currentIndex + 1) + ".jpg"));
+					System.out.println("D loading");
+					lblImage2.setIcon(loadIcon(reflections.get(currentIndex + 1).getPath(),
+							reflections.get(currentIndex + 1).getFile()));
 					weakImages.set(currentIndex + 1, new WeakReference<ImageIcon>((ImageIcon) lblImage2.getIcon()));
 				}
 				System.out.println(Integer.toString(currentIndex) + " " + Integer.toString(currentIndex + 1));
@@ -287,8 +290,7 @@ public class MainFrame extends JFrame {
 			List<File> files = (List<File>) FileUtils.listFiles(dir, extensions, true);
 			for (File file : files) {
 
-				Reflection reflection = new Reflection("file:/" + file.getAbsolutePath(), file.getName());
-				reflection.setPath("file:/" + file.getAbsolutePath());
+				Reflection reflection = new Reflection(file.getAbsolutePath(), file.getName(), file);
 				reflections.add(reflection);
 				System.out.println(file.getPath());
 
@@ -300,22 +302,24 @@ public class MainFrame extends JFrame {
 			cacheQueue.add(null);
 			cacheQueue.add(null);
 
+			numberOfPictures = reflections.size();
+
 			for (int i = 0; i < numberOfPictures; i++) {
-				System.out.println("adding to array " + Integer.toString(i) + ".jpg");
+				System.out.println("adding to array " + reflections.get(i).getName());
 				weakImages.add(new WeakReference<ImageIcon>(null));
 			}
 			if (weakImages.get(0).get() != null) {
 				lblImage1.setIcon(weakImages.get(0).get());
 			} else {
-				System.out.println("Init Loading 0.jpg");
-				lblImage1.setIcon(loadIcon("0.jpg"));
+				System.out.println("Init Loading " + reflections.get(0).getName());
+				lblImage1.setIcon(loadIcon(reflections.get(0).getPath(), reflections.get(0).getFile()));
 				weakImages.set(0, new WeakReference<ImageIcon>((ImageIcon) lblImage1.getIcon()));
 			}
 			if (weakImages.get(1).get() != null) {
 				lblImage2.setIcon(weakImages.get(1).get());
 			} else {
-				System.out.println("Init Loading 1.jpg");
-				lblImage2.setIcon(loadIcon("1.jpg"));
+				System.out.println("Init Loading " + reflections.get(1).getName());
+				lblImage2.setIcon(loadIcon(reflections.get(1).getPath(), reflections.get(1).getFile()));
 				weakImages.set(1, new WeakReference<ImageIcon>((ImageIcon) lblImage2.getIcon()));
 			}
 
@@ -332,7 +336,7 @@ public class MainFrame extends JFrame {
 			int id = 0;
 			for (Reflection reflection : reflections) {
 				id++;
-				Object[] content = { id, reflection.getClassName(), reflection.getLoaded() };
+				Object[] content = { id, reflection.getName(), reflection.getLoaded() };
 				model.addRow(content);
 
 			}
