@@ -1,4 +1,4 @@
-package Lab3.imagemodifier.gui;
+package Lab6.images.gui;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;

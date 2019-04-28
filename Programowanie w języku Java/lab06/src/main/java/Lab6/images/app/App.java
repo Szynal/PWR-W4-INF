@@ -1,7 +1,8 @@
-package Lab3.weakReferencesApp;
+package Lab6.images.app;
 
 import javax.swing.SwingUtilities;
-import Lab3.imagemodifier.gui.MainFrame;
+
+import Lab6.images.gui.MainFrame;
 
 public class App 
 {
