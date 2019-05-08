@@ -298,10 +298,6 @@ public class MainFrame extends JFrame {
 
 			TableUpdate();
 
-			cacheQueue.add(null);
-			cacheQueue.add(null);
-			cacheQueue.add(null);
-
 			numberOfPictures = reflections.size();
 
 			for (int i = 0; i < numberOfPictures; i++) {
