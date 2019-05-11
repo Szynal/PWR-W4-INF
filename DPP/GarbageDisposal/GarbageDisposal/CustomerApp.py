@@ -1,7 +1,7 @@
 from Order import Order 
 
 class Customer(object):
-    """description of class"""
+    """The class responsible for the Customer panel"""
 
     def customer_loop(self, id, containers_list, orders):
         print("Hello in Klient App")

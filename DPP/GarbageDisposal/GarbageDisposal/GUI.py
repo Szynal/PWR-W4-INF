@@ -2,7 +2,7 @@ import os
 import time
 
 class GUI(object):
-    """description of class"""
+    """Graphical user interface"""
 
     def print_title(self):
         print(" ____________________________________________________")

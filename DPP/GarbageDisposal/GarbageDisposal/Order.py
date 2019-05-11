@@ -14,5 +14,5 @@ class Order(object):
     def print_order(self, id):
         print("ID: {} \n"
               "Paid? {}\n"
-              "A container with a size of {} liters costs PLN {0}\n\n".format(id, self.paid, self.container.size,
+              "A container with a size of {} liters costs PLN {}\n\n".format(id, self.paid, self.container.size,
                                                                        self.container.price))

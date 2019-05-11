@@ -1,13 +1,13 @@
 class Container(object):
-    """description of class"""
+    """Class of the container intended for garbage disposal"""
 
     def __init__(self, price=0, size=0):
         self.price = price
         self.size = size
 
     def print_info(self, id):
-        print("ID: {} Kontener o wielkości {} litrów kosztuje {}zł".format(id, self.size, self.price))
+        print("ID: {} A container of {} liters costs {} PLN".format(id, self.size, self.price))
 
     def edit_container(self):
-        self.price = int(input("Podaj cenę kontenera: "))
-        self.size = int(input("Podaj rozmiar kontenera: "))
+        self.price = int(input("Enter price of the container: "))
+        self.size = int(input("Enter container size:"))

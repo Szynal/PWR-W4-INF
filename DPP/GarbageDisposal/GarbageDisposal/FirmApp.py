@@ -3,7 +3,7 @@ from Order import Order
 from GUI import GUI 
 
 class Firm(object):
-    """description of class"""
+    """The class responsible for the firm panel"""
 
     def __init__(self):
         self.container_list = [Container() for i in range(5)]
