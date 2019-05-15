@@ -13,7 +13,7 @@ public class Visit {
 	private boolean confirmed;
 	private String recommendation;
 
-	Visit(int visitID, int patientID, Doctor doctor, boolean confirmed, String recommendation, String date,
+	public Visit(int visitID, int patientID, Doctor doctor, boolean confirmed, String recommendation, String date,
 			String time) {
 		this.visitID = visitID;
 		this.patientID = patientID;

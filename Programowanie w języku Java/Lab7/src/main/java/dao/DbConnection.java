@@ -3,7 +3,7 @@ package dao;
 import java.sql.*;
 
 public class DbConnection {
-    private static String DB_URL = "jdbc:sqlite:dpplab2.db";
+    private static String DB_URL = "jdbc:sqlite:lab7.db";
     private Connection connection;
 
     public DbConnection() throws SQLException {
