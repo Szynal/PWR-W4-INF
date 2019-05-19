@@ -52,6 +52,8 @@ public class VisitPlanner {
 
 	private void initialize() {
 		frame = new JFrame();
+		frame.getContentPane().setBackground(new Color(51, 51, 51));
+		frame.getContentPane().setForeground(new Color(255, 255, 255));
 		frame.setType(Type.UTILITY);
 		frame.setResizable(false);
 		frame.setBounds(100, 100, 450, 300);
@@ -59,18 +61,21 @@ public class VisitPlanner {
 		frame.getContentPane().setLayout(null);
 
 		JPanel panel = new JPanel();
-		panel.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "Podaj dat\u0119",
-				TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
-		panel.setBounds(109, 37, 109, 43);
+		panel.setForeground(new Color(255, 255, 255));
+		panel.setBackground(new Color(51, 51, 51));
+		panel.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "Give date", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(255, 255, 255)));
+		panel.setBounds(41, 37, 177, 43);
 		frame.getContentPane().add(panel);
 		panel.setLayout(null);
 
 		txtDate = new JTextField();
-		txtDate.setBounds(6, 16, 86, 20);
+		txtDate.setBounds(6, 16, 161, 20);
 		panel.add(txtDate);
 		txtDate.setColumns(10);
 
 		btnSzukaj = new JButton("Szukaj");
+		btnSzukaj.setBackground(new Color(51, 51, 51));
+		btnSzukaj.setForeground(new Color(255, 255, 255));
 		btnSzukaj.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
@@ -87,7 +92,7 @@ public class VisitPlanner {
 				}
 			}
 		});
-		btnSzukaj.setBounds(230, 48, 89, 23);
+		btnSzukaj.setBounds(230, 46, 149, 34);
 		frame.getContentPane().add(btnSzukaj);
 
 		scrollPane = new JScrollPane();
@@ -108,6 +113,8 @@ public class VisitPlanner {
 		scrollPane.setViewportView(list);
 
 		btnOrder = new JButton("Rezerwuj");
+		btnOrder.setForeground(new Color(255, 255, 255));
+		btnOrder.setBackground(new Color(51, 51, 51));
 		btnOrder.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {

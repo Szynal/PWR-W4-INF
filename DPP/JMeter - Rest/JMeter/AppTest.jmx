@@ -32,11 +32,11 @@ Make test last 1 minute (see Scheduler)</stringProp>
           <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
             <collectionProp name="Arguments.arguments"/>
           </elementProp>
-          <stringProp name="HTTPSampler.domain">localhost:5000</stringProp>
+          <stringProp name="HTTPSampler.domain"></stringProp>
           <stringProp name="HTTPSampler.port"></stringProp>
-          <stringProp name="HTTPSampler.protocol"></stringProp>
+          <stringProp name="HTTPSampler.protocol">http</stringProp>
           <stringProp name="HTTPSampler.contentEncoding"></stringProp>
-          <stringProp name="HTTPSampler.path"></stringProp>
+          <stringProp name="HTTPSampler.path">http://127.0.0.1:5000/execute</stringProp>
           <stringProp name="TestPlan.comments">Notice Timeouts:
 Read to 30s
 Connect to 5s</stringProp>
@@ -117,9 +117,9 @@ Connect to 5s</stringProp>
           <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="Variables pré-définies" enabled="true">
             <collectionProp name="Arguments.arguments"/>
           </elementProp>
-          <stringProp name="HTTPSampler.domain"></stringProp>
-          <stringProp name="HTTPSampler.port"></stringProp>
-          <stringProp name="HTTPSampler.protocol"></stringProp>
+          <stringProp name="HTTPSampler.domain">localhost</stringProp>
+          <stringProp name="HTTPSampler.port">5000</stringProp>
+          <stringProp name="HTTPSampler.protocol">http</stringProp>
           <stringProp name="HTTPSampler.contentEncoding"></stringProp>
           <stringProp name="HTTPSampler.path">/test</stringProp>
           <stringProp name="HTTPSampler.method">GET</stringProp>
@@ -181,7 +181,7 @@ Connect to 5s</stringProp>
           </value>
         </objProp>
         <stringProp name="TestPlan.comments">For scripting only</stringProp>
-        <stringProp name="filename"></stringProp>
+        <stringProp name="filename">C:\Users\szyna\Desktop\Documents\PWR-W4-INF\DPP\JMeter - Rest\AppTest.jmx</stringProp>
       </ResultCollector>
       <hashTree/>
     </hashTree>

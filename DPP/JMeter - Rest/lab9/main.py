@@ -3,7 +3,6 @@ from User import User
 from flask import Flask, request
 import pickle
 
-
 #otwarcie plikow z danymi
 file_users = open('users.obj', 'rb')
 file_offers = open('offers.obj', 'rb')
