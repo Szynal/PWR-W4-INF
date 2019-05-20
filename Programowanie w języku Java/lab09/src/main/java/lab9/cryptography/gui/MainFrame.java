@@ -2,17 +2,18 @@ package lab9.cryptography.gui;
 
 import java.awt.Color;
 import java.awt.Font;
-import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.util.Objects;
+import java.security.NoSuchAlgorithmException;
+import java.security.NoSuchProviderException;
 
+import javax.crypto.NoSuchPaddingException;
 import javax.imageio.ImageIO;
-import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JMenu;
@@ -24,39 +25,107 @@ import javax.swing.JTabbedPane;
 import javax.swing.SwingConstants;
 import javax.swing.border.TitledBorder;
 
+import lab9.cryptography.core.Cryptosystem;
+import lab9.cryptography.core.Cryptosystem.EncryptionMethod;
+import lab9.cryptography.core.KeyGenerator;
+import javax.swing.JScrollPane;
+import javax.swing.JComboBox;
+
 public class MainFrame extends JFrame {
 
 	private static final long serialVersionUID = 8255412204648907508L;
 
-	private JPanel panelImages;
+	Cryptosystem cryptosystem;
+	KeyGenerator keyGenerator;
+	File file = null;
+	File publicKey = null;
+	File privateKey = null;
+
+	String encrypted = "test/text_encrypted.txt";
+	String decrypted = "test/text_decrypted.txt";
+
+	// GUI
+	private JTabbedPane tabbedPane;
+	private JPanel panelCpryptography;
 
 	private JMenuBar menuBar;
 	private JMenu mnNewMenu;
 	private JMenuItem mntmTask;
 	private JMenuItem mntmAuthor;
 
-	private JButton button;
-	private JButton button_3;
-	private JButton button_4;
-	private JButton button_5;
+	private JComboBox<Object> comboBox;
+
+	private JButton btnEncryptFile;
+	private JButton btnDecryptFile;
+	private JButton btnChoseFile;
+	private JButton btnChosePublicKey;
+	private JButton btnChosePrivateKey;
+	private JButton btnGenerateKeys;
+
+	private JLabel lblFilePath;
+	private JScrollPane scrollPane;
 
 	public MainFrame() {
-		initialize();
-		JMenuInitialize();
+		try {
+			guiInit();
+			JMenuInitialize();
+			coreInit();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
 	}
 
+	private void coreInit() throws NoSuchAlgorithmException, NoSuchProviderException, NoSuchPaddingException {
+		cryptosystem = new Cryptosystem(comboBox.getSelectedItem().toString());
+		keyGenerator = new KeyGenerator(1024);
+
+	}
+
+	private void encrypt() throws IOException {
+		try {
+			coreInit();
+			cryptosystem.encryptFile(cryptosystem.getFileInBytes(file), new File(encrypted),
+					cryptosystem.getPrivate(privateKey.getAbsolutePath(), comboBox.getSelectedItem().toString()));
+		} catch (Exception e) {
+			JOptionPane.showMessageDialog(null, "Encrypt error");
+			e.printStackTrace();
+		}
+	}
+
+	private void decrypt() throws IOException {
+		try {
+			coreInit();
+			cryptosystem.decryptFile(cryptosystem.getFileInBytes(new File(encrypted)), new File(decrypted),
+					cryptosystem.getPublic(publicKey.getAbsolutePath(), comboBox.getSelectedItem().toString()));
+		} catch (Exception e) {
+			JOptionPane.showMessageDialog(null, "Decrypt error");
+			e.printStackTrace();
+		}
+	}
+
+	private void choseFile() {
+		JFileChooser chooser = new JFileChooser();
+		chooser.setCurrentDirectory(new File(System.getProperty("user.dir")));
+		int returnVal = chooser.showOpenDialog(null);
+		if (returnVal == JFileChooser.APPROVE_OPTION) {
+			System.out.println("You chose to open this file: " + chooser.getSelectedFile().getName());
+			file = chooser.getSelectedFile();
+			lblFilePath.setText(file.getAbsolutePath());
+		}
+	}
 
 	private void JFrameInitialize() {
 		try {
 
 			this.setBackground(new Color(51, 51, 51));
-			this.setTitle("Cryptography in Java ");
+			this.setTitle("Cryptosystem");
 			this.setForeground(new Color(0, 0, 0));
 			this.getContentPane().setBackground(new Color(51, 51, 51));
 			this.setResizable(false);
 			BufferedImage appIcon = ImageIO.read(getClass().getClassLoader().getResource("pwr.jpg"));
 			this.setIconImage(appIcon);
-			this.setBounds(100, 100, 750, 550);
+			this.setBounds(100, 100, 750, 518);
 			this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -80,7 +149,7 @@ public class MainFrame extends JFrame {
 			mnNewMenu.add(mntmAuthor);
 			mntmAuthor.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent arg0) {
-					JOptionPane.showMessageDialog(null, "Pawel� Szynal\n226026");
+					JOptionPane.showMessageDialog(null, "Pawel Szynal\n226026");
 				}
 			});
 		} catch (Exception e) {
@@ -88,101 +157,144 @@ public class MainFrame extends JFrame {
 		}
 	}
 
-	private void initialize() {
+	private void guiInit() {
 		JFrameInitialize();
 		setBounds(100, 100, 750, 480);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		getContentPane().setLayout(null);
 
-		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
+		tabbedPane = new JTabbedPane(JTabbedPane.TOP);
 		tabbedPane.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		tabbedPane.setBounds(0, 0, 744, 430);
 		getContentPane().add(tabbedPane);
 
-		panelImages = new JPanel();
-		panelImages.setBackground(new Color(51, 51, 51));
-		tabbedPane.addTab("Images", null, panelImages, null);
-		panelImages.setLayout(null);
+		panelCpryptography = new JPanel();
+		panelCpryptography.setBackground(new Color(51, 51, 51));
+		tabbedPane.addTab("Cryptography", null, panelCpryptography, null);
+		panelCpryptography.setLayout(null);
 
-		JButton button_1 = new JButton("Get Pictures folder");
-		button_1.setForeground(Color.WHITE);
-		button_1.setFont(new Font("Tahoma", Font.BOLD, 12));
-		button_1.setBackground(new Color(51, 51, 51));
-		button_1.setBounds(15, 270, 354, 40);
-		panelImages.add(button_1);
+		comboBox = new JComboBox<Object>(EncryptionMethod.values());
+		comboBox.setBounds(154, 104, 215, 30);
+		panelCpryptography.add(comboBox);
 
-		JButton button_2 = new JButton("Get Pictures folder");
-		button_2.setForeground(Color.WHITE);
-		button_2.setFont(new Font("Tahoma", Font.BOLD, 12));
-		button_2.setBackground(new Color(51, 51, 51));
-		button_2.setBounds(15, 325, 354, 40);
-		panelImages.add(button_2);
+		btnGenerateKeys = new JButton("Generate Keys");
+		btnGenerateKeys.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				keyGenerator.createKeys();
+			}
+		});
+		btnGenerateKeys.setForeground(Color.WHITE);
+		btnGenerateKeys.setFont(new Font("Tahoma", Font.BOLD, 12));
+		btnGenerateKeys.setBackground(new Color(51, 51, 51));
+		btnGenerateKeys.setBounds(15, 145, 354, 40);
+		panelCpryptography.add(btnGenerateKeys);
 
-		button = new JButton("Get Pictures folder");
-		button.setForeground(Color.WHITE);
-		button.setFont(new Font("Tahoma", Font.BOLD, 12));
-		button.setBackground(new Color(51, 51, 51));
-		button.setBounds(15, 215, 354, 40);
-		panelImages.add(button);
+		btnChosePrivateKey = new JButton("Chose Private Key");
+		btnChosePrivateKey.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				JFileChooser chooser = new JFileChooser();
+				chooser.setCurrentDirectory(new File(System.getProperty("user.dir")));
+				int returnVal = chooser.showOpenDialog(null);
+				if (returnVal == JFileChooser.APPROVE_OPTION) {
+					System.out.println("You chose to open this file: " + chooser.getSelectedFile().getName());
+					privateKey = chooser.getSelectedFile();
+				}
 
-		button_3 = new JButton("Get Pictures folder");
-		button_3.setForeground(Color.WHITE);
-		button_3.setFont(new Font("Tahoma", Font.BOLD, 12));
-		button_3.setBackground(new Color(51, 51, 51));
-		button_3.setBounds(15, 159, 354, 40);
-		panelImages.add(button_3);
+			}
+		});
+		btnChosePrivateKey.setForeground(Color.WHITE);
+		btnChosePrivateKey.setFont(new Font("Tahoma", Font.BOLD, 12));
+		btnChosePrivateKey.setBackground(new Color(51, 51, 51));
+		btnChosePrivateKey.setBounds(15, 196, 354, 40);
+		panelCpryptography.add(btnChosePrivateKey);
 
-		button_4 = new JButton("Get Pictures folder");
-		button_4.setForeground(Color.WHITE);
-		button_4.setFont(new Font("Tahoma", Font.BOLD, 12));
-		button_4.setBackground(new Color(51, 51, 51));
-		button_4.setBounds(15, 102, 354, 40);
-		panelImages.add(button_4);
+		btnEncryptFile = new JButton("Encrypt File");
+		btnEncryptFile.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				try {
+					encrypt();
+				} catch (IOException e1) {
+					e1.printStackTrace();
+				}
+			}
+		});
+		btnEncryptFile.setForeground(Color.WHITE);
+		btnEncryptFile.setFont(new Font("Tahoma", Font.BOLD, 12));
+		btnEncryptFile.setBackground(new Color(51, 51, 51));
+		btnEncryptFile.setBounds(15, 247, 354, 40);
+		panelCpryptography.add(btnEncryptFile);
 
-		button_5 = new JButton("Get Pictures folder");
-		button_5.setForeground(Color.WHITE);
-		button_5.setFont(new Font("Tahoma", Font.BOLD, 12));
-		button_5.setBackground(new Color(51, 51, 51));
-		button_5.setBounds(15, 46, 354, 40);
-		panelImages.add(button_5);
+		btnDecryptFile = new JButton("Decrypt File");
+		btnDecryptFile.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				try {
+					decrypt();
+				} catch (IOException e1) {
+					e1.printStackTrace();
+				}
+			}
+		});
+		btnDecryptFile.setForeground(Color.WHITE);
+		btnDecryptFile.setFont(new Font("Tahoma", Font.BOLD, 12));
+		btnDecryptFile.setBackground(new Color(51, 51, 51));
+		btnDecryptFile.setBounds(15, 349, 354, 40);
+		panelCpryptography.add(btnDecryptFile);
+
+		btnChoseFile = new JButton("Chose File");
+		btnChoseFile.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				choseFile();
+			}
+		});
+		btnChoseFile.setForeground(Color.WHITE);
+		btnChoseFile.setFont(new Font("Tahoma", Font.BOLD, 12));
+		btnChoseFile.setBackground(new Color(51, 51, 51));
+		btnChoseFile.setBounds(15, 38, 354, 55);
+		panelCpryptography.add(btnChoseFile);
+
+		btnChosePublicKey = new JButton("Chose Public Key");
+		btnChosePublicKey.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				JFileChooser chooser = new JFileChooser();
+				chooser.setCurrentDirectory(new File(System.getProperty("user.dir")));
+				int returnVal = chooser.showOpenDialog(null);
+				if (returnVal == JFileChooser.APPROVE_OPTION) {
+					System.out.println("You chose to open this file: " + chooser.getSelectedFile().getName());
+					publicKey = chooser.getSelectedFile();
+				}
+
+			}
+		});
+		btnChosePublicKey.setForeground(Color.WHITE);
+		btnChosePublicKey.setFont(new Font("Tahoma", Font.BOLD, 12));
+		btnChosePublicKey.setBackground(new Color(51, 51, 51));
+		btnChosePublicKey.setBounds(15, 298, 354, 40);
+		panelCpryptography.add(btnChosePublicKey);
 
 		JPanel panel = new JPanel();
 		panel.setBackground(new Color(51, 51, 51));
 		panel.setForeground(new Color(255, 255, 255));
 		panel.setBorder(new TitledBorder(null, "Output", TitledBorder.LEADING, TitledBorder.TOP, null,
 				new Color(255, 255, 255)));
-		panel.setBounds(384, 34, 335, 331);
-		panelImages.add(panel);
+		panel.setBounds(384, 11, 335, 378);
+		panelCpryptography.add(panel);
 		panel.setLayout(null);
 
-		JLabel lblNewLabel = new JLabel("No File");
-		lblNewLabel.setForeground(new Color(255, 255, 255));
-		lblNewLabel.setBackground(new Color(51, 51, 51));
-		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		lblNewLabel.setHorizontalAlignment(SwingConstants.LEFT);
-		lblNewLabel.setVerticalAlignment(SwingConstants.TOP);
-		lblNewLabel.setBounds(15, 26, 305, 289);
-		panel.add(lblNewLabel);
+		scrollPane = new JScrollPane();
+		scrollPane.setBounds(15, 26, 305, 53);
+		panel.add(scrollPane);
+
+		lblFilePath = new JLabel("No File");
+		scrollPane.setViewportView(lblFilePath);
+		lblFilePath.setForeground(Color.BLACK);
+		lblFilePath.setBackground(new Color(51, 51, 51));
+		lblFilePath.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		lblFilePath.setHorizontalAlignment(SwingConstants.CENTER);
+
+		JLabel lblMethod = new JLabel("Encryption method");
+		lblMethod.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		lblMethod.setForeground(new Color(255, 255, 255));
+		lblMethod.setBounds(15, 104, 166, 30);
+		panelCpryptography.add(lblMethod);
 	}
-
-	
-
-	@SuppressWarnings("unused")
-	private ImageIcon loadIcon(String path, File file) {
-		BufferedImage tmp = null;
-		Image scalledImage;
-		System.out.println("Loading: " + path);
-
-		try {
-			tmp = ImageIO.read(file);
-
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-
-		scalledImage = Objects.requireNonNull(tmp).getScaledInstance(500, 200, Image.SCALE_SMOOTH);
-
-		return new ImageIcon(scalledImage);
-	}
-	
 }
