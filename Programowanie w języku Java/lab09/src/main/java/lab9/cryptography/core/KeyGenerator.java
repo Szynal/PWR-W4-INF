@@ -60,10 +60,10 @@ public class KeyGenerator {
 	}
 
 	public void writeToFile(String path, byte[] key) throws IOException {
-		File f = new File(path);
-		f.getParentFile().mkdirs();
+		File file = new File(path);
+		file.getParentFile().mkdirs();
 
-		FileOutputStream fos = new FileOutputStream(f);
+		FileOutputStream fos = new FileOutputStream(file);
 		fos.write(key);
 		fos.flush();
 		fos.close();

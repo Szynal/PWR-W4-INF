@@ -35,7 +35,7 @@ public class Cryptosystem {
 	 * @author PSzynal
 	 */
 	public enum EncryptionMethod {
-		RSA, AES, CBC;
+		RSA, DSA, CBC;
 	}
 
 	/*
@@ -45,7 +45,7 @@ public class Cryptosystem {
 
 	public Cryptosystem(String method) throws NoSuchAlgorithmException, NoSuchPaddingException {
 		// this.cipher = Cipher.getInstance("AES/CBC/PKCS5Padding");
-		this.cipher = Cipher.getInstance("AES");
+		this.cipher = Cipher.getInstance(method);
 	}
 
 	public PrivateKey getPrivate(String filename, String method) throws Exception {
