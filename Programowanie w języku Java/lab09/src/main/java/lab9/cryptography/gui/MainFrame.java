@@ -7,16 +7,15 @@ import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
 import java.security.NoSuchProviderException;
-import java.util.Scanner;
 
 import javax.crypto.NoSuchPaddingException;
 import javax.imageio.ImageIO;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -25,17 +24,14 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
-import javax.swing.SwingConstants;
+import javax.swing.JTextArea;
 import javax.swing.border.TitledBorder;
 
 import lab9.cryptography.core.Cryptosystem;
 import lab9.cryptography.core.Cryptosystem.EncryptionMethod;
 import lab9.cryptography.core.KeyGenerator;
-import javax.swing.JScrollPane;
-import javax.swing.JComboBox;
-import javax.swing.JTextField;
-import javax.swing.JTextArea;
 
 public class MainFrame extends JFrame {
 
@@ -309,12 +305,12 @@ public class MainFrame extends JFrame {
 		panelCpryptography.add(lblMethod);
 	}
 
+	@SuppressWarnings("resource")
 	private void readFile(String filePath) throws IOException {
 		textArea.setText("");
 		BufferedReader br = new BufferedReader(new FileReader(filePath));
 		String st;
 		while ((st = br.readLine()) != null) {
-
 			textArea.append(st);
 			textArea.append("\n");
 		}
