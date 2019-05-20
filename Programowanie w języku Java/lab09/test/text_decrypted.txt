@@ -1,4 +1,4 @@
-Programowanie w jêzyku Java - techniki zaawansowane 
+Programowanie w jezyku Java - techniki zaawansowane 
 Laboratorium: 9
 P.Szynal 226026
 

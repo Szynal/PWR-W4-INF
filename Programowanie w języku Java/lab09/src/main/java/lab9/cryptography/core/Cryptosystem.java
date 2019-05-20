@@ -48,6 +48,27 @@ public class Cryptosystem {
 		this.cipher = Cipher.getInstance(method);
 	}
 
+	/**
+	 * TEST
+	 * 
+	 * @param args
+	 * @throws Exception
+	 */
+	public static void main(String[] args) throws Exception {
+		String encrypted = "test/text_encrypted.txt";
+		String decrypted = "test/text_decrypted.txt";
+		EncryptionMethod method = EncryptionMethod.RSA;
+		Cryptosystem ac = new Cryptosystem(method.name());
+		PrivateKey privateKey = ac.getPrivate("KeyPair/privateKey", method.name());
+		PublicKey publicKey = ac.getPublic("KeyPair/publicKey", method.name());
+		if (new File("test/text.txt").exists()) {
+			ac.encryptFile(ac.getFileInBytes(new File("test/text.txt")), new File(encrypted), privateKey);
+			ac.decryptFile(ac.getFileInBytes(new File(encrypted)), new File(decrypted), publicKey);
+		} else {
+			System.out.println("Create a file text.txt under folder KeyPair");
+		}
+	}
+
 	public PrivateKey getPrivate(String filename, String method) throws Exception {
 		byte[] keyBytes = Files.readAllBytes(new File(filename).toPath());
 		PKCS8EncodedKeySpec encodedKeySpec = new PKCS8EncodedKeySpec(keyBytes);
@@ -98,23 +119,6 @@ public class Cryptosystem {
 		fis.read(fbytes);
 		fis.close();
 		return fbytes;
-	}
-
-	public static void main(String[] args) throws Exception {
-
-		String encrypted = "test/text_encrypted.txt";
-		String decrypted = "test/text_decrypted.txt";
-		EncryptionMethod method = EncryptionMethod.RSA;
-		Cryptosystem ac = new Cryptosystem(method.name());
-		PrivateKey privateKey = ac.getPrivate("KeyPair/privateKey", method.name());
-		PublicKey publicKey = ac.getPublic("KeyPair/publicKey", method.name());
-
-		if (new File("test/text.txt").exists()) {
-			ac.encryptFile(ac.getFileInBytes(new File("test/text.txt")), new File(encrypted), privateKey);
-			ac.decryptFile(ac.getFileInBytes(new File(encrypted)), new File(decrypted), publicKey);
-		} else {
-			System.out.println("Create a file text.txt under folder KeyPair");
-		}
 	}
 
 }

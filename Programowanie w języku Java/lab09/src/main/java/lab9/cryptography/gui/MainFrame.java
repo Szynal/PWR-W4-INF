@@ -5,10 +5,14 @@ import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
 import java.security.NoSuchProviderException;
+import java.util.Scanner;
 
 import javax.crypto.NoSuchPaddingException;
 import javax.imageio.ImageIO;
@@ -30,6 +34,8 @@ import lab9.cryptography.core.Cryptosystem.EncryptionMethod;
 import lab9.cryptography.core.KeyGenerator;
 import javax.swing.JScrollPane;
 import javax.swing.JComboBox;
+import javax.swing.JTextField;
+import javax.swing.JTextArea;
 
 public class MainFrame extends JFrame {
 
@@ -43,6 +49,7 @@ public class MainFrame extends JFrame {
 
 	String encrypted = "test/text_encrypted.txt";
 	String decrypted = "test/text_decrypted.txt";
+	String text = "test/text.txt";
 
 	// GUI
 	private JTabbedPane tabbedPane;
@@ -61,9 +68,8 @@ public class MainFrame extends JFrame {
 	private JButton btnChosePublicKey;
 	private JButton btnChosePrivateKey;
 	private JButton btnGenerateKeys;
-
-	private JLabel lblFilePath;
-	private JScrollPane scrollPane;
+	private JTextArea textArea;
+	private JScrollPane scrollPane_1;
 
 	public MainFrame() {
 		try {
@@ -109,9 +115,9 @@ public class MainFrame extends JFrame {
 		chooser.setCurrentDirectory(new File(System.getProperty("user.dir")));
 		int returnVal = chooser.showOpenDialog(null);
 		if (returnVal == JFileChooser.APPROVE_OPTION) {
-			System.out.println("You chose to open this file: " + chooser.getSelectedFile().getName());
+			System.out.println("Chose file: " + chooser.getSelectedFile().getName());
 			file = chooser.getSelectedFile();
-			lblFilePath.setText(file.getAbsolutePath());
+			JOptionPane.showMessageDialog(this, "The file was selected correctly\n " + file.getAbsolutePath());
 		}
 	}
 
@@ -181,6 +187,7 @@ public class MainFrame extends JFrame {
 		btnGenerateKeys.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				keyGenerator.createKeys();
+				JOptionPane.showMessageDialog(null, "The keys were generated.");
 			}
 		});
 		btnGenerateKeys.setForeground(Color.WHITE);
@@ -196,7 +203,7 @@ public class MainFrame extends JFrame {
 				chooser.setCurrentDirectory(new File(System.getProperty("user.dir")));
 				int returnVal = chooser.showOpenDialog(null);
 				if (returnVal == JFileChooser.APPROVE_OPTION) {
-					System.out.println("You chose to open this file: " + chooser.getSelectedFile().getName());
+					System.out.println(": " + chooser.getSelectedFile().getName());
 					privateKey = chooser.getSelectedFile();
 				}
 
@@ -213,6 +220,7 @@ public class MainFrame extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				try {
 					encrypt();
+					readFile(encrypted);
 				} catch (IOException e1) {
 					e1.printStackTrace();
 				}
@@ -229,6 +237,7 @@ public class MainFrame extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				try {
 					decrypt();
+					readFile(decrypted);
 				} catch (IOException e1) {
 					e1.printStackTrace();
 				}
@@ -244,6 +253,11 @@ public class MainFrame extends JFrame {
 		btnChoseFile.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				choseFile();
+				try {
+					readFile(text);
+				} catch (IOException e1) {
+					e1.printStackTrace();
+				}
 			}
 		});
 		btnChoseFile.setForeground(Color.WHITE);
@@ -259,7 +273,7 @@ public class MainFrame extends JFrame {
 				chooser.setCurrentDirectory(new File(System.getProperty("user.dir")));
 				int returnVal = chooser.showOpenDialog(null);
 				if (returnVal == JFileChooser.APPROVE_OPTION) {
-					System.out.println("You chose to open this file: " + chooser.getSelectedFile().getName());
+					System.out.println(": " + chooser.getSelectedFile().getName());
 					publicKey = chooser.getSelectedFile();
 				}
 
@@ -280,21 +294,30 @@ public class MainFrame extends JFrame {
 		panelCpryptography.add(panel);
 		panel.setLayout(null);
 
-		scrollPane = new JScrollPane();
-		scrollPane.setBounds(15, 26, 305, 53);
-		panel.add(scrollPane);
+		scrollPane_1 = new JScrollPane();
+		scrollPane_1.setBounds(15, 25, 305, 342);
+		panel.add(scrollPane_1);
 
-		lblFilePath = new JLabel("No File");
-		scrollPane.setViewportView(lblFilePath);
-		lblFilePath.setForeground(Color.BLACK);
-		lblFilePath.setBackground(new Color(51, 51, 51));
-		lblFilePath.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		lblFilePath.setHorizontalAlignment(SwingConstants.CENTER);
+		textArea = new JTextArea();
+		textArea.setFont(new Font("Arial", Font.PLAIN, 12));
+		scrollPane_1.setViewportView(textArea);
 
 		JLabel lblMethod = new JLabel("Encryption method");
 		lblMethod.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		lblMethod.setForeground(new Color(255, 255, 255));
 		lblMethod.setBounds(15, 104, 166, 30);
 		panelCpryptography.add(lblMethod);
+	}
+
+	private void readFile(String filePath) throws IOException {
+		textArea.setText("");
+		BufferedReader br = new BufferedReader(new FileReader(filePath));
+		String st;
+		while ((st = br.readLine()) != null) {
+
+			textArea.append(st);
+			textArea.append("\n");
+		}
+
 	}
 }
