@@ -88,9 +88,7 @@ public class Window {
 	public Window() {
 		conn = new DBConnector();
 		conn.connect();
-
 		initialize();
-
 		refreshReceptionist();
 	}
 

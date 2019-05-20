@@ -15,12 +15,14 @@ import java.util.List;
 
 public class DBConnector {
 
+	private static String DB_URL = "jdbc:sqlite:db.db";;
+
 	public Connection connect() {
 		Connection conn = null;
 		try {
 			File dbfile = new File("");
-			String url = "jdbc:sqlite:db.db";
-			conn = DriverManager.getConnection(url);
+			// String url = "jdbc:sqlite:db.db";
+			conn = DriverManager.getConnection(DB_URL);
 			return conn;
 
 		} catch (SQLException e) {
