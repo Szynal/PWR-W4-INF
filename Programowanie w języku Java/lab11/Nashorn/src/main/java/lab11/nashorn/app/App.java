@@ -1,8 +1,8 @@
-package lab9.cryptography.app;
+package lab11.nashorn.app;
 
 import javax.swing.SwingUtilities;
 
-import lab9.cryptography.gui.MainFrame;
+import lab11.nashorn.gui.MainFrame;
 
 public class App {
 	public static MainFrame window;

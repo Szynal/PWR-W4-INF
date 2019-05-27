@@ -21,14 +21,13 @@ import java.security.spec.X509EncodedKeySpec;
  * @version 1.0
  * 
  */
-public class Cryptosystem {
-
+public class Cryptosystem {                                                                                   
 	/**
 	 * 
 	 * <p>
 	 * DiffieHellman - Diffie–Hellman key exchange
 	 * <p>
-	 * DSA - Digital Signature Algorithm
+	 * h - Digital Signature Algorithm
 	 * <p>
 	 * RSA - Rivest–Shamir–Adleman
 	 * 

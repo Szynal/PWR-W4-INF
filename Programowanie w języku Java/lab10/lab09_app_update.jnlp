@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jnlp spec="1.0+" codebase="http://localhost:8080/lab10/" href="lab09_app_update.jnlp">
+    <information>
+        <title>Lab10</title>
+        <vendor>Pawel Szynal</vendor>
+        <offline-allowed/>
+    </information>
+    <resources>
+        <!-- Application Resources -->
+        <jar href="lab09_app.jar"
+            main="true" />
+    </resources>
+    <application-desc main-class="lab9.cryptography.app.App"></application-desc>
+     <update check="background"/>
+</jnlp>
