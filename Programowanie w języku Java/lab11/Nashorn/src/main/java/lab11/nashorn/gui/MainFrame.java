@@ -49,7 +49,6 @@ import lab11.nashorn.app.App;
 public class MainFrame extends JFrame {
 
 	private static final long serialVersionUID = 8255412204648907508L;
-
 //	NashornScriptEngineFactory factory = new NashornScriptEngineFactory();
 	private ScriptEngine scriptEngine = new ScriptEngineManager().getEngineByName("nashorn");
 	private List<String> files = null;
