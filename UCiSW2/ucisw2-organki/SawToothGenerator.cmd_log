@@ -1,0 +1,5 @@
+vhdtdtfi -lib work SawToothDivider.vhd -prj ucisw2-organki -o SawToothGenerator.spl -module SawToothGenerator -template C:/Xilinx/14.7/ISE_DS/ISE//data/splfile.tft -deleteonerror 
+spl2sym -intstyle ise -family spartan3e SawToothGenerator.spl C:/Users/lab/Documents/ucisw2-organki/SawToothGenerator.sym 
+vhdtdtfi -prj ucisw2-organki -o C:/Users/lab/Documents/ucisw2-organki/SawToothGenerator.vhi -module SawToothGenerator -template C:/Xilinx/14.7/ISE_DS/ISE//data/vhdlinst.tft -deleteonerror -lib work SawToothDivider.vhd 
+vhdtdtfi -lib work SawToothDivider.vhd -prj ucisw2-organki -o SawToothGenerator.spl -module SawToothGenerator -template C:/Xilinx/14.7/ISE_DS/ISE//data/splfile.tft -deleteonerror 
+spl2sym -intstyle ise -family spartan3e SawToothGenerator.spl C:/Users/lab/Documents/ucisw2-organki/SawToothGenerator.sym 

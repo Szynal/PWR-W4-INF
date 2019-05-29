@@ -1,0 +1,628 @@
+\documentclass[11pt]{report}
+\usepackage{graphicx}
+\usepackage{subcaption}
+\usepackage[T1]{fontenc}
+\usepackage[polish]{babel}
+\usepackage{mathptmx}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern}
+\usepackage{enumitem}
+\usepackage{setspace}
+\usepackage{advdate}
+\usepackage{fancyvrb}
+\usepackage[none]{hyphenat}
+\usepackage{amsmath}
+\usepackage{listings}
+\usepackage{color}
+\usepackage{floatrow}
+\usepackage[left=2.5cm,top=2.5cm,right=2.5cm,bottom=2.5cm,bindingoffset=0.5cm]{geometry}
+\usepackage[table,xcdraw]{xcolor}
+
+\usepackage{listings}
+\lstset{
+    basicstyle=\ttfamily,
+    columns=fixed,
+    fontadjust=true,
+    basewidth=0.5em,
+    showstringspaces=false.
+    language=VHDL,
+    extendedchars=\true,
+    literate={ą}{{\k{a}}}1
+             {Ą}{{\k{A}}}1
+             {ę}{{\k{e}}}1
+             {Ę}{{\k{E}}}1
+             {ó}{{\'o}}1
+             {Ó}{{\'O}}1
+             {ś}{{\'s}}1
+             {Ś}{{\'S}}1
+             {ł}{{\l{}}}1
+             {Ł}{{\L{}}}1
+             {ż}{{\.z}}1
+             {Ż}{{\.Z}}1
+             {ź}{{\'z}}1
+             {Ź}{{\'Z}}1
+             {ć}{{\'c}}1
+             {Ć}{{\'C}}1
+             {ń}{{\'n}}1
+             {Ń}{{\'N}}1
+}
+
+\setcounter{chapter}{1}
+\begin{document}
+
+\begin{titlepage}
+    \newcommand{\HRule}{\rule{\linewidth}{0.5mm}}
+    \center
+    \includegraphics[scale=0.4]{logo.jpg}\\[1cm] 
+    \HRule \\[0.8cm]
+    { \Large \bfseries Układy cyfrowe i systemy wbudowane 2 - Projekt}\\[0.4cm]
+    \HRule \\[1.5cm]
+    { \Large \bfseries Organy wykonane na \textit{Spartanie-3E}}\\[0.4cm]
+    \textbf{ }
+    \vspace{10mm} 
+    
+    \begin{minipage}{0.4\textwidth}
+    \begin{flushleft} \large
+    \end{flushleft}
+    \end{minipage}
+    \begin{minipage}{0.5\textwidth}
+    \begin{flushright} \large
+    \vfill
+    \vspace{80mm} % mm vertical space
+    \par Wydział Elektroniki
+    \par Kierunek: Informatyka
+    \vfill
+    \vspace{10mm} % mm vertical space
+    
+    \par Skład grupy projektowej:\\
+    \par Jakub \textsc{Sokołowski 226080}\\
+    \par Paweł \textsc{Szynal 226026} \\
+   \vspace{10mm} % mm vertical space
+    \par Prowadzący: dr inż. Jarosław Sugier
+    \end{flushright}
+    \end{minipage}\\[3cm]
+   %  {\large Wrocław 2019 r.}\\[2cm]
+\end{titlepage}
+\tableofcontents
+\listoffigures
+\lstlistoflistings
+\newpage
+\section{Wprowadzenie}
+\subsection{Temat Pracy}
+\centerline{\textbf{ Organy wykonane na \textit{Spartanie-3E}}}
+
+
+\subsection{Cel projektu}
+Założeniem projektu było wykonanie prostych organów z wykorzystaniem układu Spartan3E w celach dydaktycznych.  Jako grupa zdecydowaliśmy się na próbę implementacji jedno-gamowego piania obsługiwanego przez klawiaturę podłączaną do układu, z możliwością zapisywania i odtwarzania danego fragmentu na pamięci RAM urządzenia. Do odtwarzania naszej muzyki wykorzystaliśmy przetwornik DAC i podłączony do niego głośnik.\\\\Prace nad projektem podzieliliśmy na pomniejsze etapy, tj.:
+\begin{itemize}
+\item Generacja sygnału 1,5 kHz,
+\item Wyprowadzenie sygnału z modułu Podzielnika Częstotliwości,
+\item Obsłużenie przetwornika DAC,
+\item Obsługa klawiatury jako wejścia,
+\item Implementacja pamięci RAM,
+\item Odtwarzanie z pamięci,
+\item Nagrywanie, odgrywanie.
+\end{itemize}
+
+\subsection{Opis Sprzętu i Narzędzi}
+
+Wykorzystywany sprzęt: 
+
+\begin{itemize}
+    \item Spartan-3E FPGA Starter
+	    Jest to w pełni funkcjonalny układ FPGA firmy Digilent. Wyposażony jest w 32-bitowy procesor RISC i interfejsy DDR. Płyta posiada również interfejsy programowania równoległego Xilinx Platform. Płyta jest w pełni kompatybilna ze narzędziami, Xilinx ISE® i ModelSim XE.
+    
+    \item Klawiatury komputerowej 
+        Podłączona do zestawu na porcie PS2
+        
+    \item Głośnik firmy Tonsil 
+        Połączony do pinów GND i DAC-C
+\end{itemize}
+ 
+Wykorzystywane narzędzia:
+\begin{itemize}
+    \item Xilinx ISE®
+	    Jest to zintegrowane środowisko programistyczne służące do wykonywania wszystkich operacji związanych z przygotowaniem projektu w układzie FPGA 
+    
+    \item ModelSim XE
+        Symulator, który oblicza i przedstawia graficznie wygenerowany przez układ odpowiedzi na portach wyjściocwych.
+
+\end{itemize}
+ 
+\subsection{Opis interfejsów i używanych protokołów}
+	Jak już zostało wspomniane powyżej do interakcji z Naszym układem wymagana jest klawiatura komputerowa z wtyczką PS2 oraz głośnik. Parametry klawiatury czy głośnika, jak i ich właściwości nie mają dla poprawnej pracy układu żadnego znaczenia. W przypadku klawiatury wynika to z standardu jakim jest PS2, a w przypadku głośnika, jest to standard przetwornika DAC. Tym samym nie ma potrzeba zamieszczania danych katalogowych opisywanych elementów.
+	
+\section{Realizacja Projektu}
+\subsection{Zajęcia nr 1}
+\par Omówienie pracy i BHP
+
+\subsection{Zajęcia nr 2}
+
+\par Pierwszym celem naszego projektu było zaznajomienie się z modułem DAC i Sawtooth aby za pomocą ich wygenerować falę piło-kształtna o zadanej częstotliwości.
+
+\subsubsection{Sygnały zegarowe}
+    \par  Głównym i zarazem podstawowym wykorzystywanym układ jest generator częstotliwości służącej taktowaniu układu. 
+    W naszym projekcie korzystaliśmy z podstawowego sygnału zegarowego o częstotliwości 50 MHz. 
+
+    \par W oparciu o podstawowy zegarowy sygnał wejściowy i częstotliwość dźwięku, tworzony był kolejny sygnał zegarowy.
+\newpage
+
+\subsubsection{Przetwornik i Moduł DAC}
+    \par  W ramach przygotowania do projektu zaznajomiliśmy się z modułem DAC. Jak sama nazwa wskazuje jest to przetwornik cyfrowo-analogowy (z ang. Digital to Analog Converter, DAC) Innymi słowy jest to układ przetwarzający dyskretny sygnał cyfrowy na równoważny mu sygnał analogowy.
+   Spartan-3E zawiera kompatybilny czterokanałowy, szeregowy konwerter cyfrowo-analogowy.  
+    \vspace{5mm}
+    Komunikacja SPI:
+    \par  FPGA wykorzystuje interfejs komunikacji szeregowej (SPI -szeregowy interfejs urządzeń peryferyjnych) do czterech kanałów DAC. Magistrala SPI jest w pełni dupleksowa, synchroniczna. Nasz przetwornik ma 12-bit rozdzielczość i korzysta z SPI jako czterokanałowego sposobu przesyłu danych. 
+
+    \vspace{10mm}
+    
+     Zobrazowanie SPI:
+
+    \begin{figure}[h]
+    	\centering
+    	\includegraphics[width=0.7\linewidth]{spi.png}
+    	\caption{SPI}
+	    \label{fig:ps2}
+    \end{figure}
+    
+    \begin{itemize}
+	    \item MOSI (ang. Master Output Slave Input) – dane dla układu peryferyjnego,
+	    \item MISO (ang. Master Input Slave Output) – dane z układu peryferyjnego, 
+	    \item SClk (ang. Serial CLock) – sygnał zegarowy (taktujący), 
+	    \item SS (ang. Slave Select) - wybór układu podrzędnego
+	\end{itemize}
+	\vspace{5mm}
+    
+     \par W naszym wypadku to SPI działa troszkę inaczej. Dodane są linie DAC\_CS i DAC\_CLR. \newline CS oznacza początek przesyłu(dla stanu wysokiego), a CLR to typowy Clr. SPI przesyła 12-bitowe dane, potem 4 bity określający kanał przetwornika DAC na który ma to trafić.
+ 
+	\vspace{10mm}
+
+    \begin{lstlisting}[label=UCF Location Constraints,caption=UCF Location Constraints,frame=tb,language=vhdl]
+        NET "SPI_MISO" LOC = "N10" | IOSTANDARD = LVCMOS33 ;
+        NET "SPI_MOSI" LOC = "T4" | IOSTANDARD = LVCMOS33 | SLEW = SLOW | DRIVE = 8 ;
+        NET "SPI_SCK" LOC = "U16" | IOSTANDARD = LVCMOS33 | SLEW = SLOW | DRIVE = 8 ;
+        NET "DAC_CS" LOC = "N8" | IOSTANDARD = LVCMOS33 | SLEW = SLOW | DRIVE = 8 ;
+        NET "DAC_CLR" LOC = "P8" | IOSTANDARD = LVCMOS33 | SLEW = SLOW | DRIVE = 8 ;
+    \end{lstlisting}
+    \newpage
+    
+    
+\subsection{Zajęcia nr 3}
+
+\subsubsection{Sawtooth Wave}
+	
+	Fala piło-kształtna jest rodzajem fali niesinusoidalne zaś jest tak nazwana w oparciu o jego podobieństwo do zębów piły. Moduł przesyła odpowiednio przygotowany sygnał piło-kształtny, który następnie poprzez działanie modułu DAC wygrywany jest na głośniku dlatego można powiedzieć że dla generacji dźwięku jest to najważniejszy moduł ze wszystkich. 
+	
+    Wykorzystywany przez nas wzór do wygenerowania piły:
+$$x(t)=t-\underbrace{\lfloor t\rfloor}$$
+
+
+\begin{figure}[h]
+    \paragraph{Schemat}
+    	\centering
+    	\includegraphics[width=1.1\linewidth]{sawTooth.png}
+    	\caption{Schemat testowego sawTooth }
+	    \label{fig:ps2}
+\end{figure}
+
+	Devider jest modułem testowym przed wykonaniem organków w który odpowiadał za opdzielenie 50MHz na inne częsttliwości. Idea dość prosta i sprowadzająca się do prostego rachunku. 50MHz daje nam 20ns okresu zegarowego.
+
+\begin{lstlisting}[label=Clock_processs,caption= Clock\_processs w module Divider,frame=tb,language=vhdl]
+      Clock_processs: process
+    	begin
+    		Clock <= '0';
+    		wait for Clock_period/2;
+    		Clock <= '1';
+    		wait for Clock_period/2;
+    	end process;
+    	
+    	% Clock_period zostalo zadeklarowane przed tym jako stala 
+    	% constant Clock_period : time := 20ns;
+    \end{lstlisting}
+    
+	\begin{figure}[h]
+       	\centering
+    	\includegraphics[width=1.1\linewidth]{Clock_period.png}
+    	\caption{Clock\_period}
+	    \label{fig:ps2}
+\end{figure}
+\newpage
+
+\subsubsection{Dzielenie częstotliwości}
+
+\begin{lstlisting}[label=Dividing,caption= Dzielenie częstotliwości,frame=tb,language=vhdl]
+        process( ClkIN, ClrIN, temp )
+        begin
+        	if(ClrIN = '1') then 
+        		iterator <= 1;
+        		temp <= '0';
+        	elsif rising_edge(ClkIN)  then
+        		iterator <= iterator + 1;
+        		if (iterator = frequency) then
+        			temp <= NOT temp;
+        			iterator <= 1;
+        		end if;
+        	end if;
+        ClkOUT <= temp;
+        end process;
+    \end{lstlisting}
+    
+	\begin{figure}[h]
+       	\centering
+    	\includegraphics[width=1.1\linewidth]{test2.png}
+    	\caption{Test dzielenia częstotliwości}
+	    \label{fig:ps2}
+\end{figure}
+
+\subsubsection{Generacja piły}
+
+\begin{lstlisting}[label=saw,caption= Generacja piły,frame=tb,language=vhdl]
+        process(ClockIN, ClrIN)
+        begin
+            if(ClrIN = '1') then
+                iteratorProbek <= 0;
+            elsif(rising_edge(ClockIN)) then
+                if(iteratorProbek = 63) then
+                    iteratorProbek <= 0;
+                else
+                    iteratorProbek <= iteratorProbek + 1;
+                end if;
+            end if;
+        end process;
+    \end{lstlisting}
+    
+	\begin{figure}[h]
+       	\centering
+    	\includegraphics[width=1.1\linewidth]{pila.png}
+    	\caption{Generacja piły}
+	    \label{fig:ps2}
+\end{figure}
+\newpage
+\subsection{Zajęcia nr 4}
+
+	Kolejnym zadaniem naszego projektu było zaimplementowanie modułów potrzebnych do obsługi organków. Potrzebowaliśmy do tego zadania następujących modułów:
+	
+		\begin{itemize}
+    	    \item Moduł będącego odbiornikiem kodów wysyłanych przez klawiaturę PS/2,
+        	\item Moduł obsługujący jedną gamę na podstawie klawiszy,
+    	    \item Moduł generujący dźwięki,
+    	    \item Moduł przeznaczony jest do wyprowadzeń zewnętrznych FPGA-naszego głośnika.
+       	\end{itemize}
+	
+\subsubsection{Moduł PS2\_Kbd}
+
+\par Moduł ten jest odbiornikiem kodów wysyłanych przez klawiaturę PS/2. Został on pobrany ze strony http://www.zsk.ict.pwr.wroc.pl
+
+    \begin{figure}[h]
+    	\centering
+    	\includegraphics[width=0.7\linewidth]{ps2.png}
+    	\caption{Moduł Ps2}
+	    \label{fig:ps2}
+    \end{figure}
+
+    \begin{itemize}
+		\item DO(7:0) - Przechowuje wartość odbieranego kodu.
+	    \item E0 - Flaga sygnalizująca czy wchodzący sygnał był poprzedzony bajtami X”E0” (tzw. kod rozszerzony).
+	    \item F0 - Flaga sygnalizująca czy nastąpiło zwolnienie naciśniętego klawisza.
+	    \item Sygnał DO\_Rdy - Sygnalizuje zakończenie odbioru kodu (impuls jednotaktowy).
+	\end{itemize}
+	
+\newpage
+\subsubsection{Moduł PianoKey}
+     Zadaniem tego modułu jest obsługa maszyny stanów klawiszy pianina. Po podaniu zbocza rosnącego na wejście \textit{K\_rdy} zaczytywany jest kod skaningowy klawiatury. W zależności od wciśniętego klawisza, ustawiany jest odpowiedni stan. Oprogramowana została jedna oktawa tzn. 12 klawiszy co daje nam 12 stanów odpowiadających wciśniętym klawiszom, oraz jeden stan odpowiadający braku wciśniętego klawisza - stan spoczynku. Klawisze klawiatury które odpowiadają dźwiękom pianina to (A, W, S, E, D, F, T, G, Y, H ,U , J). Nazwy stanów odpowiadają wciśniętym klawiszom. Po wciśnięciu klawisza, którego należy do obsługiwanej oktawy następuje przejście do stanu (\textit{next\_state} w kodzie) odpowiadającego klawiszowi. Jeśli wciśnięty zostanie nieobsługiwany klawisz, maszyna pozostaje w stanie spoczynku (oznaczonym jako \textit{DEF}). Przejście w stan w spoczynku odbywa się również po puszczeniu klawisza. Puszczenie klawisza sygnalizuje wejście \textit{F0}. Zarządzanie stanami wykonuje proces \textit{StMch}, którego kod znajduje się na listingu \ref{piano-stmch}.
+   
+	Ponieważ po stanie wciśnięciu klawisza zawsze występuje stan spoczynku, na takim pianinie nie jest możliwe granie akordów - naciśnięcie kilku klawiszy jednocześnie.
+   
+    \begin{figure}[h]
+    	\centering
+    	\includegraphics[width=0.4\linewidth]{Pianokey.png}
+    	\caption{Moduł PianoKey}
+	    \label{fig:piano}
+    \end{figure}
+
+	Wejścia:
+	\begin{itemize}
+    	\item Clr - reset,
+    	\item Clk – systemowy zegar,
+    	\item K\_rdy – odebranie sygnału o odczytaniu klawisza z klawiatury na porcie PS2,
+    	\item IN\_klaw – kod skaningowy klawisza odczytanego z klawiatury,
+    	\item F0 – kod zwolnienia klawisza.
+	\end{itemize}
+	Wyjścia:
+	\begin{itemize}
+		\item FreqOUT – wyjście, będące tłumaczeniem wciśniętego klawisza na konwencję używaną dalej.
+	\end{itemize}
+	
+\begin{lstlisting}[label=piano-stmch,caption=Fragment procesu StMch,frame=tb,language=vhdl]
+StMch : process( state, In_key, K_rdy, tmp )
+   begin
+      next_state <= state; 
+      case state is      
+         when Def =>
+            if K_rdy = '1' and In_key = X"1C" then
+               next_state <= A;
+            .....
+            
+            elsif K_rdy = '1' then
+               next_state <= DEF;
+            end if;
+         when A =>
+            if F0 = '1' then
+               next_state <= DEF;
+            end if;
+            .....
+         when K =>
+            if F0 = '1' then
+               next_state <= DEF;
+            end if;
+      end case;
+end process StMch;
+\end{lstlisting}
+W zależności od obecnego stanu, należy wygenerować sygnał wyjściowy \textit{FreqOut} odpowiadający wciśniętemu klawiszowi. Wartość 0 oznacza stan spoczynku - ciszę, a wartości 1-12 kolejne klawisze - dźwięki.  Do zakodowania 13 różnych stanów potrzeba co najmniej 4 bitów, więc sygnał wyjściowy \textit{FreqOut} jest 4-bitowym wektorem. Proces konwertujący stan na sygnał jest przedstawiony na listingu \ref{piano-outpr}.
+\begin{lstlisting}[label=piano-outpr,caption=Fragment procesu OutPr,frame=tb,language=vhdl]
+OutPr : process ( state )
+   begin
+      case state is
+         when A =>
+            FreqOUT <= conv_std_logic_vector(1,4);
+         when W =>
+            FreqOUT <= conv_std_logic_vector(2,4);
+        
+        ...
+        
+         when DEF =>
+            FreqOUT <= conv_std_logic_vector(0,4);
+         end case;
+   end process OutPr;
+\end{lstlisting}
+
+\newpage
+
+	\subsubsection{SawToothGenerator} 
+	
+	Jest to najważniejszy moduł ze wszystkich. Odpowiedzialny jest jest za  generowanie dźwięków za pomocą wygenerowanego wektora sygnału piło-kształtnego.
+	
+	
+    \begin{figure}[h]
+    	\centering
+    	\includegraphics[width=0.5\linewidth]{sawToothGenerator.png}
+    	\caption{Moduł SawToothGenerator}
+	    \label{fig:sawtoothgen}
+    \end{figure}
+	
+
+    \vspace{10mm} 
+	Wejścia:
+	\begin{itemize}
+	\item Clk – wejście zegara systemowego,
+	\item Clr - reset,
+	\item FreqIN – wejście kodu oznaczające częstotliwość dźwięku.
+	\end{itemize}
+	
+    \vspace{10mm} 
+	Wyjścia:
+	\begin{itemize}
+	\item AddrOUT – wyjście addresowe,
+	\item CmdOUT – wyjście rozkazu,
+	\item StartOUT – wyjście Start,
+	\item SawtoothOUT – wektor sygnału piłokształtnego.
+	\end{itemize}
+	
+	Powyższy moduł składa się z trzech procesów:
+    \begin{itemize}
+	\item SetFreq, 
+	\item FreqDiv,
+	\item SawToothGen,
+	\end{itemize}
+	\newpage
+	
+	\paragraph{SetFreq} 
+	Pierwszy zaimplementowany proces-SetFreq jest szeregiem operacji warunkowych-elsif odpowiedzialnych za przypisanie częstotliwości w zależności od wciśniętego przycisku na klawiaturze. Wejściowy FreqIN przechowuje wartość klawisza zaś Freq ma przypisaną wartość oznaczającą częstotliwość konkretnego dźwięku, zgodną z oktawą na Pianie. \cite{4}
+    Na listingu \ref{setfreq} znajduje się proces który przekształca kod dźwięku na jego częstotliwość. Częstotliwość dźwięku generowana poprzez sumowanie impulsu piły o częstotliwości 1,5 Hz.  Przykładowo, jeśli chcemy uzyskać za pomocą sygnału 1.5 hz dźwięk \textit{C2} który ma częstotliwość 131 Hz należy dodać 1.5 Hz 87 razy. Analogicznie, w najwyższym dźwięku oktawy - \textit{C3} o częstotliwości 262 Hz znajdą się 173 składowe 1.5 Hz ($262/1.5\approx173$). Liczba ile razy należy dodać 1.5 Hz by otrzymać dany dźwięk jest w kodzie oznaczana jako \textit{Freq}. W tym projekcie oprogramowano klawisze od \textit{C2} do \textit{C3} o częstotliwościach od 131 do 262 Hz - odpowiadający im zakres \textit{Freq} to 87-173.
+    
+    
+    \vspace{10mm} 
+    \begin{lstlisting}[label=setfreq,caption=Proces SetFreq,frame=tb,language=vhdl]
+    SetFreq: process(FreqIN, Freq)
+    begin
+        if(FreqIN = "0001") then 
+        	Freq <= 173; 
+        elsif(FreqIN = "0010") then
+        	Freq <= 164; 
+        elsif(FreqIN = "0011") then
+        	Freq <= 154;
+        elsif(FreqIN = "0100") then
+        	Freq <= 146;
+        elsif(FreqIN = "0101") then
+        	Freq <= 137;
+        elsif(FreqIN = "0110") then
+        	Freq <= 130;
+        elsif(FreqIN = "0111") then
+        	Freq <= 123;
+        elsif(FreqIN = "1000") then
+        	Freq <= 116;
+        elsif(FreqIN = "1001") then
+        	Freq <= 109;
+        elsif(FreqIN = "1010") then
+        	Freq <= 103;
+        elsif(FreqIN = "1011") then
+        	Freq <= 97;
+        elsif(FreqIN = "1100") then
+        	Freq <= 92;
+        elsif(FreqIN = "1101") then
+        	Freq <= 87;
+        else
+        	Freq <= 0;
+        end if;
+    end process;
+    \end{lstlisting}
+    \newpage
+
+	\paragraph{FreqDiv} 
+	
+    \par Zadaniem procesu FreqDiv jest w oparciu o ustaloną częstotliwość, i zegarowy sygnał wejściowy utworzenie sygnału zegarowego o częstotliwości zgodnej z parametrem Freq będący wyjśćiem procesu SetFreq. Dodatkowo w tym samym procesie, tj. FreqDiv opisywany jest sygnał StartOUT, którego obecność wynika z modułu DACWrite. StartOUT jest  sygnałem jednotaktowym dla zegara systemowego wygenerowanym za każdym razem jak zegar o częstotliwości wejściowej FreqIN zmieni swój stan.
+
+
+    \vspace{20mm}         	
+    \begin{lstlisting}[label=freqdiv,caption=Proces FreqDiv,frame=tb,language=vhdl]
+    FreqDiv: process( Clk, Clr, tmpFreqDiv )
+    begin
+        if(Clr = '1' ) or (Freq = 0) then 
+            iFreqDiv <= 1;
+            tmpFreqDiv <= '0';
+            StartOUT <= '0';
+    	elsif rising_edge(Clk)  then
+            if (iFreqDiv = Freq) then
+                tmpFreqDiv <= NOT tmpFreqDiv;
+                iFreqDiv <= 1;
+                if (stCnt mod 2 = 0) then
+                    StartOUT <= '1';
+                    stCnt <= stCnt + 1;
+                else
+                    stCnt <= stCnt + 1;
+                end if;
+            else
+                iFreqDiv <= iFreqDiv + 1;
+                StartOUT <= '0';
+            end if;
+        end if;
+    ClkSawTooth <= tmpFreqDiv;
+    end process;
+    \end{lstlisting}
+    
+    	
+    \begin{figure}[h]
+    	\centering
+    	\includegraphics[width=1.1\linewidth]{test3.png}
+    	\caption{Test dzielenia częstotliwości}
+	    \label{fig:FreqDiv}
+    \end{figure}
+    
+    \newpage
+    
+	\paragraph{SawToothGen} 	  
+	
+	Jest to ostatni proces w naszym module SawToothGenerator. Zadaniem tego procesu jest utworzonie sygnału piłokształtnego zgodnego z sygnałem zegarowym z poprzedniego procesu-FreqDiv. Sygnał piłokształtny generowany jest na zasadzie inkrementowanego wektora, który po 64 okresie się resetuje z powrotem. 
+	
+    \vspace{10mm} 
+    	
+    \begin{lstlisting}[label=sawtoothgen,caption=Process: FreqDiv,frame=tb,language=vhdl]
+    SawToothGen: process( ClkSawTooth, Clr )
+    begin
+        if(Clr = '1') then
+            iSawGen <= 0;
+        elsif(rising_edge(ClkSawTooth)) then
+            if(iSawGen = 63) then
+                iSawGen <= 0;
+            else
+                iSawGen <= iSawGen + 1;
+            end if;
+        end if;
+    end process;
+    \end{lstlisting}
+    	
+	
+    \vspace{10mm} 
+	
+	\paragraph{Sygnały wyściowe} 
+	
+	W ostatniej części tego modułu jest wysyłanie sygnałów wyjściowych CmdOUT i AddrOUT. Sygnały te są potrzebne dla modułu DACWrite. Tutaj także wysyłany jest sygnał SawToothOUT będący sygnały piłokształtnym z poprzedniego procesu po operacji konkatenacji z sześcioma zerami umieszczonym na najmniej ważnych pozycjach. Operacja konkatenacji wynika ponownie z potrzeby dostarczenia tego typu sygnału do modułu DACWrite.
+	
+    \vspace{10mm} 
+        
+    \begin{lstlisting}[label=sawtooth-in,caption=Sygnały wyściowe,frame=tb,language=vhdl]
+    
+    CmdOUT <= conv_std_logic_vector(Cmd,4);
+    AddrOUT <= conv_std_logic_vector(Addr,4);
+    SawtoothOUT <= conv_std_logic_vector(iSawGen,6) & "000000";
+    \end{lstlisting}
+    \newpage
+
+\subsubsection{Moduł DAC}
+  \par Niezbędny do realizacji naszego projektu było zaznajomienie się z przetwornikiem cyfrowo-analogowym (DAC), który konwertuje sygnał cyfrowy na sygnał analogowy. Był on kluczowy dla naszych organów ponieważ przetwornik DAC jest powszechnie używany w odtwarzaczach muzycznych do konwersji cyfrowych strumieni danych na analogowe sygnały audio.
+    Obsługa przetwornika DAC odbywa się za pomocą magistrali SPI.
+
+	
+    \par Moduł DacWrite został pobrany ze strony Zespołu Systemów Komputerowych i był odpowiedzialny za komunikacje z przetwornikiem cyfra/analog LTC264 w naszym układzie. W zależności od stanu wejścia \textit{Start}, dane z wejść Cmd, Addr i Data są zatrzaskiwane i przesyłane szeregowo.
+    
+    \vspace{10mm} 
+    \begin{itemize}
+		\item{Start - zatrzaskuje wartości na pozostałych wejściach}
+	    \item{Cmd(3:0) - polecenie jakie można wydać przetwornikowi, w tym wypadku będzie to polecenie '0011' aktualizuje wybrane wyjście DAC zawartością DATA}
+	    \item{Addr(3:0) - adres pinu na który wysyłany jest sygnał. Na to wejście również podawana jest stała wartość '0010' która oznacza pin DAC-C, do którego podłączony jest głośnik}
+	    \item{DATA(11:0) - dane przekazywane na pin, w tym wypadku wysokość generowanego dźwięku}
+	\end{itemize}
+
+    \begin{figure}[h]
+    	\centering
+    	\includegraphics[width=0.7\linewidth]{DACWrite.png}
+    	\caption{Moduł DACWrite}
+	    \label{fig:1}
+    \end{figure}
+\newpage
+
+
+\section{Schemat}
+
+\begin{center}
+ \includegraphics[angle=270,width=0.45\linewidth]{UCISW2_Schemat.png}
+\end{center}
+\newpage
+    
+ \section{Podsumowanie}
+
+\begin{figure}[hbt!]
+    	\centering
+    	\includegraphics[width=1\linewidth]{status.png}
+    	\caption{Stan projektu}
+	    \label{fig:1}
+    \end{figure}
+
+     \vspace{10mm} % mm vertical space
+    
+    
+    \begin{table}[hbt!]
+    \paragraph{Device Utilization Summary }
+     \vspace{5mm} % mm vertical space
+    \begin{tabular}{|l|l|l|l|}
+    \hline
+    \rowcolor[HTML]{FFFE65} 
+    \multicolumn{1}{|c|}{\cellcolor[HTML]{FFFE65}\textbf{Logic Utilization}} & \multicolumn{1}{c|}{\cellcolor[HTML]{FFFE65}\textbf{Used}} & \multicolumn{1}{c|}{\cellcolor[HTML]{FFFE65}\textbf{Available}} & \multicolumn{1}{c|}{\cellcolor[HTML]{FFFE65}\textbf{Utilization}} \\ \hline
+    Number of Slice Flip Flops                                 & 140                                                        & 9,312                                                           & 1\%                                                               \\ \hline
+    Number of 4 input LUTs                                     & 187                                                        & 9,312                                                           & 2\%                                                               \\ \hline
+    Number of occupied Slices                                  & 142                                                        & 4,656                                                           & 3\%                                                               \\ \hline
+    Number of Slices containing only related logic             & 142                                                        & 142                                                             & 100\%                                                             \\ \hline
+    Number of Slices containing unrelated logic                & 0                                                          & 142                                                             & 0\%                                                               \\ \hline
+    Total Number of 4 input LUTs                               & 226                                                        & 9,312                                                           & 2\%                                                               \\ \hline
+    Number used as logic                                       & 187                                                        &                                                                 &                                                                   \\ \hline
+    Number used as a route-thru                                & 39                                                         &                                                                 &                                                                   \\ \hline
+    Number of bonded IOBs                                      & 14                                                         & 232                                                             & 6\%                                                               \\ \hline
+    Number of BUFGMUXs                                         & 2                                                          & 24                                                              & 8\%                                                               \\ \hline
+    Average Fanout of Non-Clock Nets                           & 2.74                                                       &                                                                 &                                                                   \\ \hline
+    \end{tabular}
+    \caption{}
+    \label{Device Utilization Summary}
+    \end{table}
+
+\newpage
+    
+\section{Wnioski}
+
+Udało nam się wykonać poprawnie główną część projektu czyli w pełni funkcjonalne jedno-gamowe organki. Część ta wykonana została stosunkowo szybko - organki zagrały pierwszy raz już na czwartych zajęciach. Niestety, po zabraniu się za tworzenie pozytywki, natrafiliśmy na wiele problemów z poprawnym przekierowaniem sygnałów odczytanych z ROM. Funkcja ta wymagała obejścia obecnych modułów i nie mogliśmy sobie z tym poradzić, bez znaczącej degradacji istniejącego kodu. Duży problem też stwarzało to, że praca nad projektem na płytce była możliwa tylko w czasie zajęć - pomysły i rozwiązania na które wpadaliśmy po zakończeniu zajęć mogły być zweryfikowane dopiero dwa tygodnie później.
+
+
+\begin{thebibliography}{9}		
+	\bibitem{1} 
+	Spartan-3E FPGA Starter Kit Board User Guide,
+	\\\texttt{https://www.xilinx.com/support/documentation/boards\_and\_kits/ug230.pdf}
+	\bibitem{2} 
+	LTC2624 Manual,
+	\\\texttt{http://cds.linear.com/docs/en/datasheet/2604fd.pdf}
+	\bibitem{3} 
+	Moduł PS2\_Kbd, DACWrite,
+	\\\texttt{http://www.zsk.ict.pwr.wroc.pl/zsk\_ftp/fpga}
+	\bibitem{4} Tablica częstotliwości dźwięków pierwszej oktawy gamy C-dur,
+	\\\texttt{https://www.liutaiomottola.com/formulae/freqtab.htm}
+\end{thebibliography}
+	
+\end{document}

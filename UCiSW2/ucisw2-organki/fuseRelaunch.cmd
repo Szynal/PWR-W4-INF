@@ -1,0 +1,1 @@
+-intstyle "ise" -incremental -o "C:/Users/lab/Documents/ucisw2-organki/SawToothGenerator_isim_beh.exe" -prj "C:/Users/lab/Documents/ucisw2-organki/SawToothGenerator_beh.prj" "work.SawToothGenerator" 

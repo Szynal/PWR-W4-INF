@@ -1,0 +1,8 @@
+INTSTYLE=ise
+INFILE=C:\Users\lab\Documents\ucisw2-organki\SawToothSchematic.ncd
+OUTFILE=C:\Users\lab\Documents\ucisw2-organki\SawToothSchematic.bit
+FAMILY=Spartan3E
+PART=xc3s500e-4fg320
+WORKINGDIR=C:\Users\lab\Documents\ucisw2-organki
+LICENSE=ISE
+USER_INFO=174693031_177724690_210552578_727

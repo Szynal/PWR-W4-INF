@@ -1,0 +1,101 @@
+#-----------------------------------------------------------
+#  ZL-9572 CPLD board,  J.Sugier 2009
+#-----------------------------------------------------------
+#
+#                 UCF-ORGANKI
+#
+#-----------------------------------------------------------
+
+NET "CLK_IN" LOC = "C9" | IOSTANDARD = LVTTL;
+NET "CLK_IN" PERIOD = 20.0ns HIGH 50%;
+
+#
+# Push-buttons (Press = Hi)
+#
+NET "CLR_IN" LOC = "K17" | IOSTANDARD = LVTTL | PULLDOWN;
+#NET "A" LOC = "V4"  | IOSTANDARD = LVTTL | PULLDOWN;
+#NET "B"  LOC = "H13" | IOSTANDARD = LVTTL | PULLDOWN;
+#NET "C"  LOC = "D18" | IOSTANDARD = LVTTL | PULLDOWN;
+
+
+# ==== Common SPI signals ===================
+NET "SPI_MISO" LOC = "N10" | IOSTANDARD = LVCMOS33 ;
+NET "SPI_MOSI" LOC = "T4" | IOSTANDARD = LVCMOS33 | SLEW = SLOW | DRIVE = 6 ;
+NET "SPI_SCK" LOC = "U16" | IOSTANDARD = LVCMOS33 | SLEW = SLOW | DRIVE = 6 ;
+
+# ==== Digital-to-Analog Converter (DAC) ====
+# some connections shared with SPI Flash, DAC, ADC, and AMP
+NET "DAC_CLR" LOC = "P8" | IOSTANDARD = LVCMOS33 | SLEW = SLOW | DRIVE = 8 ;
+NET "DAC_CS" LOC = "N8" | IOSTANDARD = LVCMOS33 | SLEW = SLOW | DRIVE = 8 ;
+
+# ==== Other SPI devices ====================
+NET "SF_CE0" LOC = "D16" | IOSTANDARD = LVCMOS33 | DRIVE = 4 | SLEW = SLOW ;
+NET "SPI_SS_B" LOC = "U3" | IOSTANDARD = LVCMOS33 | SLEW = SLOW | DRIVE = 6 ;
+NET "FPGA_INIT_B" LOC = "T3" | IOSTANDARD = LVCMOS33 | SLEW = SLOW | DRIVE = 4 ;
+
+# ==== Analog-to-Digital Converter (ADC) ====
+# some connections shared with SPI Flash, DAC, ADC, and AMP
+NET "AD_CONV" LOC = "P11" | IOSTANDARD = LVCMOS33 | SLEW = SLOW | DRIVE = 6 ;
+
+# ==== Programmable Gain Amplifier (AMP) ====
+NET "AMP_CS" LOC = "N7" | IOSTANDARD = LVCMOS33 | SLEW = SLOW | DRIVE = 6 ;
+
+# PS/2 port
+#
+NET "PS2_Data" LOC = "G13" | IOSTANDARD = LVCMOS33 | SLEW = SLOW | DRIVE = 8;
+NET "PS2_Clk"  LOC = "G14" | IOSTANDARD = LVCMOS33 | SLEW = SLOW | DRIVE = 8;
+
+# Keys
+#NET "Key<0>" LOC = "P42";
+#NET "Key<1>" LOC = "P40";
+#NET "Key<2>" LOC = "P43";
+#NET "Key<3>" LOC = "P38";
+#NET "Key<4>" LOC = "P37";
+#NET "Key<5>" LOC = "P36";  # shared with ROT_A
+#NET "Key<6>" LOC = "P24";  # shared with ROT_B
+#NET "Key<7>" LOC = "P39";  # GSR
+
+# LEDS
+#NET "LED<0>"  LOC = "P35";
+#NET "LED<1>"  LOC = "P29";
+#NET "LED<2>"  LOC = "P33";
+#NET "LED<3>"  LOC = "P34";
+#NET "LED<4>"  LOC = "P28";
+#NET "LED<5>"  LOC = "P27";
+#NET "LED<6>"  LOC = "P26";
+#NET "LED<7>"  LOC = "P25";
+
+#NET "LED<8>"  LOC = "P13";	# shared with seg. B
+#NET "LED<9>"  LOC = "P11";	# shared with seg. F
+#NET "LED<10>" LOC = "P12";	# shared with seg. A
+#NET "LED<11>" LOC = "P18";	# shared with seg. DP
+#NET "LED<12>" LOC = "P22";	# shared with seg. C
+#NET "LED<13>" LOC = "P20";	# shared with seg. G
+#NET "LED<14>" LOC = "P19";	# shared with seg. D
+#NET "LED<15>" LOC = "P14";	# shared with seg. E
+
+# DISPL. 7-SEG
+#NET "D7S_D<0>" LOC = "P8" | SLEW = "SLOW";
+#NET "D7S_D<1>" LOC = "P6" | SLEW = "SLOW";
+#NET "D7S_D<2>" LOC = "P4" | SLEW = "SLOW";
+#NET "D7S_D<3>" LOC = "P9" | SLEW = "SLOW";
+#NET "D7S_S<0>" LOC = "P12";	# Seg. A; shared with LED<10>
+#NET "D7S_S<1>" LOC = "P13";	# Seg. B; shared with LED<8>
+#NET "D7S_S<2>" LOC = "P22";	# Seg. C; shared with LED<12>
+#NET "D7S_S<3>" LOC = "P19";	# Seg. D; shared with LED<14>
+#NET "D7S_S<4>" LOC = "P14";	# Seg. E; shared with LED<15>
+#NET "D7S_S<5>" LOC = "P11";	# Seg. F; shared with LED<9>
+#NET "D7S_S<6>" LOC = "P20";	# Seg. G; shared with LED<13>
+#NET "D7S_S<7>" LOC = "P18";	# Seg. DP;shared with LED<11>
+
+# Rotary encoder
+#NET "ROT_A" LOC = "P36";	# shared with Key<5>
+#NET "ROT_B" LOC = "P24";	# shared with Key<6>
+
+# PS/2
+#NET "PS2_Clk"   LOC = "P3";
+#NET "PS2_Data"  LOC = "P2";
+
+# RS-232
+#NET "RS_RX" LOC = "P1";
+#NET "RS_TX" LOC = "P44";

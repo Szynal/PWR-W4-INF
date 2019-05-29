@@ -1,0 +1,2 @@
+vhdtdtfi -lib work FreqButton.vhd -prj ucisw2-organki -o PianoKey.spl -module PianoKey -template C:/Xilinx/14.7/ISE_DS/ISE//data/splfile.tft -deleteonerror 
+spl2sym -intstyle ise -family spartan3e PianoKey.spl C:/Users/lab/Documents/ucisw2-organki/PianoKey.sym 

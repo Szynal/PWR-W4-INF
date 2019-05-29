@@ -1,0 +1,4 @@
+vhdtdtfi -lib work FreqButton.vhd -prj ucisw2-organki -o FreqButton.spl -module FreqButton -template C:/Xilinx/14.7/ISE_DS/ISE//data/splfile.tft -deleteonerror 
+spl2sym -intstyle ise -family spartan3e FreqButton.spl C:/Users/lab/Desktop/ucisw2-organki/FreqButton.sym 
+vhdtdtfi -lib work FreqButton.vhd -prj ucisw2-organki -o FreqButton.spl -module FreqButton -template C:/Xilinx/14.7/ISE_DS/ISE//data/splfile.tft -deleteonerror 
+spl2sym -intstyle ise -family spartan3e FreqButton.spl C:/Users/lab/Desktop/ucisw2-organki/FreqButton.sym 
