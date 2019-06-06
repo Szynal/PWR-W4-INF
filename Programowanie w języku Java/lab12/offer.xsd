@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="offer" type="offerType"/>
+  <xs:complexType name="offerType">
+    <xs:sequence>
+      <xs:element type="xs:integer" name="id"/>
+      <xs:element type="xs:string" name="officeData"/>
+      <xs:element type="xs:date" name="start_date"/>
+      <xs:element type="xs:date" name="end_date"/>
+      <xs:element type="xs:float" name="price"/>
+      <xs:element type="xs:string" name="description"/>
+    </xs:sequence>
+  </xs:complexType>
+</xs:schema>

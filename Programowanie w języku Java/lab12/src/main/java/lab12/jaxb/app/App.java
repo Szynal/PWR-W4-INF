@@ -1,8 +1,8 @@
-package lab11.nashorn.app;
+package lab12.jaxb.app;
 
 import javax.swing.SwingUtilities;
 
-import lab11.nashorn.gui.MainFrame;
+import lab12.jaxb.gui.MainFrame;
 
 public class App {
 	public static MainFrame window;
@@ -20,4 +20,3 @@ public class App {
 		});
 	}
 }
-	

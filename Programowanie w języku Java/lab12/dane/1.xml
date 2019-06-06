@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<OfferType>
+    <id>1</id>
+    <officeData>Test</officeData>
+    <start_date>2019-06-06+02:00</start_date>
+    <end_date>2019-06-06+02:00</end_date>
+    <price>1000.0</price>
+    <description>Testujemy JAXB</description>
+</OfferType>
