@@ -1,0 +1,18 @@
+<root>
+  <facet id="jpt.jaxb">
+    <node name="classgen">
+      <attribute name="package" value="javaclass"/>
+    </node>
+    <node name="libprov">
+      <attribute name="provider-id" value="jaxb-no-op-library-provider"/>
+    </node>
+    <node name="platform">
+      <attribute name="platform-id" value="generic_2_2"/>
+    </node>
+    <node name="schemas">
+      <node name="schema-1">
+        <attribute name="location" value="platform:/resource/lab12/src/xsd/offer.xsd"/>
+      </node>
+    </node>
+  </facet>
+</root>
