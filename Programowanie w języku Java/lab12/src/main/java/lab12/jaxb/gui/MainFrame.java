@@ -53,6 +53,8 @@ import lab12.jaxb.offer.OfferType;
 import javax.swing.JSpinner;
 import javax.swing.SpinnerNumberModel;
 import javax.swing.ImageIcon;
+import javax.swing.SpinnerDateModel;
+import java.util.Calendar;
 
 public class MainFrame extends JFrame {
 
@@ -83,8 +85,6 @@ public class MainFrame extends JFrame {
 
 	private JTextField textField_Id;
 	private JTextField textField_CompanyName;
-	private JTextField textField_start_date;
-	private JTextField textField_end_date;
 	private JTextArea textArea_Description;
 	private JEditorPane outputEditorPane;
 	private JSpinner spinner_price;
@@ -232,7 +232,7 @@ public class MainFrame extends JFrame {
 		panelNewOffer.add(lblDescription);
 
 		textField_Id = new JTextField();
-		textField_Id.setBounds(187, 11, 240, 34);
+		textField_Id.setBounds(187, 11, 542, 34);
 		panelNewOffer.add(textField_Id);
 		textField_Id.setColumns(10);
 
@@ -265,16 +265,6 @@ public class MainFrame extends JFrame {
 		btnNewOffer.setBounds(10, 343, 719, 46);
 		panelNewOffer.add(btnNewOffer);
 
-		textField_start_date = new JTextField();
-		textField_start_date.setColumns(10);
-		textField_start_date.setBounds(187, 148, 240, 34);
-		panelNewOffer.add(textField_start_date);
-
-		textField_end_date = new JTextField();
-		textField_end_date.setColumns(10);
-		textField_end_date.setBounds(187, 193, 240, 37);
-		panelNewOffer.add(textField_end_date);
-
 		lblStartDate = new JLabel("Start date");
 		lblStartDate.setForeground(Color.WHITE);
 		lblStartDate.setFont(new Font("Tahoma", Font.PLAIN, 15));
@@ -301,8 +291,20 @@ public class MainFrame extends JFrame {
 		
 		lblPicture = new JLabel("");
 		lblPicture.setIcon(new ImageIcon("C:\\Users\\szyna\\Documents\\PWR-W4-INF\\Programowanie w j\u0119zyku Java\\lab12\\transformacje\\picture.jpg"));
-		lblPicture.setBounds(437, 11, 292, 219);
+		lblPicture.setBounds(437, 11, 292, 264);
 		panelNewOffer.add(lblPicture);
+		
+		JSpinner spinner = new JSpinner();
+		spinner.setModel(new SpinnerDateModel(new Date(1559772000000L), null, null, Calendar.DAY_OF_YEAR));
+		spinner.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		spinner.setBounds(187, 147, 240, 34);
+		panelNewOffer.add(spinner);
+		
+		JSpinner spinner_1 = new JSpinner();
+		spinner_1.setModel(new SpinnerDateModel(new Date(1559772000000L), null, null, Calendar.DAY_OF_YEAR));
+		spinner_1.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		spinner_1.setBounds(187, 191, 240, 34);
+		panelNewOffer.add(spinner_1);
 
 		panelJAXB = new JPanel();
 		panelJAXB.setBackground(new Color(51, 51, 51));
