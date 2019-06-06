@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<OfferType>
+    <id>3</id>
+    <officeData>TRAVELLAND</officeData>
+    <start_date>2019-06-06+02:00</start_date>
+    <end_date>2019-06-06+02:00</end_date>
+    <price>12199.99</price>
+    <description>GRECJA</description>
+</OfferType>

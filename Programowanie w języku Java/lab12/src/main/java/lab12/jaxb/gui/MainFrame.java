@@ -50,6 +50,9 @@ import javax.xml.transform.stream.StreamResult;
 import javax.xml.transform.stream.StreamSource;
 
 import lab12.jaxb.offer.OfferType;
+import javax.swing.JSpinner;
+import javax.swing.SpinnerNumberModel;
+import javax.swing.ImageIcon;
 
 public class MainFrame extends JFrame {
 
@@ -80,9 +83,11 @@ public class MainFrame extends JFrame {
 
 	private JTextField textField_Id;
 	private JTextField textField_CompanyName;
-	private JTextField textField_Price;
+	private JTextField textField_start_date;
+	private JTextField textField_end_date;
 	private JTextArea textArea_Description;
 	private JEditorPane outputEditorPane;
+	private JSpinner spinner_price;
 
 	private JLabel lblofferID;
 	private JLabel lblCompanyName;
@@ -93,25 +98,21 @@ public class MainFrame extends JFrame {
 
 	private JScrollPane scrollPaneNewOffer;
 	private JScrollPane scrollPane_1;
-
 	private JComboBox<String> comboBox_Data;
 	private JComboBox<String> comboBox_Transformations;
 	private JButton btnFormat;
 	private JButton btnChoseFile;
 	private JButton btnNewOffer;
-	private JButton button;
+	private JLabel lblStartDate;
+	private JLabel lblEndDate;
+	private JLabel lblPln;
+	private JLabel lblPicture;
 
 	public MainFrame() {
 		try {
 			guiInit();
 			JMenuInitialize();
-
-			xmlFiles = getFiles(Dane, ".xml");
-			styleFiles = getFiles(Transformacje, ".xsl");
-
-			comboBox_Data.setModel(new DefaultComboBoxModel<>(xmlFiles.toArray(new String[0])));
-			comboBox_Transformations.setModel(new DefaultComboBoxModel<>(styleFiles.toArray(new String[0])));
-
+			refresh();
 			outputEditorPane.setEditable(false);
 			outputEditorPane.setContentType("text/html");
 
@@ -141,10 +142,10 @@ public class MainFrame extends JFrame {
 		result.add("None");
 		if (files != null) {
 			for (File file : files) {
+				System.out.println("From" + pathname + " was loaded " + file.getName());
 				result.push(file.getName());
 			}
 		}
-
 		return result;
 	}
 
@@ -227,26 +228,21 @@ public class MainFrame extends JFrame {
 		lblDescription = new JLabel("Description");
 		lblDescription.setForeground(Color.WHITE);
 		lblDescription.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		lblDescription.setBounds(10, 146, 167, 34);
+		lblDescription.setBounds(10, 241, 167, 34);
 		panelNewOffer.add(lblDescription);
 
 		textField_Id = new JTextField();
-		textField_Id.setBounds(187, 11, 542, 34);
+		textField_Id.setBounds(187, 11, 240, 34);
 		panelNewOffer.add(textField_Id);
 		textField_Id.setColumns(10);
 
 		textField_CompanyName = new JTextField();
 		textField_CompanyName.setColumns(10);
-		textField_CompanyName.setBounds(187, 58, 542, 34);
+		textField_CompanyName.setBounds(187, 58, 240, 34);
 		panelNewOffer.add(textField_CompanyName);
 
-		textField_Price = new JTextField();
-		textField_Price.setColumns(10);
-		textField_Price.setBounds(187, 110, 542, 34);
-		panelNewOffer.add(textField_Price);
-
 		scrollPaneNewOffer = new JScrollPane();
-		scrollPaneNewOffer.setBounds(187, 158, 542, 169);
+		scrollPaneNewOffer.setBounds(187, 241, 542, 91);
 		panelNewOffer.add(scrollPaneNewOffer);
 
 		textArea_Description = new JTextArea();
@@ -257,6 +253,7 @@ public class MainFrame extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				try {
 					addNewOffer();
+					refresh();
 				} catch (DatatypeConfigurationException | JAXBException e1) {
 					e1.printStackTrace();
 				}
@@ -267,6 +264,45 @@ public class MainFrame extends JFrame {
 		btnNewOffer.setBackground(new Color(51, 51, 51));
 		btnNewOffer.setBounds(10, 343, 719, 46);
 		panelNewOffer.add(btnNewOffer);
+
+		textField_start_date = new JTextField();
+		textField_start_date.setColumns(10);
+		textField_start_date.setBounds(187, 148, 240, 34);
+		panelNewOffer.add(textField_start_date);
+
+		textField_end_date = new JTextField();
+		textField_end_date.setColumns(10);
+		textField_end_date.setBounds(187, 193, 240, 37);
+		panelNewOffer.add(textField_end_date);
+
+		lblStartDate = new JLabel("Start date");
+		lblStartDate.setForeground(Color.WHITE);
+		lblStartDate.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		lblStartDate.setBounds(10, 146, 167, 34);
+		panelNewOffer.add(lblStartDate);
+
+		lblEndDate = new JLabel("End date");
+		lblEndDate.setForeground(Color.WHITE);
+		lblEndDate.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		lblEndDate.setBounds(10, 191, 167, 34);
+		panelNewOffer.add(lblEndDate);
+
+		spinner_price = new JSpinner();
+		spinner_price.setModel(new SpinnerNumberModel(new Float(1000), new Float(0), null, new Float(1)));
+		spinner_price.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		spinner_price.setBounds(187, 102, 182, 34);
+		panelNewOffer.add(spinner_price);
+		
+		lblPln = new JLabel("PLN");
+		lblPln.setForeground(Color.WHITE);
+		lblPln.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		lblPln.setBounds(388, 101, 39, 34);
+		panelNewOffer.add(lblPln);
+		
+		lblPicture = new JLabel("");
+		lblPicture.setIcon(new ImageIcon("C:\\Users\\szyna\\Documents\\PWR-W4-INF\\Programowanie w j\u0119zyku Java\\lab12\\transformacje\\picture.jpg"));
+		lblPicture.setBounds(437, 11, 292, 219);
+		panelNewOffer.add(lblPicture);
 
 		panelJAXB = new JPanel();
 		panelJAXB.setBackground(new Color(51, 51, 51));
@@ -282,7 +318,7 @@ public class MainFrame extends JFrame {
 		btnFormat.setForeground(Color.WHITE);
 		btnFormat.setFont(new Font("Tahoma", Font.BOLD, 12));
 		btnFormat.setBackground(new Color(51, 51, 51));
-		btnFormat.setBounds(15, 298, 354, 40);
+		btnFormat.setBounds(15, 298, 354, 91);
 		panelJAXB.add(btnFormat);
 
 		btnChoseFile = new JButton("Chose File");
@@ -325,13 +361,6 @@ public class MainFrame extends JFrame {
 		lbl_Transformations.setBounds(15, 206, 166, 30);
 		panelJAXB.add(lbl_Transformations);
 
-		button = new JButton("");
-		button.setForeground(Color.WHITE);
-		button.setFont(new Font("Tahoma", Font.BOLD, 12));
-		button.setBackground(new Color(51, 51, 51));
-		button.setBounds(15, 349, 354, 40);
-		panelJAXB.add(button);
-
 		comboBox_Data = new JComboBox<String>();
 		comboBox_Data.setBounds(15, 145, 354, 40);
 		panelJAXB.add(comboBox_Data);
@@ -357,14 +386,14 @@ public class MainFrame extends JFrame {
 	private void addNewOffer() throws DatatypeConfigurationException, JAXBException {
 
 		if (textField_Id.getText().isEmpty() || textField_CompanyName.getText().isEmpty()
-				|| textField_Price.getText().isEmpty() || textArea_Description.getText().isEmpty()) {
+				|| textArea_Description.getText().isEmpty()) {
 
 			JOptionPane.showMessageDialog(null, "All fields must be completed", "Error", JOptionPane.ERROR_MESSAGE);
 		} else {
 			offer = new OfferType();
 
 			offer.setId(BigInteger.valueOf(Integer.parseInt(textField_Id.getText())));
-			offer.setPrice(Float.parseFloat(textField_Price.getText()));
+			offer.setPrice((float) spinner_price.getValue());
 			offer.setDescription(textArea_Description.getText());
 			offer.setOfficeData(textField_CompanyName.getText());
 
@@ -380,11 +409,11 @@ public class MainFrame extends JFrame {
 
 			Marshaller jaxbMarshaller = jaxbContext.createMarshaller();
 			jaxbMarshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
-			jaxbMarshaller.marshal(offer, new File("./dane/" + offer.getId() + ".xml"));
+			jaxbMarshaller.marshal(offer, new File("./dane/offer" + offer.getId() + ".xml"));
 			jaxbMarshaller.marshal(offer, System.out);
 
-			dispose();
-			JOptionPane.showMessageDialog(null, (offer.getId() + ".xml" + " offer has been added."));
+			JOptionPane.showMessageDialog(null, ("offer" + offer.getId() + ".xml" + " offer has been added."));
+			refresh();
 		}
 
 	}
@@ -405,16 +434,12 @@ public class MainFrame extends JFrame {
 		}
 	}
 
-	/*
-	 * TODO
-	 */
 	private void refresh() {
-		// styleFiles = getStyles();
-		// comboStyles.setModel(new DefaultComboBoxModel<>(styleFiles.toArray(new
-		// String[0])));
-		// xmlFiles = getXmlOffers();
-		// comboOffers.setModel(new DefaultComboBoxModel<>(xmlFiles.toArray(new
-		// String[0])));
+		xmlFiles = getFiles(Dane, ".xml");
+		styleFiles = getFiles(Transformacje, ".xsl");
+
+		comboBox_Data.setModel(new DefaultComboBoxModel<>(xmlFiles.toArray(new String[0])));
+		comboBox_Transformations.setModel(new DefaultComboBoxModel<>(styleFiles.toArray(new String[0])));
 	}
 
 	private void format() {
@@ -452,5 +477,4 @@ public class MainFrame extends JFrame {
 		}
 
 	}
-
 }

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<OfferType>
+    <id>4</id>
+    <officeData>TRAVELLAND</officeData>
+    <start_date>2019-06-06+02:00</start_date>
+    <end_date>2019-06-06+02:00</end_date>
+    <price>320.25</price>
+    <description>SLOWACJA</description>
+</OfferType>
