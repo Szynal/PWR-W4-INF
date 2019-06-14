@@ -282,24 +282,25 @@ public class MainFrame extends JFrame {
 		spinner_price.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		spinner_price.setBounds(187, 102, 182, 34);
 		panelNewOffer.add(spinner_price);
-		
+
 		lblPln = new JLabel("PLN");
 		lblPln.setForeground(Color.WHITE);
 		lblPln.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		lblPln.setBounds(388, 101, 39, 34);
 		panelNewOffer.add(lblPln);
-		
+
 		lblPicture = new JLabel("");
-		lblPicture.setIcon(new ImageIcon("C:\\Users\\szyna\\Documents\\PWR-W4-INF\\Programowanie w j\u0119zyku Java\\lab12\\transformacje\\picture.jpg"));
+		lblPicture.setIcon(new ImageIcon(
+				"C:\\Users\\szyna\\Documents\\PWR-W4-INF\\Programowanie w j\u0119zyku Java\\lab12\\transformacje\\picture.jpg"));
 		lblPicture.setBounds(437, 11, 292, 264);
 		panelNewOffer.add(lblPicture);
-		
+
 		JSpinner spinner = new JSpinner();
 		spinner.setModel(new SpinnerDateModel(new Date(1559772000000L), null, null, Calendar.DAY_OF_YEAR));
 		spinner.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		spinner.setBounds(187, 147, 240, 34);
 		panelNewOffer.add(spinner);
-		
+
 		JSpinner spinner_1 = new JSpinner();
 		spinner_1.setModel(new SpinnerDateModel(new Date(1559772000000L), null, null, Calendar.DAY_OF_YEAR));
 		spinner_1.setFont(new Font("Tahoma", Font.PLAIN, 15));
