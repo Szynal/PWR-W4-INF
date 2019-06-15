@@ -8,12 +8,12 @@ import javax.jws.WebService;
 import lab08.soap.interfaces.IMonitorService;
 
 @WebService(endpointInterface = "lab08.soap.interfaces.IMonitorService")
-public class GazetomatService implements IMonitorService {
+public class MonitorService implements IMonitorService {
 
 	private int lastId;
 	private List<Integer> vendingMachineIds;
 
-	GazetomatService() {
+	MonitorService() {
 		lastId = -1;
 		vendingMachineIds = new ArrayList<Integer>();
 	}

@@ -6,14 +6,14 @@ import java.util.List;
 import javax.jws.WebService;
 
 import lab08.soap.core.Product;
-import lab08.soap.interfaces.IVendingMachineService;
+import lab08.soap.interfaces.INewspaperMachineService;
 
-@WebService(endpointInterface = "lab08.soap.interfaces.IVendingMachineService")
-public class VendingMachineService implements IVendingMachineService {
+@WebService(endpointInterface = "lab08.soap.interfaces.INewspaperMachineService")
+public class NewspaperMachineService implements INewspaperMachineService {
 
 	private static List<Product> productList;
 
-	public VendingMachineService() {
+	public NewspaperMachineService() {
 		productList = new ArrayList<Product>();
 	}
 

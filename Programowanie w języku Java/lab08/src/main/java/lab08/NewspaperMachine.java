@@ -28,7 +28,7 @@ import javax.xml.ws.WebServiceException;
 import lab08.soap.core.Product;
 import lab08.soap.interfaces.IMonitorService;
 
-public class VendingMachine {
+public class NewspaperMachine {
 	private JFrame frame;
 	private JScrollPane scrollPane;
 	private JTable table;
@@ -36,7 +36,7 @@ public class VendingMachine {
 
 	private int Id;
 	private Endpoint endpoint;
-	private VendingMachineService machineService;
+	private NewspaperMachineService machineService;
 	private IMonitorService monitorService;
 	private int lastSelectedRow = 0;
 
@@ -46,7 +46,7 @@ public class VendingMachine {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					VendingMachine window = new VendingMachine();
+					NewspaperMachine window = new NewspaperMachine();
 					window.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -55,7 +55,7 @@ public class VendingMachine {
 		});
 	}
 
-	public VendingMachine() {
+	public NewspaperMachine() {
 		initialize();
 		try {
 			initVendingMachineService();
@@ -96,7 +96,7 @@ public class VendingMachine {
 			}
 		});
 
-		frame.setTitle("Vanding Machine " + Id);
+		frame.setTitle("Newspaper Machine " + Id);
 		frame.setBounds(100, 100, 500, 500);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
@@ -181,7 +181,7 @@ public class VendingMachine {
 	}
 
 	private void initVendingMachineService() {
-		machineService = new VendingMachineService();
+		machineService = new NewspaperMachineService();
 		machineService.addProduct(new Product("Mars", 8));
 		machineService.addProduct(new Product("Snickers", 9));
 		machineService.addProduct(new Product("Pepsi Light", 4));
@@ -211,16 +211,8 @@ public class VendingMachine {
 
 	private void publishVendingMachineService() {
 		int port = MachinesPortSift + Id;
-		String myURL = "http://localhost:" + port + "/vendingMachine";
+		String myURL = "http://localhost:" + port + "/newspaperMachine";
 		endpoint = Endpoint.create(machineService);
 		endpoint.publish(myURL);
-	}
-
-	public int getLastSelectedRow() {
-		return lastSelectedRow;
-	}
-
-	public void setLastSelectedRow(int lastSelectedRow) {
-		this.lastSelectedRow = lastSelectedRow;
 	}
 }

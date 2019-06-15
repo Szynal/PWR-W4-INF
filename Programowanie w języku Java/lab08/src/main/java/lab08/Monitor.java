@@ -22,15 +22,15 @@ import javax.xml.namespace.QName;
 import javax.xml.ws.Endpoint;
 import javax.xml.ws.Service;
 
-import lab08.soap.interfaces.IVendingMachineService;
+import lab08.soap.interfaces.INewspaperMachineService;
 
-public class Gazetomat {
+public class Monitor {
 
 	private JFrame frame;
 	private JTabbedPane tabbedPane;
 
 	private javax.xml.ws.Endpoint endpoint;
-	private GazetomatService monitorService;
+	private MonitorService monitorService;
 
 	private static int MachinesPortSift = 10000;
 	private static int MonitorPort = 9000;
@@ -39,7 +39,7 @@ public class Gazetomat {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					Gazetomat window = new Gazetomat();
+					Monitor window = new Monitor();
 					window.frame.setVisible(true);
 
 				} catch (Exception e) {
@@ -49,8 +49,8 @@ public class Gazetomat {
 		});
 	}
 
-	public Gazetomat() {
-		monitorService = new GazetomatService();
+	public Monitor() {
+		monitorService = new MonitorService();
 		endpoint = Endpoint.create(monitorService);
 		endpoint.publish("http://localhost:" + MonitorPort + "/monitor");
 		initialize();
@@ -96,7 +96,7 @@ public class Gazetomat {
 			List<Integer> machinesId = monitorService.getVendingMachinesIds();
 
 			for (Integer id : machinesId) {
-				IVendingMachineService vendingMachineService = createVendingMachineService(id);
+				INewspaperMachineService vendingMachineService = createVendingMachineService(id);
 
 				DefaultTableModel model = createTableModelWithProducts(vendingMachineService);
 
@@ -106,10 +106,11 @@ public class Gazetomat {
 		}
 	}
 
-	private IVendingMachineService createVendingMachineService(Integer id) throws MalformedURLException {
+	private INewspaperMachineService createVendingMachineService(Integer id) throws MalformedURLException {
 		Service webVendingMachineService = initWebService(id);
 
-		IVendingMachineService vendingMachineService = webVendingMachineService.getPort(IVendingMachineService.class);
+		INewspaperMachineService vendingMachineService = webVendingMachineService
+				.getPort(INewspaperMachineService.class);
 		return vendingMachineService;
 	}
 
@@ -123,16 +124,16 @@ public class Gazetomat {
 
 	private URL createUrl(Integer id) throws MalformedURLException {
 		int port = MachinesPortSift + id;
-		String url = "http://localhost:" + port + "/vendingMachine?wsdl";
+		String url = "http://localhost:" + port + "/newspaperMachine?wsdl";
 		URL wsdlURL = new URL(url);
 		return wsdlURL;
 	}
 
 	private QName createQName() {
-		return new QName("http://lab08/", "VendingMachineServiceService");
+		return new QName("http://lab08/", "NewspaperMachineServiceService");
 	}
 
-	private DefaultTableModel createTableModelWithProducts(IVendingMachineService vendingMachineService) {
+	private DefaultTableModel createTableModelWithProducts(INewspaperMachineService vendingMachineService) {
 		DefaultTableModel model = createTableModel();
 
 		int amount = vendingMachineService.getProductMenuAmount();
@@ -170,7 +171,7 @@ public class Gazetomat {
 		tabbedPane.removeAll();
 		for (int i = 0; i < tabsCount; ++i) {
 			JPanel tab = panels.get(i);
-			tabbedPane.addTab("Vending Machine " + machinesId.get(i), null, tab, null);
+			tabbedPane.addTab("Newspaper Machine " + machinesId.get(i), null, tab, null);
 		}
 	}
 }

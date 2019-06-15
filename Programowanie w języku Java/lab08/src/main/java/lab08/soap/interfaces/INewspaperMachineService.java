@@ -6,7 +6,7 @@ import javax.jws.soap.SOAPBinding;
 
 @WebService
 @SOAPBinding(style = SOAPBinding.Style.RPC)
-public interface IVendingMachineService {
+public interface INewspaperMachineService {
 
 	@WebMethod
 	public int getProductMenuAmount();
