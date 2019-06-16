@@ -25,8 +25,10 @@ import javax.xml.ws.Endpoint;
 import javax.xml.ws.Service;
 import javax.xml.ws.WebServiceException;
 
-import lab08.soap.core.Product;
+import lab08.soap.core.Newspaper;
 import lab08.soap.interfaces.IMonitorService;
+import java.awt.Color;
+import java.awt.Font;
 
 public class NewspaperMachine {
 	private JFrame frame;
@@ -78,6 +80,7 @@ public class NewspaperMachine {
 
 	private void initFrame() {
 		frame = new JFrame();
+		frame.getContentPane().setBackground(new Color(51, 51, 51));
 
 		frame.addWindowListener(new WindowAdapter() {
 			@Override
@@ -97,13 +100,16 @@ public class NewspaperMachine {
 		});
 
 		frame.setTitle("Newspaper Machine " + Id);
-		frame.setBounds(100, 100, 500, 500);
+		frame.setBounds(100, 100, 325, 500);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 	}
 
 	private JButton initButtonBuy() {
 		JButton btnBuy = new JButton("Buy");
+		btnBuy.setFont(new Font("Tahoma", Font.BOLD, 15));
+		btnBuy.setForeground(new Color(255, 255, 255));
+		btnBuy.setBackground(new Color(51, 51, 51));
 		btnBuy.setEnabled(false);
 
 		btnBuy.addActionListener(new ActionListener() {
@@ -122,7 +128,7 @@ public class NewspaperMachine {
 				}
 			}
 		});
-		btnBuy.setBounds(366, 207, 58, 43);
+		btnBuy.setBounds(10, 416, 289, 34);
 		frame.getContentPane().add(btnBuy);
 		return btnBuy;
 	}
@@ -133,9 +139,9 @@ public class NewspaperMachine {
 		model.addColumn("Available");
 		table.setModel(model);
 
-		Product[] products = machineService.getProducts();
+		Newspaper[] products = machineService.getProducts();
 
-		for (Product product : products) {
+		for (Newspaper product : products) {
 			String[] productRow = { product.getName(), Integer.toString(product.getAmount()) };
 			model.addRow(productRow);
 		}
@@ -144,7 +150,7 @@ public class NewspaperMachine {
 
 	private void initScrollPane() {
 		scrollPane = new JScrollPane();
-		scrollPane.setBounds(10, 11, 346, 239);
+		scrollPane.setBounds(10, 11, 289, 394);
 		frame.getContentPane().add(scrollPane);
 	}
 
@@ -182,10 +188,11 @@ public class NewspaperMachine {
 
 	private void initVendingMachineService() {
 		machineService = new NewspaperMachineService();
-		machineService.addProduct(new Product("Mars", 8));
-		machineService.addProduct(new Product("Snickers", 9));
-		machineService.addProduct(new Product("Pepsi Light", 4));
-		machineService.addProduct(new Product("RedBull 0.5", 2));
+		machineService.addProduct(new Newspaper("The Guardian (UK)", 8));
+		machineService.addProduct(new Newspaper("The Wall Street Journal (USA)", 9));
+		machineService.addProduct(new Newspaper("The New York Times (USA)", 4));
+		machineService.addProduct(new Newspaper("The Asahi Shimbun (Japan)", 2));
+		machineService.addProduct(new Newspaper("Zaman (Turkey)", 2));
 	}
 
 	private void initMonitorService() throws MalformedURLException {

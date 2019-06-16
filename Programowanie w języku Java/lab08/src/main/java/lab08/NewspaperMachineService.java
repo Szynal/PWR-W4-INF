@@ -5,16 +5,16 @@ import java.util.List;
 
 import javax.jws.WebService;
 
-import lab08.soap.core.Product;
+import lab08.soap.core.Newspaper;
 import lab08.soap.interfaces.INewspaperMachineService;
 
 @WebService(endpointInterface = "lab08.soap.interfaces.INewspaperMachineService")
 public class NewspaperMachineService implements INewspaperMachineService {
 
-	private static List<Product> productList;
+	private static List<Newspaper> productList;
 
 	public NewspaperMachineService() {
-		productList = new ArrayList<Product>();
+		productList = new ArrayList<Newspaper>();
 	}
 
 	public void buyProduct(String productName) {
@@ -35,16 +35,16 @@ public class NewspaperMachineService implements INewspaperMachineService {
 		}
 	}
 
-	public void addProduct(Product product) {
+	public void addProduct(Newspaper product) {
 		productList.add(product);
 	}
 
-	public Product[] getProducts() {
+	public Newspaper[] getProducts() {
 		int size = productList.size();
-		Product[] array = new Product[size];
+		Newspaper[] array = new Newspaper[size];
 
 		for (int i = 0; i < size; ++i) {
-			array[i] = new Product(productList.get(i).getName(), productList.get(i).getAmount());
+			array[i] = new Newspaper(productList.get(i).getName(), productList.get(i).getAmount());
 		}
 		return array;
 	}

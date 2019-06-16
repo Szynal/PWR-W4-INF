@@ -2,6 +2,8 @@ package lab08;
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.net.MalformedURLException;
@@ -11,6 +13,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.JFrame;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.border.BevelBorder;
@@ -23,11 +29,16 @@ import javax.xml.ws.Endpoint;
 import javax.xml.ws.Service;
 
 import lab08.soap.interfaces.INewspaperMachineService;
+import java.awt.Color;
 
 public class Monitor {
 
-	private JFrame frame;
+	private JFrame frmLabSoap;
 	private JTabbedPane tabbedPane;
+	private JMenuBar menuBar;
+	private JMenu mnNewMenu;
+	private JMenuItem mntmTask;
+	private JMenuItem mntmAuthor;
 
 	private javax.xml.ws.Endpoint endpoint;
 	private MonitorService monitorService;
@@ -40,7 +51,7 @@ public class Monitor {
 			public void run() {
 				try {
 					Monitor window = new Monitor();
-					window.frame.setVisible(true);
+					window.frmLabSoap.setVisible(true);
 
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -54,14 +65,43 @@ public class Monitor {
 		endpoint = Endpoint.create(monitorService);
 		endpoint.publish("http://localhost:" + MonitorPort + "/monitor");
 		initialize();
+		jMenuInitialize();
 		run();
 	}
 
+	private void jMenuInitialize() {
+		try {
+			menuBar = new JMenuBar();
+			frmLabSoap.setJMenuBar(menuBar);
+			mnNewMenu = new JMenu("About");
+			menuBar.add(mnNewMenu);
+			mntmTask = new JMenuItem("Program description");
+			mnNewMenu.add(mntmTask);
+			mntmTask.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent arg0) {
+					JOptionPane.showMessageDialog(null, "");
+				}
+			});
+			mntmAuthor = new JMenuItem("Author");
+			mnNewMenu.add(mntmAuthor);
+			mntmAuthor.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent arg0) {
+					JOptionPane.showMessageDialog(null, "Pawel Szynal\n226026");
+				}
+			});
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
 	private void initialize() {
-		frame = new JFrame();
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setBounds(100, 100, 500, 500);
-		frame.addWindowListener(new WindowAdapter() {
+		frmLabSoap = new JFrame();
+		frmLabSoap.setBackground(new Color(51, 51, 51));
+		frmLabSoap.setResizable(false);
+		frmLabSoap.setTitle("Lab08 - SOAP");
+		frmLabSoap.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frmLabSoap.setBounds(100, 100, 500, 300);
+		frmLabSoap.addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowClosing(WindowEvent e) {
 				// stop
@@ -69,10 +109,11 @@ public class Monitor {
 			}
 		});
 
-		frame.getContentPane().setLayout(new BorderLayout(0, 0));
+		frmLabSoap.getContentPane().setLayout(new BorderLayout(0, 0));
 
 		tabbedPane = new JTabbedPane(JTabbedPane.TOP);
-		frame.getContentPane().add(tabbedPane, BorderLayout.CENTER);
+		tabbedPane.setBackground(new Color(51, 51, 51));
+		frmLabSoap.getContentPane().add(tabbedPane, BorderLayout.CENTER);
 	}
 
 	private void run() {

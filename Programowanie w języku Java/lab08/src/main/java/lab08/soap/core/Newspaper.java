@@ -2,23 +2,23 @@ package lab08.soap.core;
 
 import java.io.Serializable;
 
-public class Product implements Serializable {
+public class Newspaper implements Serializable {
 
 	private static final long serialVersionUID = 5849753695354247012L;
 	private String name;
 	private int amount;
 
-	Product() {
-		name = "7Days";
+	Newspaper() {
+		name = "Newspaper";
 		amount = 10;
 	}
 
-	Product(Product product) {
+	Newspaper(Newspaper product) {
 		name = product.name;
 		amount = product.amount;
 	}
 
-	public Product(String name, int amount) {
+	public Newspaper(String name, int amount) {
 		this.name = name;
 		this.amount = amount;
 	}
