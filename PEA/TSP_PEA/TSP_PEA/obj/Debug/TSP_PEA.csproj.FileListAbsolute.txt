@@ -1,7 +1,0 @@
-C:\Users\Pawel Szynal\Documents\Visual Studio 2017\Projects\TSP_PEA\TSP_PEA\bin\Debug\TSP_PEA.exe.config
-C:\Users\Pawel Szynal\Documents\Visual Studio 2017\Projects\TSP_PEA\TSP_PEA\bin\Debug\TSP_PEA.exe
-C:\Users\Pawel Szynal\Documents\Visual Studio 2017\Projects\TSP_PEA\TSP_PEA\bin\Debug\TSP_PEA.pdb
-C:\Users\Pawel Szynal\Documents\Visual Studio 2017\Projects\TSP_PEA\TSP_PEA\obj\Debug\TSP_PEA.csprojResolveAssemblyReference.cache
-C:\Users\Pawel Szynal\Documents\Visual Studio 2017\Projects\TSP_PEA\TSP_PEA\obj\Debug\TSP_PEA.csproj.CoreCompileInputs.cache
-C:\Users\Pawel Szynal\Documents\Visual Studio 2017\Projects\TSP_PEA\TSP_PEA\obj\Debug\TSP_PEA.exe
-C:\Users\Pawel Szynal\Documents\Visual Studio 2017\Projects\TSP_PEA\TSP_PEA\obj\Debug\TSP_PEA.pdb
